@@ -1,1 +1,3 @@
-rootProject.name = 'esmq'
+rootProject.name = 'zsmq'
+include 'zola-core'
+
