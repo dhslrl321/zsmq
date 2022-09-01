@@ -5,8 +5,8 @@ plugins {
     id 'java'
 }
 
-group 'com.wonit'
-version '0.0.1-SNAPSHOT'
+group 'com.github.dhslrl321.zsmq'
+version '0.1.0'
 
 repositories {
     mavenCentral()
@@ -17,9 +17,7 @@ dependencies {
     implementation project(':zola-core')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    // implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    //runtimeOnly 'com.h2database:h2'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
