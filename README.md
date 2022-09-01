@@ -1,6 +1,6 @@
 # ZSMQ
 
-This is an **Zola Simple zolaMessage queue (ZSMQ)** based on a SpringBoot that can be used in various places.
+This is an **Zola Simple Message queue (ZSMQ)** based on a SpringBoot that can be used in various places.
 
 And it's not suitable for production at all.
 
