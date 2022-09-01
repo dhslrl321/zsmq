@@ -3,6 +3,7 @@ package com.wonit.queue;
 import com.wonit.exception.EmptyQueueException;
 import com.wonit.message.Message;
 import com.wonit.queue.value.QueueName;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -12,16 +13,22 @@ import lombok.AllArgsConstructor;
 public class SimpleZolaQueue implements ZolaQueue {
 
     public static SimpleZolaQueue newInstance(QueueName queueName) {
-        return new SimpleZolaQueue(queueName);
+        return new SimpleZolaQueue(queueName, LocalDateTime.now());
     }
 
     private final List<Message> queue = new ArrayList<>();
 
     private final QueueName name;
+    private final LocalDateTime createdAt;
 
     @Override
     public QueueName getName() {
         return name;
+    }
+
+    @Override
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     @Override

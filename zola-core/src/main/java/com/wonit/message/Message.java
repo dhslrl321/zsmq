@@ -5,5 +5,5 @@ import lombok.Value;
 @Value(staticConstructor = "of")
 public class Message {
     Header header;
-    Payload body;
+    Payload payload;
 }

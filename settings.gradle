@@ -1,3 +1,4 @@
 rootProject.name = 'zsmq'
 include 'zola-core'
+include 'zola-server'
 

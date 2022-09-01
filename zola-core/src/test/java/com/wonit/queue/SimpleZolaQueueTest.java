@@ -8,14 +8,17 @@ import com.wonit.message.Header;
 import com.wonit.message.Message;
 import com.wonit.message.Payload;
 import com.wonit.queue.value.QueueName;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 class SimpleZolaQueueTest {
 
-    SimpleZolaQueue sut = SimpleZolaQueue.newInstance(QueueName.of("ANY_NAME"));
+    static final QueueName ANY_NAME = QueueName.of("ANY_NAME");
+    static final Payload ANY_PAYLOAD = Payload.of("");
+    SimpleZolaQueue sut = SimpleZolaQueue.newInstance(ANY_NAME);
 
-    Message msg1 = Message.of(new Header(), new Payload());
-    Message msg2 = Message.of(new Header(), new Payload());
+    Message msg1 = Message.of(Header.of(ANY_NAME, LocalDateTime.now()), ANY_PAYLOAD);
+    Message msg2 = Message.of(Header.of(ANY_NAME, LocalDateTime.now()), ANY_PAYLOAD);
 
     @Test
     void added_when_push() {
