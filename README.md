@@ -6,7 +6,7 @@ And it's not suitable for production at all.
 
 ZSMQs main goals are
 
-- Low performance
+- **Low performance!!**
 - High Productivity
 - Easy to learn
 - Ready-to-use
@@ -16,5 +16,5 @@ ZSMQs main goals are
 You can easily run Zola (ZSMQ) server using docker
 
 ```shell
-docker run -d -p [port]:8080 dhslrl321/esmq
+docker run -d -p [port]:8080 dhslrl321/zsmq
 ```
