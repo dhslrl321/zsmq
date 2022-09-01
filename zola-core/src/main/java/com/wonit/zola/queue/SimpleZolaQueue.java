@@ -1,8 +1,7 @@
 package com.wonit.zola.queue;
 
 import com.wonit.zola.exception.EmptyQueueException;
-import com.wonit.zola.message.Message;
-import com.wonit.zola.queue.value.QueueName;
+import com.wonit.zola.message.ZolaMessage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class SimpleZolaQueue implements ZolaQueue {
         return new SimpleZolaQueue(queueName, LocalDateTime.now());
     }
 
-    private final List<Message> queue = new ArrayList<>();
+    private final List<ZolaMessage> queue = new ArrayList<>();
 
     private final QueueName name;
     private final LocalDateTime createdAt;
@@ -32,20 +31,20 @@ public class SimpleZolaQueue implements ZolaQueue {
     }
 
     @Override
-    public Message peek() {
+    public ZolaMessage peek() {
         throwWhenEmpty();
         return queue.get(0);
     }
 
     @Override
-    public Message pop() {
+    public ZolaMessage pop() {
         throwWhenEmpty();
         return queue.remove(0);
     }
 
     @Override
-    public void push(Message message) {
-        queue.add(message);
+    public void push(ZolaMessage zolaMessage) {
+        queue.add(zolaMessage);
     }
 
     @Override

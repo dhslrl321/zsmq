@@ -1,8 +1,6 @@
 package com.wonit.zola.queue;
 
-import com.wonit.zola.message.Message;
-import com.wonit.zola.queue.value.QueueInfo;
-import com.wonit.zola.queue.value.QueueName;
+import com.wonit.zola.message.ZolaMessage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,17 +21,17 @@ public class ZolaQueueDispatcher {
         return container.size();
     }
 
-    public Message peekBy(QueueName queueName) {
+    public ZolaMessage peekBy(QueueName queueName) {
         throwWhenNotExist(queueName);
 
         return get(queueName).peek();
     }
 
     // TODO test
-    public void pushBy(Message message) {
-        QueueName queueName = message.getHeader().getQueueName();
+    public void pushBy(ZolaMessage zolaMessage) {
+        QueueName queueName = zolaMessage.getZolaHeader().getQueueName();
         throwWhenNotExist(queueName);
-        get(queueName).push(message);
+        get(queueName).push(zolaMessage);
     }
 
     // TODO test

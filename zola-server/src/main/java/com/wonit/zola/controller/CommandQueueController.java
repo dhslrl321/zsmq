@@ -3,9 +3,9 @@ package com.wonit.zola.controller;
 import com.wonit.zola.controller.model.MessageModel;
 import com.wonit.zola.controller.model.ModelConverter;
 import com.wonit.zola.controller.model.SimpleResponse;
-import com.wonit.zola.message.Message;
+import com.wonit.zola.message.ZolaMessage;
 import com.wonit.zola.queue.ZolaQueueDispatcher;
-import com.wonit.zola.queue.value.QueueName;
+import com.wonit.zola.queue.QueueName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +25,8 @@ public class CommandQueueController {
 
     @PostMapping("/messages")
     public ResponseEntity<SimpleResponse> addMessage(@RequestBody MessageModel request) {
-        Message message = ModelConverter.convert(request);
-        dispatcher.pushBy(message);
+        ZolaMessage zolaMessage = ModelConverter.convert(request);
+        dispatcher.pushBy(zolaMessage);
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse("message add success"));
     }
 

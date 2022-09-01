@@ -2,10 +2,10 @@ package com.wonit.zola.controller;
 
 import com.wonit.zola.controller.model.MessageModel;
 import com.wonit.zola.controller.model.ModelConverter;
-import com.wonit.zola.message.Message;
+import com.wonit.zola.message.ZolaMessage;
 import com.wonit.zola.queue.QueueDescribe;
 import com.wonit.zola.queue.ZolaQueueDispatcher;
-import com.wonit.zola.queue.value.QueueName;
+import com.wonit.zola.queue.QueueName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +22,8 @@ public class QueryQueueController {
 
     @GetMapping("/queues/{name}")
     public ResponseEntity<MessageModel> get(@PathVariable String name) {
-        Message message = dispatcher.peekBy(QueueName.of(name));
-        return ResponseEntity.ok(ModelConverter.convert(message));
+        ZolaMessage zolaMessage = dispatcher.peekBy(QueueName.of(name));
+        return ResponseEntity.ok(ModelConverter.convert(zolaMessage));
     }
 
     @GetMapping("/queues")

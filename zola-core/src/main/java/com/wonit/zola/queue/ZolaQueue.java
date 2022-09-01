@@ -1,15 +1,14 @@
 package com.wonit.zola.queue;
 
-import com.wonit.zola.message.Message;
-import com.wonit.zola.queue.value.QueueName;
+import com.wonit.zola.message.ZolaMessage;
 import java.time.LocalDateTime;
 
 public interface ZolaQueue {
-    Message peek();
+    ZolaMessage peek();
 
-    Message pop();
+    ZolaMessage pop();
 
-    void push(Message message);
+    void push(ZolaMessage zolaMessage);
 
     int size();
 

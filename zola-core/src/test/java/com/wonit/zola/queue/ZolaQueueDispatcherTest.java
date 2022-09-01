@@ -3,13 +3,9 @@ package com.wonit.zola.queue;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.wonit.zola.message.Header;
-import com.wonit.zola.message.Message;
-import com.wonit.zola.message.Payload;
-import com.wonit.zola.queue.QueueDescribe;
-import com.wonit.zola.queue.SimpleZolaQueue;
-import com.wonit.zola.queue.ZolaQueueDispatcher;
-import com.wonit.zola.queue.value.QueueName;
+import com.wonit.zola.message.ZolaHeader;
+import com.wonit.zola.message.ZolaMessage;
+import com.wonit.zola.message.ZolaPayload;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
@@ -48,13 +44,13 @@ class ZolaQueueDispatcherTest {
 
     @Test
     void peek_by_name() {
-        Message message = Message.of(Header.of(QueueName.of(""), LocalDateTime.now()), Payload.of("hello"));
-        FOO_ZOLA_QUEUE.push(message);
+        ZolaMessage zolaMessage = ZolaMessage.of(ZolaHeader.of(QueueName.of(""), LocalDateTime.now()), ZolaPayload.of("hello"));
+        FOO_ZOLA_QUEUE.push(zolaMessage);
         sut.register(FOO_ZOLA_QUEUE);
 
-        Message actual = sut.peekBy(FOO_QUEUE_NAME);
+        ZolaMessage actual = sut.peekBy(FOO_QUEUE_NAME);
 
-        assertThat(actual.getPayload()).isEqualTo(Payload.of("hello"));
+        assertThat(actual.getZolaPayload()).isEqualTo(ZolaPayload.of("hello"));
     }
 
     @Test

@@ -3,7 +3,7 @@ package com.wonit.zola.controller;
 import com.wonit.zola.controller.model.SimpleResponse;
 import com.wonit.zola.queue.SimpleZolaQueue;
 import com.wonit.zola.queue.ZolaQueueDispatcher;
-import com.wonit.zola.queue.value.QueueName;
+import com.wonit.zola.queue.QueueName;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

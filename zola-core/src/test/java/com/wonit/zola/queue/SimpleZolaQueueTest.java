@@ -4,22 +4,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.wonit.zola.exception.EmptyQueueException;
-import com.wonit.zola.message.Header;
-import com.wonit.zola.message.Message;
-import com.wonit.zola.message.Payload;
-import com.wonit.zola.queue.SimpleZolaQueue;
-import com.wonit.zola.queue.value.QueueName;
+import com.wonit.zola.message.ZolaHeader;
+import com.wonit.zola.message.ZolaMessage;
+import com.wonit.zola.message.ZolaPayload;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 class SimpleZolaQueueTest {
 
     static final QueueName ANY_NAME = QueueName.of("ANY_NAME");
-    static final Payload ANY_PAYLOAD = Payload.of("");
+    static final ZolaPayload ANY_ZOLA_PAYLOAD = ZolaPayload.of("");
     SimpleZolaQueue sut = SimpleZolaQueue.newInstance(ANY_NAME);
 
-    Message msg1 = Message.of(Header.of(ANY_NAME, LocalDateTime.now()), ANY_PAYLOAD);
-    Message msg2 = Message.of(Header.of(ANY_NAME, LocalDateTime.now()), ANY_PAYLOAD);
+    ZolaMessage msg1 = ZolaMessage.of(ZolaHeader.of(ANY_NAME, LocalDateTime.now()), ANY_ZOLA_PAYLOAD);
+    ZolaMessage msg2 = ZolaMessage.of(ZolaHeader.of(ANY_NAME, LocalDateTime.now()), ANY_ZOLA_PAYLOAD);
 
     @Test
     void added_when_push() {
@@ -34,7 +32,7 @@ class SimpleZolaQueueTest {
     void peek_with_order() {
         initSUTWithOrder(msg1, msg2);
 
-        Message actual = sut.peek();
+        ZolaMessage actual = sut.peek();
 
         assertThat(actual).isEqualTo(msg1);
     }
@@ -44,10 +42,10 @@ class SimpleZolaQueueTest {
 
         initSUTWithOrder(msg1, msg2);
 
-        Message actual = sut.pop();
+        ZolaMessage actual = sut.pop();
         assertThat(actual).isEqualTo(msg1);
 
-        Message actual2 = sut.pop();
+        ZolaMessage actual2 = sut.pop();
         assertThat(actual2).isEqualTo(msg2);
     }
 
@@ -61,7 +59,7 @@ class SimpleZolaQueueTest {
         assertThatThrownBy(() -> sut.pop()).isInstanceOf(EmptyQueueException.class);
     }
 
-    private void initSUTWithOrder(Message msg1, Message msg2) {
+    private void initSUTWithOrder(ZolaMessage msg1, ZolaMessage msg2) {
         sut.push(msg1);
         sut.push(msg2);
     }

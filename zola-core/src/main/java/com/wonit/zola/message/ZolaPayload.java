@@ -1,8 +1,8 @@
-package com.wonit.zola.queue.value;
+package com.wonit.zola.message;
 
 import lombok.Value;
 
 @Value(staticConstructor = "of")
-public class QueueName {
+public class ZolaPayload {
     String value;
 }
