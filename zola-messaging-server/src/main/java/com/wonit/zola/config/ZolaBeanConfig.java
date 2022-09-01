@@ -1,4 +1,4 @@
-package com.wonit.zola;
+package com.wonit.zola.config;
 
 import com.wonit.zola.queue.ZolaQueueDispatcher;
 import org.springframework.context.annotation.Bean;
