@@ -25,10 +25,12 @@ One day, I tried to use a message queue simply for studying.
 
 It was not relevant to the message queue.
 
-But I spent most of my time setting up message queues and building infrastructure.
+But I spent most of my time setting up message queues(RabbitMQ, SQS) and building infrastructure.
 
-It was a very difficult time just to perform convertAndSend.
+It was a very tough time just to perform convertAndSend.
 
-So I decided to create a server that has low performance and low availability but imitates message queue very efficiently.
+So I decided to **create a server** that has **low performance** and **low availability** but **highly productive** message queue.
 
 This is the beginning of zsmq.
+
+> 'zola' is korean slang. It means 'utterly', 'extremely', 'super', 'very' 
