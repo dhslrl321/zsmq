@@ -17,27 +17,32 @@ public class ZolaQueueDispatcher {
         container.put(queue.getName(), queue);
     }
 
+    public QueueDescribe describe() {
+        List<QueueInfo> info = container.values().stream()
+                .map(this::getInfoBy)
+                .collect(Collectors.toList());
+        return QueueDescribe.of(container.size(), info);
+    }
+
     protected int size() {
         return container.size();
     }
 
     public ZolaMessage peekBy(QueueName queueName) {
         throwWhenNotExist(queueName);
-
         return get(queueName).peek();
     }
-
     // TODO test
+
     public void pushBy(ZolaMessage zolaMessage) {
         QueueName queueName = zolaMessage.getZolaHeader().getQueueName();
         throwWhenNotExist(queueName);
         get(queueName).push(zolaMessage);
     }
-
     // TODO test
+
     public void popBy(QueueName queueName) {
         throwWhenNotExist(queueName);
-
         get(queueName).pop();
     }
 
@@ -58,13 +63,6 @@ public class ZolaQueueDispatcher {
             String message = String.format("A queue named [%s] already exists. ", queue.getName().getValue());
             throw new IllegalArgumentException(message);
         }
-    }
-
-    public QueueDescribe describe() {
-        List<QueueInfo> info = container.values().stream()
-                .map(this::getInfoBy)
-                .collect(Collectors.toList());
-        return QueueDescribe.of(container.size(), info);
     }
 
     private QueueInfo getInfoBy(ZolaQueue zolaQueue) {
