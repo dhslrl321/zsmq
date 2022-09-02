@@ -4,47 +4,38 @@ import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import java.util.Queue;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class SimpleZolaQueue implements ZolaQueue {
+public class ZolaSimpleQueue extends AbstractZolaQueue {
 
-    public static SimpleZolaQueue newInstance(QueueName queueName) {
-        return new SimpleZolaQueue(queueName, LocalDateTime.now());
+    public static ZolaSimpleQueue newInstance(QueueName queueName) {
+        return new ZolaSimpleQueue(queueName);
     }
 
-    private final List<ZolaMessage> queue = new ArrayList<>();
+    // private final List<ZolaMessage> queue = new ArrayList<>();
+    private final Queue<ZolaMessage> queue = new LinkedList<>();
 
-    private final QueueName name;
-    private final LocalDateTime createdAt;
-
-    @Override
-    public QueueName getName() {
-        return name;
-    }
-
-    @Override
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    private ZolaSimpleQueue(QueueName name) {
+        super(name, LocalDateTime.now());
     }
 
     @Override
     public ZolaMessage peek() {
         throwWhenEmpty();
-        return queue.get(0);
+        return queue.peek();
     }
 
     @Override
     public ZolaMessage pop() {
         throwWhenEmpty();
-        return queue.remove(0);
+        return queue.poll();
     }
 
     @Override
     public void push(ZolaMessage zolaMessage) {
-        queue.add(zolaMessage);
+        queue.offer(zolaMessage);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.github.dhslrl321.zsmq.controller;
 
 import com.github.dhslrl321.zsmq.queue.QueueName;
-import com.github.dhslrl321.zsmq.queue.SimpleZolaQueue;
+import com.github.dhslrl321.zsmq.queue.ZolaSimpleQueue;
 import com.github.dhslrl321.zsmq.queue.ZolaQueueContainer;
 import com.github.dhslrl321.zsmq.controller.model.SimpleResponse;
 import java.util.Map;
@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CreateQueueController {
 
-    private final ZolaQueueContainer dispatcher;
+    private final ZolaQueueContainer container;
 
     @PostMapping("/queues")
     public ResponseEntity<SimpleResponse> create(@RequestBody Map<String, String> requestBody) {
         String name = requestBody.get("name");
-        dispatcher.register(getNewZolaQueue(name));
+        container.register(getNewZolaQueue(name));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse("create success"));
     }
 
-    private SimpleZolaQueue getNewZolaQueue(String name) {
-        return SimpleZolaQueue.newInstance(QueueName.of(name));
+    private ZolaSimpleQueue getNewZolaQueue(String name) {
+        return ZolaSimpleQueue.newInstance(QueueName.of(name));
     }
 }

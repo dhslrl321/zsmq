@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class ZolaQueueContainerTest {
 
     public static final QueueName FOO_QUEUE_NAME = QueueName.of("foo");
-    public static final SimpleZolaQueue FOO_ZOLA_QUEUE = SimpleZolaQueue.newInstance(FOO_QUEUE_NAME);
+    public static final ZolaSimpleQueue FOO_ZOLA_QUEUE = ZolaSimpleQueue.newInstance(FOO_QUEUE_NAME);
 
     ZolaQueueContainer sut = new ZolaQueueContainer();
 
@@ -29,7 +29,7 @@ class ZolaQueueContainerTest {
         sut.register(FOO_ZOLA_QUEUE);
         assertThat(sut.size()).isEqualTo(1);
 
-        sut.register(SimpleZolaQueue.newInstance(QueueName.of("bar")));
+        sut.register(ZolaSimpleQueue.newInstance(QueueName.of("bar")));
         assertThat(sut.size()).isEqualTo(2);
     }
 

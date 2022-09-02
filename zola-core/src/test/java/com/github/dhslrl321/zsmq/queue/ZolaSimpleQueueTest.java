@@ -7,16 +7,14 @@ import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
 import com.github.dhslrl321.zsmq.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.message.ZolaPayload;
-import com.github.dhslrl321.zsmq.queue.QueueName;
-import com.github.dhslrl321.zsmq.queue.SimpleZolaQueue;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
-class SimpleZolaQueueTest {
+class ZolaSimpleQueueTest {
 
     static final QueueName ANY_NAME = QueueName.of("ANY_NAME");
     static final ZolaPayload ANY_ZOLA_PAYLOAD = ZolaPayload.of("");
-    SimpleZolaQueue sut = SimpleZolaQueue.newInstance(ANY_NAME);
+    ZolaSimpleQueue sut = ZolaSimpleQueue.newInstance(ANY_NAME);
 
     ZolaMessage msg1 = ZolaMessage.of(ZolaHeader.of(ANY_NAME, LocalDateTime.now()), ANY_ZOLA_PAYLOAD);
     ZolaMessage msg2 = ZolaMessage.of(ZolaHeader.of(ANY_NAME, LocalDateTime.now()), ANY_ZOLA_PAYLOAD);

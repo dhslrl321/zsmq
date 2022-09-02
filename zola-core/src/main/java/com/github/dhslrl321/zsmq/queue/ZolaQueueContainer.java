@@ -32,14 +32,12 @@ public class ZolaQueueContainer {
         throwWhenNotExist(queueName);
         return get(queueName).peek();
     }
-    // TODO test
 
     public void pushBy(ZolaMessage zolaMessage) {
         QueueName queueName = zolaMessage.getZolaHeader().getQueueName();
         throwWhenNotExist(queueName);
         get(queueName).push(zolaMessage);
     }
-    // TODO test
 
     public void popBy(QueueName queueName) {
         throwWhenNotExist(queueName);

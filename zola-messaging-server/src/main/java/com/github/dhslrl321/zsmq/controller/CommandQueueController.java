@@ -21,18 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CommandQueueController {
 
-    private final ZolaQueueContainer dispatcher;
+    private final ZolaQueueContainer container;
 
     @PostMapping("/messages")
     public ResponseEntity<SimpleResponse> addMessage(@RequestBody MessageModel request) {
         ZolaMessage zolaMessage = ModelConverter.convert(request);
-        dispatcher.pushBy(zolaMessage);
+        container.pushBy(zolaMessage);
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse("message add success"));
     }
 
     @PatchMapping("/queues/{name}/acknowledge")
     public ResponseEntity<SimpleResponse> ack(@PathVariable String name) {
-        dispatcher.popBy(QueueName.of(name));
+        container.popBy(QueueName.of(name));
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse("ack success"));
     }
 }

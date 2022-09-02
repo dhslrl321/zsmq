@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class QueryQueueController {
 
-    private final ZolaQueueContainer dispatcher;
+    private final ZolaQueueContainer container;
 
     @GetMapping("/queues/{name}")
     public ResponseEntity<MessageModel> get(@PathVariable String name) {
-        ZolaMessage zolaMessage = dispatcher.peekBy(QueueName.of(name));
+        ZolaMessage zolaMessage = container.peekBy(QueueName.of(name));
         return ResponseEntity.ok(ModelConverter.convert(zolaMessage));
     }
 
     @GetMapping("/queues")
     public ResponseEntity<QueueDescribe> getAll() {
-        return ResponseEntity.ok(dispatcher.describe());
+        return ResponseEntity.ok(container.describe());
     }
 }
