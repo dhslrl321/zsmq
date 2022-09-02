@@ -2,7 +2,7 @@ package com.github.dhslrl321.zsmq.controller;
 
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.queue.QueueName;
-import com.github.dhslrl321.zsmq.queue.ZolaQueueDispatcher;
+import com.github.dhslrl321.zsmq.queue.ZolaQueueContainer;
 import com.github.dhslrl321.zsmq.controller.model.MessageModel;
 import com.github.dhslrl321.zsmq.controller.model.ModelConverter;
 import com.github.dhslrl321.zsmq.controller.model.SimpleResponse;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CommandQueueController {
 
-    private final ZolaQueueDispatcher dispatcher;
+    private final ZolaQueueContainer dispatcher;
 
     @PostMapping("/messages")
     public ResponseEntity<SimpleResponse> addMessage(@RequestBody MessageModel request) {

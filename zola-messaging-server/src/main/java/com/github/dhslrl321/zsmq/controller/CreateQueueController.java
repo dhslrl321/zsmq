@@ -2,7 +2,7 @@ package com.github.dhslrl321.zsmq.controller;
 
 import com.github.dhslrl321.zsmq.queue.QueueName;
 import com.github.dhslrl321.zsmq.queue.SimpleZolaQueue;
-import com.github.dhslrl321.zsmq.queue.ZolaQueueDispatcher;
+import com.github.dhslrl321.zsmq.queue.ZolaQueueContainer;
 import com.github.dhslrl321.zsmq.controller.model.SimpleResponse;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CreateQueueController {
 
-    private final ZolaQueueDispatcher dispatcher;
+    private final ZolaQueueContainer dispatcher;
 
     @PostMapping("/queues")
     public ResponseEntity<SimpleResponse> create(@RequestBody Map<String, String> requestBody) {

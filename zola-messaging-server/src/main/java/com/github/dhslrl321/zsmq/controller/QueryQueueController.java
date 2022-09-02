@@ -3,7 +3,7 @@ package com.github.dhslrl321.zsmq.controller;
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.queue.QueueDescribe;
 import com.github.dhslrl321.zsmq.queue.QueueName;
-import com.github.dhslrl321.zsmq.queue.ZolaQueueDispatcher;
+import com.github.dhslrl321.zsmq.queue.ZolaQueueContainer;
 import com.github.dhslrl321.zsmq.controller.model.MessageModel;
 import com.github.dhslrl321.zsmq.controller.model.ModelConverter;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class QueryQueueController {
 
-    private final ZolaQueueDispatcher dispatcher;
+    private final ZolaQueueContainer dispatcher;
 
     @GetMapping("/queues/{name}")
     public ResponseEntity<MessageModel> get(@PathVariable String name) {

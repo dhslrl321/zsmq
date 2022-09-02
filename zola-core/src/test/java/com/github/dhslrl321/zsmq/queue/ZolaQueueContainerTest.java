@@ -6,20 +6,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.github.dhslrl321.zsmq.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.message.ZolaPayload;
-import com.github.dhslrl321.zsmq.queue.QueueDescribe;
-import com.github.dhslrl321.zsmq.queue.QueueName;
-import com.github.dhslrl321.zsmq.queue.SimpleZolaQueue;
-import com.github.dhslrl321.zsmq.queue.ZolaQueueDispatcher;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 
-class ZolaQueueDispatcherTest {
+class ZolaQueueContainerTest {
 
     public static final QueueName FOO_QUEUE_NAME = QueueName.of("foo");
     public static final SimpleZolaQueue FOO_ZOLA_QUEUE = SimpleZolaQueue.newInstance(FOO_QUEUE_NAME);
 
-    ZolaQueueDispatcher sut = new ZolaQueueDispatcher();
+    ZolaQueueContainer sut = new ZolaQueueContainer();
 
     @Test
     void name() {

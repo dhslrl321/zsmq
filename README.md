@@ -29,8 +29,8 @@ But I spent most of my time setting up message queues(RabbitMQ, SQS) and buildin
 
 It was a very tough time just to perform convertAndSend.
 
-So I decided to **create a server** that has **low performance** and **low availability** but **highly productive** message queue.
+So I decided to **create a server** that has **low performance** but **highly productive** message queue.
 
 This is the beginning of zsmq.
 
-> 'zola' is korean slang. It means 'utterly', 'extremely', 'super', 'very' 
+> 'zola' is a korean slang. It means 'utterly', 'extremely', 'super', 'very' 
