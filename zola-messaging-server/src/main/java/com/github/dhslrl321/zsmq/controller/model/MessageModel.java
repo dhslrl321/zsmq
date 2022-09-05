@@ -16,5 +16,6 @@ public class MessageModel {
     protected static final class HeaderModel {
         private String queueName;
         private LocalDateTime publishedAt;
+        private String mediaType;
     }
 }
