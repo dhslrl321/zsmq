@@ -2,7 +2,6 @@ package com.github.dhslrl321.zsmq.converter;
 
 import static com.github.dhslrl321.zsmq.message.MediaTypes.TEXT;
 
-import com.github.dhslrl321.zsmq.message.MediaTypes;
 import com.github.dhslrl321.zsmq.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.message.ZolaPayload;

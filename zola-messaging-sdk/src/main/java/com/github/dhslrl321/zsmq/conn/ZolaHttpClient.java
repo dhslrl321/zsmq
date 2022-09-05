@@ -2,13 +2,10 @@ package com.github.dhslrl321.zsmq.conn;
 
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import com.google.gson.Gson;
-import com.sun.net.httpserver.Headers;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import org.apache.hc.client5.http.fluent.Request;
 import org.apache.hc.client5.http.fluent.Response;
 import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.Header;
 
 public class ZolaHttpClient {
 

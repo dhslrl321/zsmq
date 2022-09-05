@@ -1,7 +1,7 @@
 package com.github.dhslrl321.zsmq.controller.handler;
 
-import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
 import com.github.dhslrl321.zsmq.controller.model.SimpleResponse;
+import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
 import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

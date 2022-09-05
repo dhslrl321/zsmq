@@ -18,9 +18,7 @@ public class ZolaQueueContainer {
     }
 
     public QueueDescribe describe() {
-        List<QueueInfo> info = registered.values().stream()
-                .map(this::getInfoBy)
-                .collect(Collectors.toList());
+        List<QueueInfo> info = registered.values().stream().map(this::getInfoBy).collect(Collectors.toList());
         return QueueDescribe.of(registered.size(), info);
     }
 
@@ -64,7 +62,6 @@ public class ZolaQueueContainer {
     }
 
     private QueueInfo getInfoBy(ZolaQueue zolaQueue) {
-        return QueueInfo.of(zolaQueue.getName().getValue(), zolaQueue.size(),
-                zolaQueue.getCreatedAt());
+        return QueueInfo.of(zolaQueue.getName().getValue(), zolaQueue.size(), zolaQueue.getCreatedAt());
     }
 }
