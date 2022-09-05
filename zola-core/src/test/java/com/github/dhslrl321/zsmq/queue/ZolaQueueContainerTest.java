@@ -44,7 +44,7 @@ class ZolaQueueContainerTest {
 
     @Test
     void peek_by_name() {
-        ZolaMessage zolaMessage = ZolaMessage.of(ZolaHeader.of(QueueName.of(""), LocalDateTime.now()), ZolaPayload.of("hello"));
+        ZolaMessage zolaMessage = ZolaMessage.of(ZolaHeader.of(QueueName.of(""), LocalDateTime.now(), null), ZolaPayload.of("hello"));
         FOO_ZOLA_QUEUE.push(zolaMessage);
         sut.register(FOO_ZOLA_QUEUE);
 

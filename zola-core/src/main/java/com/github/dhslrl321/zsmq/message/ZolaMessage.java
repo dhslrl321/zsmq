@@ -6,4 +6,8 @@ import lombok.Value;
 public class ZolaMessage {
     ZolaHeader zolaHeader;
     ZolaPayload zolaPayload;
+
+    public MediaTypes getMediaType() {
+        return zolaHeader.getMediaTypes();
+    }
 }

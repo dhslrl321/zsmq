@@ -16,8 +16,8 @@ class ZolaSimpleQueueTest {
     static final ZolaPayload ANY_ZOLA_PAYLOAD = ZolaPayload.of("");
     ZolaSimpleQueue sut = ZolaSimpleQueue.newInstance(ANY_NAME);
 
-    ZolaMessage msg1 = ZolaMessage.of(ZolaHeader.of(ANY_NAME, LocalDateTime.now()), ANY_ZOLA_PAYLOAD);
-    ZolaMessage msg2 = ZolaMessage.of(ZolaHeader.of(ANY_NAME, LocalDateTime.now()), ANY_ZOLA_PAYLOAD);
+    ZolaMessage msg1 = ZolaMessage.of(ZolaHeader.of(ANY_NAME, LocalDateTime.now(), null), ANY_ZOLA_PAYLOAD);
+    ZolaMessage msg2 = ZolaMessage.of(ZolaHeader.of(ANY_NAME, LocalDateTime.now(), null), ANY_ZOLA_PAYLOAD);
 
     @Test
     void added_when_push() {

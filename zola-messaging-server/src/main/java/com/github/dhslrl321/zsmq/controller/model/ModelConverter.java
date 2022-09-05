@@ -17,7 +17,7 @@ public class ModelConverter {
 
     public static MessageModel convert(ZolaMessage zolaMessage) {
         HeaderModel headerModel = new HeaderModel(zolaMessage.getZolaHeader().getQueueName().getValue(),
-                zolaMessage.getZolaHeader().getPublishedAt());
+                zolaMessage.getZolaHeader().getTimestamp());
         return new MessageModel(headerModel, zolaMessage.getZolaPayload().getValue());
     }
 }

@@ -7,5 +7,6 @@ import lombok.Value;
 @Value(staticConstructor = "of")
 public class ZolaHeader {
     QueueName queueName;
-    LocalDateTime publishedAt;
+    LocalDateTime timestamp;
+    MediaTypes mediaTypes;
 }
