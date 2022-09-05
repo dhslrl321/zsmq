@@ -1,6 +1,7 @@
 package com.github.dhslrl321.zsmq.core;
 
-import com.github.dhslrl321.zsmq.ZolaHttpClient;
+import com.github.dhslrl321.zsmq.conn.ZolaHttpClient;
+import com.github.dhslrl321.zsmq.conn.ZolaServerConnectionFailedException;
 import com.github.dhslrl321.zsmq.converter.MessageConverter;
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +13,23 @@ public class ZolaQueueMessageTemplate {
     private final ZolaHttpClient httpClient;
 
     public void convertAndSend(String queueName, Object payload) {
-        MessageConverter converter = config.getConverter();
-        ZolaMessage message = converter.toMessage(queueName, payload);
+        ZolaMessage message = convert(queueName, payload);
+        send(message);
+    }
 
-        httpClient.post(config.getDestination(), message);
+    private ZolaMessage convert(String queueName, Object payload) {
+        MessageConverter converter = config.getConverter();
+        return converter.toMessage(queueName, payload);
+    }
+
+    private void send(ZolaMessage message) {
+        boolean send = post(message);
+        if (!send) {
+            throw new ZolaServerConnectionFailedException("message produce failed");
+        }
+    }
+
+    private boolean post(ZolaMessage message) {
+        return httpClient.post(config.getDestination(), message);
     }
 }
