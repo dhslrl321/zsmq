@@ -1,0 +1,25 @@
+plugins {
+    id 'java-library'
+    id "io.freefair.lombok" version "6.5.1"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    api project(':zola-core')
+    api project(':zola-messaging-sdk')
+
+    implementation 'org.springframework.boot:spring-boot:2.7.2'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor:2.7.2'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:2.7.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
