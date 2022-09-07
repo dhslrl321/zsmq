@@ -1,7 +1,6 @@
 package com.github.dhslrl321.zsmq.listener;
 
-import com.github.dhslrl321.zsmq.support.ZolaConsumer;
-import java.util.HashMap;
+import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import java.util.Map;
 import org.springframework.context.ApplicationContext;
 

@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import lombok.Value;
 
 @Value(staticConstructor = "of")
-public class MessageHandlerMethod {
+public class MessageHandlerTarget {
+    Object object;
     Method method;
 }

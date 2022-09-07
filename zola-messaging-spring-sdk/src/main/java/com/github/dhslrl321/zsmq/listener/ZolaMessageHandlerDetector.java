@@ -1,7 +1,9 @@
 package com.github.dhslrl321.zsmq.listener;
 
-import com.github.dhslrl321.zsmq.support.ZolaMessageListener;
+import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
+import com.github.dhslrl321.zsmq.util.Pair;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +14,55 @@ import lombok.SneakyThrows;
 public class ZolaMessageHandlerDetector {
 
     @SneakyThrows
-    public List<Pair<MessageHandlerMethod, ListeningInformation>> detect(Map<String, Object> beans) {
-        return getZolaMessageQueueListenerMethods(beans)
+    public List<Pair<MessageHandlerTarget, ListeningInformation>> detect(Map<String, Object> beans) {
+        List<Pair<MessageHandlerTarget, ListeningInformation>> pairs = new ArrayList<>();
+        for (Object o : beans.values()) {
+            Class<?> aClass = o.getClass();
+            Method[] methods = aClass.getMethods();
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(ZolaMessageListener.class)) {
+                    ZolaMessageListener annotation = method.getAnnotation(ZolaMessageListener.class);
+                    if (annotation.queueName().isBlank() || method.getParameters().length == 0) {
+                        throw new InvalidUseOfZolaMessageListenerException("");
+                    }
+
+                    Class<?>[] parameterTypes = method.getParameterTypes();
+                    for (Class<?> parameterType : parameterTypes) {
+                        if (!parameterType.equals(String.class)) {
+                            throw new InvalidUseOfZolaMessageListenerException("");
+                        }
+                    }
+
+                    pairs.add(Pair.of(MessageHandlerTarget.of(o, method), ListeningInformation.of(annotation.queueName())));
+                }
+            }
+        }
+        return pairs;
+        /*List<Pair<MessageHandlerTarget, ListeningInformation>> pairs = new ArrayList<>();
+        beans.values().stream().map(Object::getClass).forEach(aClass -> {
+            Method[] methods = aClass.getMethods();
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(ZolaMessageListener.class)) {
+                    ZolaMessageListener annotation = method.getAnnotation(ZolaMessageListener.class);
+                    if (annotation.queueName().isBlank() || method.getParameters().length == 0) {
+                        throw new InvalidUseOfZolaMessageListenerException("queue name must be present!");
+                    }
+
+                    Class<?>[] parameterTypes = method.getParameterTypes();
+                    for (Class<?> parameterType : parameterTypes) {
+                        if (!parameterType.equals(String.class)) {
+                            throw new InvalidUseOfZolaMessageListenerException(
+                                    "ZolaMessageListener method parameter must be String type");
+                        }
+                    }
+
+                    pairs.add(Pair.of(MessageHandlerTarget.of(aClass, method),
+                            ListeningInformation.of(annotation.queueName())));
+                }
+            }
+        });
+        return pairs;*/
+        /*return getZolaMessageQueueListenerMethods(beans)
                 .map(method -> {
                     ZolaMessageListener annotation = method.getAnnotation(ZolaMessageListener.class);
                     if (annotation.queueName().isBlank() || method.getParameters().length == 0) {
@@ -25,8 +74,8 @@ public class ZolaMessageHandlerDetector {
                             throw new InvalidUseOfZolaMessageListenerException("ZolaMessageListener method parameter must be String type");
                         }
                     }
-                    return Pair.of(MessageHandlerMethod.of(method), ListeningInformation.of(annotation.queueName()));
-                }).collect(Collectors.toList());
+                    return Pair.of(MessageHandlerTarget.of(method), ListeningInformation.of(annotation.queueName()));
+                }).collect(Collectors.toList());*/
     }
 
     private Stream<Method> getZolaMessageQueueListenerMethods(Map<String, Object> beans) {

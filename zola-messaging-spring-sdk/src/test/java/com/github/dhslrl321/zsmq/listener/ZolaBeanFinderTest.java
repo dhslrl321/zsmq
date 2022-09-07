@@ -1,16 +1,12 @@
 package com.github.dhslrl321.zsmq.listener;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 import com.github.dhslrl321.zsmq.SharedFixture;
-import com.github.dhslrl321.zsmq.support.ZolaConsumer;
-import java.util.HashMap;
+import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import java.util.Map;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;

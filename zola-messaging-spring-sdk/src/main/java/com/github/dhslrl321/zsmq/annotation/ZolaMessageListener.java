@@ -1,4 +1,4 @@
-package com.github.dhslrl321.zsmq.support;
+package com.github.dhslrl321.zsmq.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
