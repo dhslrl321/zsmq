@@ -23,7 +23,7 @@ class SimpleMessageHandlerTargetExecutorTest {
     @Test
     void name() throws Exception {
         Method method = Foo.class.getMethod("fooMethod", String.class);
-        Pair<MessageHandlerTarget, ListeningInformation> pair = Pair.of(MessageHandlerTarget.of(Foo.class, method),
+        Pair<MessageHandlerTarget, ListeningInformation> pair = Pair.of(MessageHandlerTarget.of(new Foo(), method),
                 ListeningInformation.of("some queue"));
         sut.execute(pair);
     }

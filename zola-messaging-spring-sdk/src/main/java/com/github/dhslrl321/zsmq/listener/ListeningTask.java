@@ -15,7 +15,8 @@ public class ListeningTask implements Runnable {
         System.out.println("information = " + information);
 
         try {
-            //`handler.getMethod().invoke(object, "aa");
+            handler.getMethod().invoke(handler.getObject(), "aa");
+            // handler.getMethod().invoke(object, "aa");
         } catch (Exception e) {
             e.printStackTrace();
         }
