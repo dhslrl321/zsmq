@@ -1,18 +1,27 @@
-package com.github.dhslrl321.zsmq.listener;
+package com.github.dhslrl321.zsmq.detector;
 
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
+import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
+import com.github.dhslrl321.zsmq.listener.ListeningInformation;
+import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.util.Pair;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
-public class ZolaMessageHandlerDetector {
+@RequiredArgsConstructor
+public class SimpleMessageListenerDetector implements MessageListenerDetector {
+
+    private final ListenerBeanFinder finder;
 
     @SneakyThrows
-    public List<Pair<MessageHandlerTarget, ListeningInformation>> detect(Map<String, Object> beans) {
-        List<Pair<MessageHandlerTarget, ListeningInformation>> pairs = new ArrayList<>();
+    @Override
+    public List<Pair<MessageListener, ListeningInformation>> detect() {
+        Map<String, Object> beans = finder.getZolaBeans();
+        List<Pair<MessageListener, ListeningInformation>> pairs = new ArrayList<>();
         for (Object o : beans.values()) {
             Class<?> aClass = o.getClass();
             Method[] methods = aClass.getMethods();
@@ -30,7 +39,7 @@ public class ZolaMessageHandlerDetector {
                         }
                     }
 
-                    pairs.add(Pair.of(MessageHandlerTarget.of(o, method),
+                    pairs.add(Pair.of(MessageListener.of(o, method),
                             ListeningInformation.of(annotation.queueName())));
                 }
             }

@@ -1,20 +1,37 @@
-package com.github.dhslrl321.zsmq.listener;
+package com.github.dhslrl321.zsmq.detector;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
+import com.github.dhslrl321.zsmq.detector.ListenerBeanFinder;
+import com.github.dhslrl321.zsmq.detector.SimpleMessageListenerDetector;
+import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
+import com.github.dhslrl321.zsmq.listener.ListeningInformation;
+import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.util.Pair;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import lombok.EqualsAndHashCode;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ZolaMessageHandlerTargetDetectorTest {
+class SimpleMessageListenerDetectorTest {
 
-    ZolaMessageHandlerDetector sut = new ZolaMessageHandlerDetector();
+    SimpleMessageListenerDetector sut;
 
+    ListenerBeanFinder finder = mock(ListenerBeanFinder.class);
+
+    @BeforeEach
+    void setUp() {
+        sut = new SimpleMessageListenerDetector(finder);
+    }
+
+    @EqualsAndHashCode
     @ZolaConsumer
     static class Foo {
         @ZolaMessageListener(queueName = "ANY_QUEUE_NAME")
@@ -24,12 +41,15 @@ class ZolaMessageHandlerTargetDetectorTest {
 
     @Test
     void happy_case() throws Exception {
-        Class<Foo> fooClass = Foo.class;
-        Method barMethod = fooClass.getMethod("fooMethod", String.class);;
-        Pair<MessageHandlerTarget, ListeningInformation> pair = Pair.of(MessageHandlerTarget.of(fooClass, barMethod),
+        Foo fooClass = new Foo();
+        Method barMethod = fooClass.getClass().getMethod("fooMethod", String.class);
+        ;
+        Pair<MessageListener, ListeningInformation> pair = Pair.of(MessageListener.of(fooClass, barMethod),
                 ListeningInformation.of("ANY_QUEUE_NAME"));
 
-        List<Pair<MessageHandlerTarget, ListeningInformation>> actual = sut.detect(Map.of("someClass", new Foo()));
+        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Foo()));
+
+        List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
 
         assertThat(actual.get(0)).isEqualTo(pair);
     }
@@ -43,7 +63,8 @@ class ZolaMessageHandlerTargetDetectorTest {
 
     @Test
     void not_return_pair_when_no_zolaMessageListener_annotation() {
-        List<Pair<MessageHandlerTarget, ListeningInformation>> actual = sut.detect(Map.of("someClass", new Bar()));
+        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Bar()));
+        List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
 
         assertThat(actual.size()).isZero();
     }
@@ -58,7 +79,8 @@ class ZolaMessageHandlerTargetDetectorTest {
 
     @Test
     void throw_when_empty_queueName() {
-        assertThatThrownBy(() -> sut.detect(Map.of("someClass", new Baz())))
+        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Baz()));
+        assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
 
@@ -72,7 +94,8 @@ class ZolaMessageHandlerTargetDetectorTest {
 
     @Test
     void throw_when_missing_parameter() {
-        assertThatThrownBy(() -> sut.detect(Map.of("someClass", new Qux())))
+        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Qux()));
+        assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
 
@@ -86,7 +109,8 @@ class ZolaMessageHandlerTargetDetectorTest {
 
     @Test
     void throw_when_not_string_parameter() {
-        assertThatThrownBy(() -> sut.detect(Map.of("someClass", new Qux2())))
+        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Qux2()));
+        assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
 }
