@@ -19,6 +19,34 @@ You can easily run Zola (ZSMQ) server using docker
 docker run -d -p [port]:8080 dhslrl321/zsmq
 ```
 
+## publish message
+
+```java
+@RequiredArgsConstructor
+public class MessageProducer {
+
+    private final ZolaQueueMessageTemplate template;
+
+    public void send() {
+        template.convertAndSend("MY-QUEUE", "foo");
+    }
+}
+```
+
+## consume message
+
+```java
+@Component
+@ZolaConsumer
+public class MyConsumer {
+
+    @ZolaMessageListener(queueName = "MY-QUEUE")
+    public void listen(String message) {
+        System.out.println("message = " + message);
+    }
+}
+```
+
 # Motivation
 
 One day, I tried to use a message queue simply for studying.
