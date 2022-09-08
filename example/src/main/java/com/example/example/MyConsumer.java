@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ZolaConsumer
-public class Con1 {
-    @ZolaMessageListener(queueName = "seoul2")
-    public void aa(String a) {
-        System.out.println("a = " + a);
+public class MyConsumer {
+
+    @ZolaMessageListener(queueName = "MY-QUEUE")
+    public void listen(String message) {
+        System.out.println("message = " + message);
     }
 }
