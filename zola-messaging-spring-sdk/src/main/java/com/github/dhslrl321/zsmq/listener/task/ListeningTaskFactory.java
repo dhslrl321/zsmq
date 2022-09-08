@@ -1,9 +1,13 @@
-package com.github.dhslrl321.zsmq.listener;
+package com.github.dhslrl321.zsmq.listener.task;
 
+import com.github.dhslrl321.zsmq.listener.ListeningInformation;
+import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.listener.strategy.HttpPollListeningStrategy;
 import com.github.dhslrl321.zsmq.listener.strategy.ListeningStrategy;
 import com.github.dhslrl321.zsmq.util.Pair;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ListeningTaskFactory {
 
     public ListeningTask createBy(Pair<MessageListener, ListeningInformation> pair) {

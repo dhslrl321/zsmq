@@ -3,7 +3,7 @@ package com.github.dhslrl321.zsmq.core;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import com.github.dhslrl321.zsmq.conn.ZolaHttpClient;
+import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.message.MediaTypes;
 import com.github.dhslrl321.zsmq.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
@@ -33,7 +33,7 @@ class ZolaQueueMessageTemplateTest {
 
         sut.convertAndSend("some", "hello");
 
-        verify(httpClient).post("some", message);
+        verify(httpClient).requestPush("some", message);
     }
 
 }

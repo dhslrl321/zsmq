@@ -1,8 +1,8 @@
 package com.github.dhslrl321.zsmq.listener.strategy;
 
-import com.github.dhslrl321.zsmq.model.PolledMessage;
+import com.github.dhslrl321.zsmq.message.ZolaMessage;
 
 public interface ListeningStrategy {
-    PolledMessage peek(String queueName);
-    String pop(String queueName);
+    ZolaMessage peek(String queueName);
+    boolean ack(String queueName);
 }

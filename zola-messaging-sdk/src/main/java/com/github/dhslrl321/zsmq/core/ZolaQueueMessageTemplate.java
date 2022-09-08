@@ -1,7 +1,7 @@
 package com.github.dhslrl321.zsmq.core;
 
-import com.github.dhslrl321.zsmq.conn.ZolaHttpClient;
-import com.github.dhslrl321.zsmq.conn.ZolaServerConnectionFailedException;
+import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
+import com.github.dhslrl321.zsmq.http.ZolaServerConnectionFailedException;
 import com.github.dhslrl321.zsmq.converter.MessageConverter;
 import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +30,6 @@ public class ZolaQueueMessageTemplate {
     }
 
     private boolean post(ZolaMessage message) {
-        return httpClient.post(config.getDestination(), message);
+        return httpClient.requestPush(config.getDestination(), message);
     }
 }

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 
 public class JsonMessageConverter implements MessageConverter {
 
+    // TODO replace zola-core's serializer
     private final Gson gson = new Gson();
 
     @Override

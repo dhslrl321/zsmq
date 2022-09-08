@@ -1,6 +1,6 @@
 package com.github.dhslrl321.zsmq;
 
-import com.github.dhslrl321.zsmq.conn.ZolaHttpClient;
+import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.core.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.core.ZolaQueueMessageTemplate;
 import lombok.RequiredArgsConstructor;

@@ -11,6 +11,9 @@ repositories {
 
 dependencies {
 
+    implementation project(':zola-core')
+    implementation project(':zola-messaging-sdk')
+
     implementation 'org.springframework:spring-context:5.3.22'
 
     testImplementation 'org.assertj:assertj-core:3.23.1'

@@ -1,8 +1,9 @@
 package com.github.dhslrl321.zsmq.listener;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
+import com.github.dhslrl321.zsmq.listener.task.ListeningTask;
+import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
 import com.github.dhslrl321.zsmq.util.Pair;
 import org.junit.jupiter.api.Test;
 

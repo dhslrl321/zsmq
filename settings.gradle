@@ -1,5 +1,6 @@
 rootProject.name = 'zsmq'
 
+include 'example'
 include 'zola-core'
 include 'zola-messaging-server'
 include 'zola-messaging-sdk'
