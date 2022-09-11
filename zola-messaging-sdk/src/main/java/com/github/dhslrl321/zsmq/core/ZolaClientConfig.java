@@ -15,10 +15,10 @@ public class ZolaClientConfig {
 
     public ZolaClientConfig(String destination) {
         this.destination = destination;
-        converter = initialize();
+        converter = initialConverter();
     }
 
-    private MessageConverter initialize() {
+    private MessageConverter initialConverter() {
         CompositeMessageConverter converters = new CompositeMessageConverter();
         converters.register(new StringMessageConverter());
         converters.register(new JsonMessageConverter());

@@ -21,7 +21,7 @@ public class CreateQueueController {
     private final ZolaQueueContainer container;
 
     @PostMapping("/queues")
-    public ResponseEntity<SimpleResponse> create(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity<SimpleResponse> createQ(@RequestBody Map<String, String> requestBody) {
         String name = requestBody.get("name");
         container.register(getNewZolaQueue(name));
 

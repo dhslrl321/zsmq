@@ -24,7 +24,7 @@ public class CommandQueueController {
     private final ZolaQueueContainer container;
 
     @PostMapping("/messages")
-    public ResponseEntity<SimpleResponse> addMessage(@RequestBody MessageModel request) {
+    public ResponseEntity<SimpleResponse> push(@RequestBody MessageModel request) {
         ZolaMessage zolaMessage = ModelConverter.convert(request);
         container.pushBy(zolaMessage);
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse("message add success"));

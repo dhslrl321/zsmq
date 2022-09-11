@@ -4,7 +4,7 @@ import com.github.dhslrl321.zsmq.message.ZolaMessage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompositeMessageConverter implements MessageConverter, MessageConverterRegisterer {
+public class CompositeMessageConverter implements MessageConverter, MessageConverterRegistrar {
     private final List<MessageConverter> registeredConverters = new ArrayList<>();
 
     @Override

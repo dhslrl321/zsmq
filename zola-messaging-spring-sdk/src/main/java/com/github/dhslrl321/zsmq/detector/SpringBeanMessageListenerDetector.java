@@ -13,15 +13,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 @RequiredArgsConstructor
-public class SimpleMessageListenerDetector implements MessageListenerDetector {
+public class SpringBeanMessageListenerDetector implements MessageListenerDetector {
 
     private final ListenerBeanFinder finder;
 
     @SneakyThrows
     @Override
     public List<Pair<MessageListener, ListeningInformation>> detect() {
-        Map<String, Object> beans = finder.getZolaBeans();
-        List<Pair<MessageListener, ListeningInformation>> pairs = new ArrayList<>();
+        final Map<String, Object> beans = finder.getZolaBeans();
+        final List<Pair<MessageListener, ListeningInformation>> pairs = new ArrayList<>();
         for (Object o : beans.values()) {
             Class<?> aClass = o.getClass();
             Method[] methods = aClass.getMethods();

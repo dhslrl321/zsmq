@@ -7,8 +7,6 @@ import static org.mockito.Mockito.mock;
 
 import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
-import com.github.dhslrl321.zsmq.detector.ListenerBeanFinder;
-import com.github.dhslrl321.zsmq.detector.SimpleMessageListenerDetector;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
@@ -20,15 +18,15 @@ import lombok.EqualsAndHashCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class SimpleMessageListenerDetectorTest {
+class SpringBeanMessageListenerDetectorTest {
 
-    SimpleMessageListenerDetector sut;
+    SpringBeanMessageListenerDetector sut;
 
     ListenerBeanFinder finder = mock(ListenerBeanFinder.class);
 
     @BeforeEach
     void setUp() {
-        sut = new SimpleMessageListenerDetector(finder);
+        sut = new SpringBeanMessageListenerDetector(finder);
     }
 
     @EqualsAndHashCode

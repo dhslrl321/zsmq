@@ -21,13 +21,13 @@ public class QueryQueueController {
     private final ZolaQueueContainer container;
 
     @GetMapping("/queues/{name}")
-    public ResponseEntity<MessageModel> get(@PathVariable String name) {
+    public ResponseEntity<MessageModel> peekHead(@PathVariable String name) {
         ZolaMessage zolaMessage = container.peekBy(QueueName.of(name));
         return ResponseEntity.ok(ModelConverter.convert(zolaMessage));
     }
 
     @GetMapping("/queues")
-    public ResponseEntity<QueueDescribe> getAll() {
+    public ResponseEntity<QueueDescribe> getQueues() {
         return ResponseEntity.ok(container.describe());
     }
 }

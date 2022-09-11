@@ -3,7 +3,7 @@ package com.example.example;
 import com.github.dhslrl321.zsmq.core.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.core.ZolaQueueMessageTemplate;
 import com.github.dhslrl321.zsmq.detector.ListenerBeanFinder;
-import com.github.dhslrl321.zsmq.detector.SimpleMessageListenerDetector;
+import com.github.dhslrl321.zsmq.detector.SpringBeanMessageListenerDetector;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.listener.ZolaListenerContainer;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
@@ -24,7 +24,7 @@ public class AppConfig {
     @Bean
     public ZolaListenerContainer container(ApplicationContext context) {
         ListenerBeanFinder finder = new ListenerBeanFinder(context);
-        SimpleMessageListenerDetector detector = new SimpleMessageListenerDetector(finder);
+        SpringBeanMessageListenerDetector detector = new SpringBeanMessageListenerDetector(finder);
         ThreadPoolListeningExecutor executor = new ThreadPoolListeningExecutor();
         return new ZolaListenerContainer(detector, new ListeningTaskFactory(), executor);
     }

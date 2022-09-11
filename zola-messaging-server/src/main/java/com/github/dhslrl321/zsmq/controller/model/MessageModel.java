@@ -15,7 +15,7 @@ public class MessageModel {
     @AllArgsConstructor
     protected static final class HeaderModel {
         private String queueName;
-        private LocalDateTime publishedAt;
+        private LocalDateTime timestamp;
         private String mediaType;
     }
 }
