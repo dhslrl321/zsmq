@@ -4,13 +4,11 @@ import com.github.dhslrl321.zsmq.detector.MessageListenerDetector;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTask;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskExecutor;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
-import com.github.dhslrl321.zsmq.util.Pair;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 public class ZolaListenerContainer {
     private final MessageListenerDetector detector;

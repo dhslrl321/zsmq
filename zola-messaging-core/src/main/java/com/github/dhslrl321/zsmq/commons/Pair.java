@@ -1,4 +1,4 @@
-package com.github.dhslrl321.zsmq.util;
+package com.github.dhslrl321.zsmq.commons;
 
 import lombok.Value;
 

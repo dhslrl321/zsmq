@@ -10,7 +10,7 @@ import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
-import com.github.dhslrl321.zsmq.util.Pair;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;

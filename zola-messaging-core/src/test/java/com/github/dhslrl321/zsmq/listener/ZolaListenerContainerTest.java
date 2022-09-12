@@ -1,4 +1,4 @@
-package com.github.dhslrl321.zsmq;
+package com.github.dhslrl321.zsmq.listener;
 
 import static org.mockito.Mockito.mock;
 
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 class ZolaListenerContainerTest {
 
     ZolaListenerContainer sut;
-
 
     @Test
     void name() {

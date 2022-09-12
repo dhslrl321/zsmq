@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.dhslrl321.zsmq.listener.task.ListeningTask;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
-import com.github.dhslrl321.zsmq.util.Pair;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import org.junit.jupiter.api.Test;
 
 class ListeningTaskFactoryTest {

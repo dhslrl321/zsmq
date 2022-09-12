@@ -1,8 +1,8 @@
 package com.github.dhslrl321.zsmq.detector;
 
+import com.github.dhslrl321.zsmq.commons.Pair;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
-import com.github.dhslrl321.zsmq.util.Pair;
 import java.util.List;
 
 public interface MessageListenerDetector {

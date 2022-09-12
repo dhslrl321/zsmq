@@ -4,7 +4,7 @@ import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.listener.strategy.HttpPollListeningStrategy;
 import com.github.dhslrl321.zsmq.listener.strategy.ListeningStrategy;
-import com.github.dhslrl321.zsmq.util.Pair;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import org.springframework.stereotype.Component;
 
 @Component
