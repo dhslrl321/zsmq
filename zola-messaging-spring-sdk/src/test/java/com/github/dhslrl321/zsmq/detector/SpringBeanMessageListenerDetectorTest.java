@@ -45,7 +45,7 @@ class SpringBeanMessageListenerDetectorTest {
         Pair<MessageListener, ListeningInformation> pair = Pair.of(MessageListener.of(fooClass, barMethod),
                 ListeningInformation.of("ANY_QUEUE_NAME"));
 
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Foo()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Foo()));
 
         List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
 
@@ -61,7 +61,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void not_return_pair_when_no_zolaMessageListener_annotation() {
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Bar()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Bar()));
         List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
 
         assertThat(actual.size()).isZero();
@@ -77,7 +77,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_empty_queueName() {
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Baz()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Baz()));
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
@@ -92,7 +92,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_missing_parameter() {
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Qux()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Qux()));
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
@@ -107,7 +107,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_not_string_parameter() {
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Qux2()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Qux2()));
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }

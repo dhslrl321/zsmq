@@ -10,7 +10,7 @@ public class ListenerBeanFinder {
 
     private final ApplicationContext context;
 
-    public Map<String, Object> getZolaBeans() {
+    public Map<String, Object> findZolaBeans() {
         return context.getBeansWithAnnotation(ZolaConsumer.class);
     }
 }

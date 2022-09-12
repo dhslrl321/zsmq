@@ -1,6 +1,6 @@
 package com.example.example;
 
-import com.github.dhslrl321.zsmq.core.ZolaQueueMessageTemplate;
+import com.github.dhslrl321.zsmq.client.ZolaQueueMessageTemplate;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

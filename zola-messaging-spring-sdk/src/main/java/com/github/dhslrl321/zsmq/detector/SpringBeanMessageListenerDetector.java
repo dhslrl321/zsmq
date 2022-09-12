@@ -20,7 +20,7 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
     @SneakyThrows
     @Override
     public List<Pair<MessageListener, ListeningInformation>> detect() {
-        final Map<String, Object> beans = finder.getZolaBeans();
+        final Map<String, Object> beans = finder.findZolaBeans();
         final List<Pair<MessageListener, ListeningInformation>> pairs = new ArrayList<>();
         for (Object o : beans.values()) {
             Class<?> aClass = o.getClass();
