@@ -30,6 +30,6 @@ public class ZolaQueueMessageTemplate {
     }
 
     private boolean post(ZolaMessage message) {
-        return httpClient.requestPush(config.getDestination(), message);
+        return httpClient.requestPush(config.getServerBaseUrl(), message);
     }
 }

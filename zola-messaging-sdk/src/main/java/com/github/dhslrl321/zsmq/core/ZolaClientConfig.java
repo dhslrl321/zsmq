@@ -9,12 +9,12 @@ import lombok.Getter;
 public class ZolaClientConfig {
 
     @Getter
-    private final String destination;
+    private final String serverBaseUrl;
     @Getter
     private final MessageConverter converter;
 
-    public ZolaClientConfig(String destination) {
-        this.destination = destination;
+    public ZolaClientConfig(String serverBaseUrl) {
+        this.serverBaseUrl = serverBaseUrl;
         converter = initialConverter();
     }
 
