@@ -9,8 +9,8 @@ repositories {
 
 dependencies {
 
-    api project(':zola-core')
-    api project(':zola-messaging-sdk')
+    api project(':zola-messaging-core')
+    api project(':zola-messaging-java-sdk')
 
     implementation 'org.springframework.boot:spring-boot:2.7.2'
     implementation 'org.springframework.boot:spring-boot-configuration-processor:2.7.2'

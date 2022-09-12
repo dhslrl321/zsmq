@@ -1,9 +1,8 @@
 rootProject.name = 'zsmq'
 
 include 'example'
-include 'zola-core'
+include 'zola-messaging-core'
 include 'zola-messaging-server'
-include 'zola-messaging-sdk'
-include 'zola-spring-boot-autoconfigure'
+include 'zola-messaging-java-sdk'
 include 'zola-messaging-spring-sdk'
-
+include 'zola-spring-boot-autoconfigure'

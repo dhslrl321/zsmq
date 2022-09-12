@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
 
-    implementation project(':zola-messaging-sdk')
+    implementation project(':zola-messaging-java-sdk')
     implementation project(':zola-messaging-spring-sdk')
 
 

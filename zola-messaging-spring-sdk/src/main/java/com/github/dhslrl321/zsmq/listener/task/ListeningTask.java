@@ -4,7 +4,7 @@ import com.github.dhslrl321.zsmq.commons.Serializer;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.listener.strategy.ListeningStrategy;
-import com.github.dhslrl321.zsmq.message.ZolaMessage;
+import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import java.lang.reflect.InvocationTargetException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.github.dhslrl321.zsmq.config;
 
-import com.github.dhslrl321.zsmq.queue.ZolaQueueContainer;
+import com.github.dhslrl321.zsmq.core.queue.ZolaQueueContainer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
