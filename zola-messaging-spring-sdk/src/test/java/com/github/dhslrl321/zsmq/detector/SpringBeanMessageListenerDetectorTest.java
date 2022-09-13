@@ -14,6 +14,8 @@ import com.github.dhslrl321.zsmq.commons.Pair;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+
+import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import lombok.EqualsAndHashCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +44,7 @@ class SpringBeanMessageListenerDetectorTest {
         Foo fooClass = new Foo();
         Method barMethod = fooClass.getClass().getMethod("fooMethod", String.class);
         ;
-        Pair<MessageListener, ListeningInformation> pair = Pair.of(MessageListener.of(fooClass, barMethod),
+        Pair<MessageListener, ListeningInformation> pair = Pair.of(SpringBeanMessageListener.of(fooClass, barMethod),
                 ListeningInformation.of("ANY_QUEUE_NAME"));
 
         given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Foo()));

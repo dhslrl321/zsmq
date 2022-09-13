@@ -31,7 +31,7 @@ public class AppConfig {
 
     @Bean
     public String listen(ZolaListenerContainer container) {
-        container.listen();
+        container.listenAll();
         return "";
     }
 }

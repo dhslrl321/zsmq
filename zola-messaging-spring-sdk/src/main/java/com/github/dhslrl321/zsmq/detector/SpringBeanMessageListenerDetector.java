@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
@@ -39,7 +41,7 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
                         }
                     }
 
-                    pairs.add(Pair.of(MessageListener.of(o, method),
+                    pairs.add(Pair.of(SpringBeanMessageListener.of(o, method),
                             ListeningInformation.of(annotation.queueName())));
                 }
             }

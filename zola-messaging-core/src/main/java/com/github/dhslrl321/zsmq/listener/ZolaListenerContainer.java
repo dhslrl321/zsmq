@@ -15,10 +15,10 @@ public class ZolaListenerContainer {
     private final ListeningTaskFactory taskFactory;
     private final ListeningTaskExecutor taskExecutor;
 
-    public void listen() {
+    public void listenAll() {
         List<Pair<MessageListener, ListeningInformation>> listenerPairs = detector.detect();
         List<ListeningTask> tasks = getTasks(listenerPairs);
-        listen(tasks);
+        listenAll(tasks);
     }
 
     private List<ListeningTask> getTasks(List<Pair<MessageListener, ListeningInformation>> listenerPairs) {
@@ -27,7 +27,7 @@ public class ZolaListenerContainer {
                 .collect(Collectors.toList());
     }
 
-    private void listen(List<ListeningTask> tasks) {
+    private void listenAll(List<ListeningTask> tasks) {
         while(true) {
             taskExecutor.executeAll(tasks);
             try {

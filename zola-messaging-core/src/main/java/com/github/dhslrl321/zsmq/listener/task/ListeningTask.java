@@ -21,19 +21,12 @@ public class ListeningTask implements Runnable {
     @Override
     public void run() {
         String queueName = listeningInformation.getQueueName();
-        Object invokeTarget = listener.getObject();
-        try {
             ZolaMessage message = strategy.peek(queueName);
             if (message == null) {
                 // TODO do nothing
                 return;
             }
-            String serialize = Serializer.serialize(message);
-            listener.getMethod().invoke(invokeTarget, serialize);
+            listener.listen(Serializer.serialize(message));
             // strategy.ack(queueName);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-            // TODO add http client exception
-        }
     }
 }
