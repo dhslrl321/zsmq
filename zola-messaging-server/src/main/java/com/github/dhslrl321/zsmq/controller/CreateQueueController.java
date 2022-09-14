@@ -1,9 +1,9 @@
 package com.github.dhslrl321.zsmq.controller;
 
 import com.github.dhslrl321.zsmq.controller.model.SimpleResponse;
-import com.github.dhslrl321.zsmq.queue.QueueName;
-import com.github.dhslrl321.zsmq.queue.ZolaQueueContainer;
-import com.github.dhslrl321.zsmq.queue.ZolaSimpleQueue;
+import com.github.dhslrl321.zsmq.core.queue.QueueName;
+import com.github.dhslrl321.zsmq.core.queue.ZolaQueueContainer;
+import com.github.dhslrl321.zsmq.core.queue.ZolaSimpleQueue;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

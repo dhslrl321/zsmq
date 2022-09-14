@@ -1,11 +1,11 @@
 package com.github.dhslrl321.zsmq.controller.model;
 
 import com.github.dhslrl321.zsmq.controller.model.MessageModel.HeaderModel;
-import com.github.dhslrl321.zsmq.message.MediaTypes;
-import com.github.dhslrl321.zsmq.message.ZolaHeader;
-import com.github.dhslrl321.zsmq.message.ZolaMessage;
-import com.github.dhslrl321.zsmq.message.ZolaPayload;
-import com.github.dhslrl321.zsmq.queue.QueueName;
+import com.github.dhslrl321.zsmq.core.message.MediaTypes;
+import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
+import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
+import com.github.dhslrl321.zsmq.core.message.ZolaPayload;
+import com.github.dhslrl321.zsmq.core.queue.QueueName;
 
 public class ModelConverter {
     public static ZolaMessage convert(MessageModel model) {

@@ -10,10 +10,12 @@ import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
-import com.github.dhslrl321.zsmq.util.Pair;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+
+import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import lombok.EqualsAndHashCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,10 +44,10 @@ class SpringBeanMessageListenerDetectorTest {
         Foo fooClass = new Foo();
         Method barMethod = fooClass.getClass().getMethod("fooMethod", String.class);
         ;
-        Pair<MessageListener, ListeningInformation> pair = Pair.of(MessageListener.of(fooClass, barMethod),
+        Pair<MessageListener, ListeningInformation> pair = Pair.of(SpringBeanMessageListener.of(fooClass, barMethod),
                 ListeningInformation.of("ANY_QUEUE_NAME"));
 
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Foo()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Foo()));
 
         List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
 
@@ -61,7 +63,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void not_return_pair_when_no_zolaMessageListener_annotation() {
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Bar()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Bar()));
         List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
 
         assertThat(actual.size()).isZero();
@@ -77,7 +79,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_empty_queueName() {
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Baz()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Baz()));
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
@@ -92,7 +94,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_missing_parameter() {
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Qux()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Qux()));
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
@@ -107,7 +109,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_not_string_parameter() {
-        given(finder.getZolaBeans()).willReturn(Map.of("someClass", new Qux2()));
+        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Qux2()));
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }

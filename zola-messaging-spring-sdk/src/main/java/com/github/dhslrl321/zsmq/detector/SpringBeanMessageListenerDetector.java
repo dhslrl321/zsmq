@@ -4,14 +4,18 @@ import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
-import com.github.dhslrl321.zsmq.util.Pair;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
+// @Component
 @RequiredArgsConstructor
 public class SpringBeanMessageListenerDetector implements MessageListenerDetector {
 
@@ -20,7 +24,7 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
     @SneakyThrows
     @Override
     public List<Pair<MessageListener, ListeningInformation>> detect() {
-        final Map<String, Object> beans = finder.getZolaBeans();
+        final Map<String, Object> beans = finder.findZolaBeans();
         final List<Pair<MessageListener, ListeningInformation>> pairs = new ArrayList<>();
         for (Object o : beans.values()) {
             Class<?> aClass = o.getClass();
@@ -39,7 +43,7 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
                         }
                     }
 
-                    pairs.add(Pair.of(MessageListener.of(o, method),
+                    pairs.add(Pair.of(SpringBeanMessageListener.of(o, method),
                             ListeningInformation.of(annotation.queueName())));
                 }
             }

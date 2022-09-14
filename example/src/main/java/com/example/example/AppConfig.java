@@ -1,12 +1,11 @@
 package com.example.example;
 
-import com.github.dhslrl321.zsmq.core.ZolaClientConfig;
-import com.github.dhslrl321.zsmq.core.ZolaQueueMessageTemplate;
+import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
+import com.github.dhslrl321.zsmq.client.ZolaQueueMessageTemplate;
 import com.github.dhslrl321.zsmq.detector.ListenerBeanFinder;
 import com.github.dhslrl321.zsmq.detector.SpringBeanMessageListenerDetector;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.listener.ZolaListenerContainer;
-import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
 import com.github.dhslrl321.zsmq.listener.task.ThreadPoolListeningExecutor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -22,16 +21,11 @@ public class AppConfig {
     }
 
     @Bean
-    public ZolaListenerContainer container(ApplicationContext context) {
-        ListenerBeanFinder finder = new ListenerBeanFinder(context);
-        SpringBeanMessageListenerDetector detector = new SpringBeanMessageListenerDetector(finder);
+    public ZolaListenerContainer container(ApplicationContext applicationContext) {
+        SpringBeanMessageListenerDetector detector = new SpringBeanMessageListenerDetector(
+                new ListenerBeanFinder(applicationContext));
         ThreadPoolListeningExecutor executor = new ThreadPoolListeningExecutor();
-        return new ZolaListenerContainer(detector, new ListeningTaskFactory(), executor);
+        return new ZolaListenerContainer(detector, executor);
     }
 
-    @Bean
-    public String listen(ZolaListenerContainer container) {
-        container.listen();
-        return "";
-    }
 }

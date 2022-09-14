@@ -2,10 +2,10 @@ package com.github.dhslrl321.zsmq.controller;
 
 import com.github.dhslrl321.zsmq.controller.model.MessageModel;
 import com.github.dhslrl321.zsmq.controller.model.ModelConverter;
-import com.github.dhslrl321.zsmq.message.ZolaMessage;
-import com.github.dhslrl321.zsmq.queue.QueueDescribe;
-import com.github.dhslrl321.zsmq.queue.QueueName;
-import com.github.dhslrl321.zsmq.queue.ZolaQueueContainer;
+import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
+import com.github.dhslrl321.zsmq.core.queue.QueueDescribe;
+import com.github.dhslrl321.zsmq.core.queue.QueueName;
+import com.github.dhslrl321.zsmq.core.queue.ZolaQueueContainer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
