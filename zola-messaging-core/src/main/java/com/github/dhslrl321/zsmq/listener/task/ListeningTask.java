@@ -14,9 +14,9 @@ public class ListeningTask implements Runnable {
 
     @Getter
     private final ListeningStrategy strategy;
+    private final MessageListener listener;
     @Getter
     private final ListeningInformation listeningInformation;
-    private final MessageListener listener;
 
     @Override
     public void run() {

@@ -4,66 +4,67 @@ import com.github.dhslrl321.zsmq.commons.Serializer;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
-import org.apache.hc.client5.http.fluent.Request;
-import org.apache.hc.client5.http.fluent.Response;
-import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.HttpResponse;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.Request.Builder;
+import okhttp3.Response;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 
 public class ZolaHttpClient {
+    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    private final OkHttpClient http = new OkHttpClient();
 
-    private final Gson gson = new Gson();
-
-    public boolean requestPush(String destination, ZolaMessage message) {
+    public boolean requestPush(String baseUrl, ZolaMessage message) {
+        Request request = new Builder()
+                .url(baseUrl + "/api/messages")
+                .post(RequestBody.create(Serializer.serialize(message), JSON))
+                .build();
+        Call call = http.newCall(request);
         try {
-            Response response = Request.post(destination + "/api/messages")
-                    .addHeader("Content-Type", "application/json")
-                    .bodyString(gson.toJson(message), ContentType.APPLICATION_JSON)
-                    .execute();
-            if (response.returnResponse().getCode() == 200) {
+            Response execute = call.execute();
+            int code = execute.code();
+            if (200 == code) {
                 return true;
             }
+            throw new ZolaServerConnectionFailedException("zola messaging server push failed!");
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
+        } catch (Exception e) {
+            throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
         }
-
-        return false;
     }
 
-    public Optional<ZolaMessage> requestPeek(String destination) {
+    public Optional<ZolaMessage> requestPeek(String baseUrl, String queueName) {
+        Request request = new Builder()
+                .url(baseUrl + "/api/queues/" + queueName)
+                .get()
+                .build();
+        Call call = http.newCall(request);
         try {
-            Response response = Request.get(destination + "api/queues/seoul2")
-                    .addHeader("Content-Type", "application/json")
-                    .execute();
-            String json = response.returnContent().asString();
-            ZolaMessage message = Serializer.deserialize(json, ZolaMessage.class);
-            return Optional.of(message);
-            /*if (httpResponse.getCode() == 200) {
-                String json = response.returnContent().asString();
-                ZolaMessage message = Serializer.deserialize(json, ZolaMessage.class);
+            Response response = call.execute();
+            int code = response.code();
+            if (200 == code) {
+                ZolaMessage message = Serializer.deserialize(Objects.requireNonNull(response.body()).string(), ZolaMessage.class);
                 return Optional.of(message);
-            } else if (httpResponse.getCode() == 204) {
+            } else if (204 == code) {
                 return Optional.empty();
-            }*/
-            // return Optional.empty();
+            }
+            throw new ZolaServerConnectionFailedException(String.format("zola messaging server message push failed! queueName => [%s] server's code => [%s]", queueName, code));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new ZolaServerConnectionFailedException("ex");
+            throw new ZolaServerConnectionFailedException("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
         }
     }
 
-    public boolean requestAck(String destination) {
-        try {
-            Response response = Request.delete(destination + "/api/queues/" + destination + "/acknowledge")
-                    .addHeader("Content-Type", "application/json")
-                    .execute();
-            if (response.returnResponse().getCode() == 200) {
-                return true;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public boolean acknowledgement() {
         return false;
     }
 }

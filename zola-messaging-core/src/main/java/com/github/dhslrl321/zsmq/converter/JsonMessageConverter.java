@@ -11,10 +11,7 @@ import com.github.dhslrl321.zsmq.core.queue.QueueName;
 import com.google.gson.Gson;
 import java.time.LocalDateTime;
 
-public class JsonMessageConverter implements MessageConverter {
-
-    // TODO replace zola-core's serializer
-    // private final Gson gson = new Gson();
+class JsonMessageConverter implements MessageConverter {
 
     @Override
     public ZolaMessage toMessage(String queueName, Object payload) {

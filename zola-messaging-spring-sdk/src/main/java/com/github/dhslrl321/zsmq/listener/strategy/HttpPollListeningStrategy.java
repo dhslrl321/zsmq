@@ -10,7 +10,7 @@ public class HttpPollListeningStrategy implements ListeningStrategy {
 
     @Override
     public ZolaMessage peek(String queueName) {
-        Optional<ZolaMessage> optionalMessage = httpClient.requestPeek("http://localhost:8291/");
+        Optional<ZolaMessage> optionalMessage = httpClient.requestPeek("http://localhost:8291", queueName);
 
         if (optionalMessage.isEmpty()) {
             return null;
@@ -21,6 +21,6 @@ public class HttpPollListeningStrategy implements ListeningStrategy {
 
     @Override
     public boolean ack(String queueName) {
-        return httpClient.requestAck(queueName);
+        return false;
     }
 }

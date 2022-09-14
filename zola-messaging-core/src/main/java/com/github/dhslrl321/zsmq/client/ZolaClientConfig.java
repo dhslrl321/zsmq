@@ -1,9 +1,7 @@
 package com.github.dhslrl321.zsmq.client;
 
-import com.github.dhslrl321.zsmq.converter.CompositeMessageConverter;
-import com.github.dhslrl321.zsmq.converter.JsonMessageConverter;
 import com.github.dhslrl321.zsmq.converter.MessageConverter;
-import com.github.dhslrl321.zsmq.converter.StringMessageConverter;
+import com.github.dhslrl321.zsmq.converter.MessageConverters;
 import lombok.Getter;
 
 public class ZolaClientConfig {
@@ -15,13 +13,6 @@ public class ZolaClientConfig {
 
     public ZolaClientConfig(String serverBaseUrl) {
         this.serverBaseUrl = serverBaseUrl;
-        converter = defaultConverter();
-    }
-
-    private MessageConverter defaultConverter() {
-        CompositeMessageConverter converters = new CompositeMessageConverter();
-        converters.register(new StringMessageConverter());
-        converters.register(new JsonMessageConverter());
-        return converters;
+        converter = MessageConverters.initMessageConverter();
     }
 }

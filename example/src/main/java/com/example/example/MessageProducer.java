@@ -9,6 +9,6 @@ public class MessageProducer {
     private final ZolaQueueMessageTemplate template;
 
     public void send() {
-        template.convertAndSend("MY-QUEUE", "foo");
+        template.convertAndSend("seoul", "foo");
     }
 }

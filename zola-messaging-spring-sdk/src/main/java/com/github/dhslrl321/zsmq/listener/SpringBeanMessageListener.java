@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@Component
+// @Component
 @Value(staticConstructor = "of")
 public class SpringBeanMessageListener implements MessageListener {
     Object object;

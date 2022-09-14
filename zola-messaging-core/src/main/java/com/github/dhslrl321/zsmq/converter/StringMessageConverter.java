@@ -8,7 +8,7 @@ import com.github.dhslrl321.zsmq.core.message.ZolaPayload;
 import com.github.dhslrl321.zsmq.core.queue.QueueName;
 import java.time.LocalDateTime;
 
-public class StringMessageConverter implements MessageConverter {
+class StringMessageConverter implements MessageConverter {
     @Override
     public ZolaMessage toMessage(String queueName, Object payload) {
         ZolaHeader header = ZolaHeader.of(QueueName.of(queueName), LocalDateTime.now(), TEXT);

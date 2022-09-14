@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 @RequiredArgsConstructor
 public class ListenerBeanFinder {
 
