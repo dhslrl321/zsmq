@@ -13,7 +13,9 @@ import java.util.Map;
 import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 public class SpringBeanMessageListenerDetector implements MessageListenerDetector {
 
