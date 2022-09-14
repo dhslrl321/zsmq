@@ -32,11 +32,11 @@ public class CompositeMessageConverter implements MessageConverter, MessageConve
 
     @Override
     public boolean isSupport(Object payload) {
-        throw new UnsupportedOperationException("registerer does not provides isSupport() operation");
+        throw new UnsupportedOperationException("registrar does not provides isSupport() operation");
     }
 
     @Override
     public boolean isSupport(ZolaMessage message) {
-        throw new UnsupportedOperationException("registerer does not provides isSupport() operation");
+        throw new UnsupportedOperationException("registrar does not provides isSupport() operation");
     }
 }

@@ -33,14 +33,14 @@ class StringMessageConverterTest {
     }
 
     @Test
-    void name() {
+    void convert_to_string() {
         ZolaMessage actual = sut.toMessage("any name", "any payload");
 
         assertThat(actual.getZolaPayload().getValue()).isEqualTo("any payload");
     }
 
     @Test
-    void name2() {
+    void convert_from_message() {
         ZolaMessage message = ZolaMessage.of(ZolaHeader.of(QueueName.of("any queue name"), LocalDateTime.now(), MediaTypes.TEXT),
                 ZolaPayload.of("any payload"));
 
