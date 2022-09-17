@@ -21,7 +21,7 @@ public class ListeningTask implements Runnable {
     @Override
     public void run() {
         String queueName = listeningInformation.getQueueName();
-            ZolaMessage message = strategy.peek(queueName);
+            ZolaMessage message = strategy.peek(listeningInformation.getServer(), queueName);
             if (message == null) {
                 // TODO do nothing
                 return;

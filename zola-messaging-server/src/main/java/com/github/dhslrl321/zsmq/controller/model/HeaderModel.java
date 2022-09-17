@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class MessageModel {
-
-    private HeaderModel header;
-    private String payload;
+public class HeaderModel {
+    private String queueName;
+    private LocalDateTime timestamp;
+    private String mediaType;
 }

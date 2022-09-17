@@ -13,17 +13,24 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ZsmqConfig {
+
     @Bean
-    public ZolaQueueMessageTemplate zolaQueueMessageTemplate() {
+    public ZolaClientConfig zolaClientConfig() {
+        return new ZolaClientConfig("http://localhost:8291");
+    }
+
+    @Bean
+    public ZolaQueueMessageTemplate zolaQueueMessageTemplate(ZolaClientConfig config) {
         ZolaHttpClient client = new ZolaHttpClient();
-        ZolaClientConfig config = new ZolaClientConfig("http://localhost:8291");
+
         return new ZolaQueueMessageTemplate(config, client);
     }
 
     @Bean
-    public ZolaListenerContainer container(ApplicationContext applicationContext) {
+    public ZolaListenerContainer container(ApplicationContext applicationContext,
+                                           ZolaClientConfig zolaClientConfig) {
         SpringBeanMessageListenerDetector detector = new SpringBeanMessageListenerDetector(
-                new ListenerBeanFinder(applicationContext));
+                new ListenerBeanFinder(applicationContext), zolaClientConfig);
         ThreadPoolListeningExecutor executor = new ThreadPoolListeningExecutor();
         return new ZolaListenerContainer(detector, executor);
     }

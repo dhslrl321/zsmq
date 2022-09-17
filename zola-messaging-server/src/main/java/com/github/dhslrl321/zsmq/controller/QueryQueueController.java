@@ -6,6 +6,7 @@ import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.core.queue.QueueDescribe;
 import com.github.dhslrl321.zsmq.core.queue.QueueName;
 import com.github.dhslrl321.zsmq.core.queue.ZolaQueueContainer;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ public class QueryQueueController {
     @GetMapping("/queues/{name}")
     public ResponseEntity<MessageModel> peekHead(@PathVariable String name) {
         ZolaMessage zolaMessage = container.peekBy(QueueName.of(name));
+        if (Objects.isNull(zolaMessage)) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(ModelConverter.convert(zolaMessage));
     }
 

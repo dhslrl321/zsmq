@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class ZolaListenerContainer {
     private final MessageListenerDetector detector;
     private final ListeningTaskExecutor taskExecutor;
-    private final ZolaClientConfig config;
 
     public void listenAll() {
         List<Pair<MessageListener, ListeningInformation>> listeners = detector.detect();

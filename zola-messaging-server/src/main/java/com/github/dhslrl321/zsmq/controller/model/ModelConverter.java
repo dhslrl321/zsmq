@@ -1,6 +1,5 @@
 package com.github.dhslrl321.zsmq.controller.model;
 
-import com.github.dhslrl321.zsmq.controller.model.MessageModel.HeaderModel;
 import com.github.dhslrl321.zsmq.core.message.MediaTypes;
 import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;

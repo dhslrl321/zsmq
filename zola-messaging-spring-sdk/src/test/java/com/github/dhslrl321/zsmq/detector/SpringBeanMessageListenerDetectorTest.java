@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mock;
 
 import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
+import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
@@ -22,13 +23,16 @@ import org.junit.jupiter.api.Test;
 
 class SpringBeanMessageListenerDetectorTest {
 
+    public static final String ANY_SERVER = "any_server";
+    public static final String ANY_QUEUE_NAME = "ANY_QUEUE_NAME";
     SpringBeanMessageListenerDetector sut;
 
     ListenerBeanFinder finder = mock(ListenerBeanFinder.class);
+    ZolaClientConfig config = mock(ZolaClientConfig.class);
 
     @BeforeEach
     void setUp() {
-        sut = new SpringBeanMessageListenerDetector(finder);
+        sut = new SpringBeanMessageListenerDetector(finder, config);
     }
 
     @EqualsAndHashCode
@@ -45,7 +49,7 @@ class SpringBeanMessageListenerDetectorTest {
         Method barMethod = fooClass.getClass().getMethod("fooMethod", String.class);
         ;
         Pair<MessageListener, ListeningInformation> pair = Pair.of(SpringBeanMessageListener.of(fooClass, barMethod),
-                ListeningInformation.of("ANY_QUEUE_NAME"));
+                ListeningInformation.of(ANY_SERVER, ANY_QUEUE_NAME));
 
         given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Foo()));
 
