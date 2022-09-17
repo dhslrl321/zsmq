@@ -19,7 +19,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Serializer {
+public class Serializer2 {
     // TODO need memory optimization
     private static final Gson gson;
 
@@ -27,12 +27,6 @@ public class Serializer {
         gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
-                .registerTypeAdapter(ZolaHeader.class, new ZolaHeaderSerializer())
-                .registerTypeAdapter(ZolaHeader.class, new ZolaHeaderDeserializer())
-                .registerTypeAdapter(ZolaPayload.class, new ZolaPayloadSerializer())
-                .registerTypeAdapter(ZolaPayload.class, new ZolaPayloadDeserializer())
-                .registerTypeAdapter(ZolaMessage.class, new ZolaMessageSerializer())
-                .registerTypeAdapter(ZolaMessage.class, new ZolaMessageDeserializer())
                 .serializeNulls()
                 .create();
     }
@@ -53,8 +47,8 @@ public class Serializer {
             String timestamp = gson.toJson(src.getTimestamp());
             String mediaType = gson.toJson(src.getMediaType());*/
 
-            String queueName = Serializer.serialize(src.getQueueName().getValue());
-            String timestamp = Serializer.serialize(src.getTimestamp());
+            String queueName = Serializer2.serialize(src.getQueueName().getValue());
+            String timestamp = Serializer2.serialize(src.getTimestamp());
             //String mediaType = Serializer.serialize(src.getMediaType());
 
             JsonObject json = new JsonObject();

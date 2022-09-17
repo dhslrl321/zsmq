@@ -8,7 +8,6 @@ import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.core.message.ZolaPayload;
 import com.github.dhslrl321.zsmq.core.queue.QueueName;
-import com.google.gson.Gson;
 import java.time.LocalDateTime;
 
 class JsonMessageConverter implements MessageConverter {
@@ -23,7 +22,7 @@ class JsonMessageConverter implements MessageConverter {
 
     @Override
     public String fromMessage(ZolaMessage message) {
-        return message.getZolaPayload().getValue();
+        return message.getPayload().getValue();
     }
 
     @Override

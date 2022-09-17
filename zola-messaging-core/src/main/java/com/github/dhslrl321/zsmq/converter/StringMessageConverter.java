@@ -17,7 +17,7 @@ class StringMessageConverter implements MessageConverter {
 
     @Override
     public String fromMessage(ZolaMessage message) {
-        return message.getZolaPayload().getValue();
+        return message.getPayload().getValue();
     }
 
     @Override

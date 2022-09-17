@@ -32,7 +32,7 @@ public class ZolaQueueContainer {
     }
 
     public void pushBy(ZolaMessage zolaMessage) {
-        QueueName queueName = zolaMessage.getZolaHeader().getQueueName();
+        QueueName queueName = zolaMessage.getHeader().getQueueName();
         throwWhenNotExist(queueName);
         get(queueName).push(zolaMessage);
     }

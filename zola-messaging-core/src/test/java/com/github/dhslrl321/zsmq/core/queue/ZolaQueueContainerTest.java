@@ -50,7 +50,7 @@ class ZolaQueueContainerTest {
 
         ZolaMessage actual = sut.peekBy(FOO_QUEUE_NAME);
 
-        assertThat(actual.getZolaPayload()).isEqualTo(ZolaPayload.of("hello"));
+        assertThat(actual.getPayload()).isEqualTo(ZolaPayload.of("hello"));
     }
 
     @Test

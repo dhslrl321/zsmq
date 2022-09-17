@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.github.dhslrl321.zsmq.SharedFixture;
 import com.github.dhslrl321.zsmq.core.message.MediaTypes;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +25,8 @@ class JsonMessageConverterTest {
     void can_convert() {
         ZolaMessage actual = sut.toMessage("ANY_QUEUE", new SharedFixture.Foo("hello"));
 
-        assertThat(actual.getZolaHeader().getMediaTypes()).isEqualTo(MediaTypes.JSON);
-        assertThat(actual.getZolaPayload().getValue()).isEqualTo("{\"bar\":\"hello\"}");
+        assertThat(actual.getHeader().getMediaType()).isEqualTo(MediaTypes.JSON);
+        assertThat(actual.getPayload().getValue()).isEqualTo("{\"bar\":\"hello\"}");
 
         System.out.println("actual = " + actual);
     }

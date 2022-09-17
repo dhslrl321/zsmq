@@ -8,5 +8,5 @@ import lombok.Value;
 public class ZolaHeader {
     QueueName queueName;
     LocalDateTime timestamp;
-    MediaTypes mediaTypes;
+    MediaTypes mediaType;
 }

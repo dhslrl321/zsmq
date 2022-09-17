@@ -1,5 +1,7 @@
 package com.github.dhslrl321.zsmq.commons;
 
+import com.github.dhslrl321.zsmq.SharedFixture;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
@@ -22,8 +24,9 @@ class SerializerTest {
 
     @Test
     void name() {
-        Foo foo = new Foo("jang", new Bar("seoul"));
-        String serialized = Serializer.serialize(foo);
-
+        //String serialized = Serializer.serialize(SharedFixture.ANY_JSON_MESSAGE);
+        Gson gson = new Gson();
+        String serialized = gson.toJson(SharedFixture.ANY_STRING_MESSAGE);
+        System.out.println("serialized = " + serialized);
     }
 }

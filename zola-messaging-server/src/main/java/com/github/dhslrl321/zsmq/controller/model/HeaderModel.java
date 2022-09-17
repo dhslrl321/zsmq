@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HeaderModel {
-    private String queueName;
+    private QueueNameModel queueName;
     private LocalDateTime timestamp;
     private String mediaType;
 }

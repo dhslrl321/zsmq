@@ -1,6 +1,7 @@
 package com.github.dhslrl321.zsmq.http;
 
 import com.github.dhslrl321.zsmq.commons.Serializer;
+import com.github.dhslrl321.zsmq.commons.Serializer2;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -16,18 +17,19 @@ import okhttp3.RequestBody;
 
 public class ZolaHttpClient {
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    public static final int CREATED = 201;
     private final OkHttpClient http = new OkHttpClient();
 
     public boolean requestPush(String baseUrl, ZolaMessage message) {
         Request request = new Builder()
                 .url(baseUrl + "/api/messages")
-                .post(RequestBody.create(Serializer.serialize(message), JSON))
+                .post(RequestBody.create(Serializer2.serialize(message), JSON))
                 .build();
         Call call = http.newCall(request);
         try {
             Response execute = call.execute();
             int code = execute.code();
-            if (200 == code) {
+            if (CREATED == code) {
                 return true;
             }
             throw new ZolaServerConnectionFailedException("zola messaging server push failed!");

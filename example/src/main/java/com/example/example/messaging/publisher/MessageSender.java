@@ -11,7 +11,15 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MessageSender {
     private final ZolaQueueMessageTemplate template;
-
+    public String send(String event) {
+        try {
+            template.convertAndSend("ORDERED-QUEUE", event);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "event publish failed!!";
+        }
+    }
     public String send(OrderedEvent event) {
         try {
             template.convertAndSend("ORDERED-QUEUE", event);

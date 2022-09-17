@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,12 @@ public class SomeController {
     public String push(@RequestBody OrderRequest body) {
         OrderedEvent event = new OrderedEvent(body.userId, body.item, body.price);
         return sender.send(event);
+    }
+
+    @PostMapping("/api/text/{text}")
+    public String push(@PathVariable String text) {
+        //OrderedEvent event = new OrderedEvent(body.userId, body.item, body.price);
+        return sender.send(text);
     }
 
     @Data

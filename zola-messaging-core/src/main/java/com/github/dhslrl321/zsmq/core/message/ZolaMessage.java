@@ -4,10 +4,10 @@ import lombok.Value;
 
 @Value(staticConstructor = "of")
 public class ZolaMessage {
-    ZolaHeader zolaHeader;
-    ZolaPayload zolaPayload;
+    ZolaHeader header;
+    ZolaPayload payload;
 
     public MediaTypes getMediaType() {
-        return zolaHeader.getMediaTypes();
+        return header.getMediaType();
     }
 }

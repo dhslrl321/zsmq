@@ -36,7 +36,7 @@ class StringMessageConverterTest {
     void convert_to_string() {
         ZolaMessage actual = sut.toMessage("any name", "any payload");
 
-        assertThat(actual.getZolaPayload().getValue()).isEqualTo("any payload");
+        assertThat(actual.getPayload().getValue()).isEqualTo("any payload");
     }
 
     @Test
