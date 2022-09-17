@@ -1,4 +1,4 @@
-package com.example.example;
+package com.example.example.messaging.consumer;
 
 import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MyConsumer {
 
-    private final ZolaQueueMessageTemplate template;
-
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
@@ -25,7 +23,7 @@ public class MyConsumer {
     static class Foo {
         String payload;
     }
-    @ZolaMessageListener(queueName = "seoul")
+    @ZolaMessageListener(queueName = "ORDERED-QUEUE")
     public void listen(String message) {
         Foo deserialize = Serializer.deserialize(message, Foo.class);
 

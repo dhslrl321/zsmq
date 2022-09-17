@@ -35,6 +35,7 @@ public class ZolaHttpClient {
             e.printStackTrace();
             return false;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
         }
     }
@@ -54,7 +55,7 @@ public class ZolaHttpClient {
             } else if (204 == code) {
                 return Optional.empty();
             }
-            throw new ZolaServerConnectionFailedException(String.format("zola messaging server message push failed! queueName => [%s] server's code => [%s]", queueName, code));
+            throw new ZolaServerConnectionFailedException(String.format("zola messaging server message push failed! queueName => [%s], server's code => [%s]", queueName, code));
         } catch (IOException e) {
             e.printStackTrace();
             throw new ZolaServerConnectionFailedException("");

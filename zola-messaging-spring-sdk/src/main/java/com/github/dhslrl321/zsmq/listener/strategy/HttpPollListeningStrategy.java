@@ -3,14 +3,16 @@ package com.github.dhslrl321.zsmq.listener.strategy;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class HttpPollListeningStrategy implements ListeningStrategy {
 
     private final ZolaHttpClient httpClient = new ZolaHttpClient();
 
     @Override
-    public ZolaMessage peek(String queueName) {
-        Optional<ZolaMessage> optionalMessage = httpClient.requestPeek("http://localhost:8291", queueName);
+    public ZolaMessage peek(String server, String queueName) {
+        Optional<ZolaMessage> optionalMessage = httpClient.requestPeek(server, queueName);
 
         if (optionalMessage.isEmpty()) {
             return null;
@@ -20,7 +22,7 @@ public class HttpPollListeningStrategy implements ListeningStrategy {
     }
 
     @Override
-    public boolean ack(String queueName) {
+    public boolean ack(String server, String queueName) {
         return false;
     }
 }
