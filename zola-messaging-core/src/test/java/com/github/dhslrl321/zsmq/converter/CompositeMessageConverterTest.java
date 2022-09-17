@@ -11,6 +11,7 @@ import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class CompositeMessageConverterTest {
@@ -20,7 +21,7 @@ class CompositeMessageConverterTest {
     @BeforeEach
     void setUp() {
         sut.register(new StringMessageConverter());
-        sut.register(new JsonMessageConverter());
+        // sut.register(new JsonMessageConverter());
     }
 
     @Test
@@ -29,6 +30,7 @@ class CompositeMessageConverterTest {
     }
 
     @Test
+    @Disabled("not support now")
     void work_jsonConverter() {
         ZolaMessage actual = sut.toMessage("ANY_QUEUE", new SharedFixture.Foo("hello"));
 
@@ -36,6 +38,7 @@ class CompositeMessageConverterTest {
     }
 
     @Test
+    @Disabled("not support now")
     void work_jsonConverter2() {
         String actual = sut.fromMessage(SharedFixture.ANY_JSON_MESSAGE);
 
@@ -54,13 +57,5 @@ class CompositeMessageConverterTest {
         String actual = sut.fromMessage(SharedFixture.ANY_STRING_MESSAGE);
 
         assertThat(actual).isEqualTo("hello");
-    }
-
-    @Test
-    void serializer_test() {
-        String serialized = Serializer.serialize(SharedFixture.ANY_JSON_MESSAGE);
-
-        System.out.println("serialized = " + serialized);
-        ZolaMessage deserialize = Serializer.deserialize(serialized, ZolaMessage.class);
     }
 }

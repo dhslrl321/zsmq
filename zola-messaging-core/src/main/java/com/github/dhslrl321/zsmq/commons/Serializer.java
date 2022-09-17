@@ -27,12 +27,6 @@ public class Serializer {
         gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
-                .registerTypeAdapter(ZolaHeader.class, new ZolaHeaderSerializer())
-                .registerTypeAdapter(ZolaHeader.class, new ZolaHeaderDeserializer())
-                .registerTypeAdapter(ZolaPayload.class, new ZolaPayloadSerializer())
-                .registerTypeAdapter(ZolaPayload.class, new ZolaPayloadDeserializer())
-                .registerTypeAdapter(ZolaMessage.class, new ZolaMessageSerializer())
-                .registerTypeAdapter(ZolaMessage.class, new ZolaMessageDeserializer())
                 .serializeNulls()
                 .create();
     }
@@ -45,83 +39,6 @@ public class Serializer {
         return gson.fromJson(json, clazz);
     }
 
-    private static class ZolaHeaderSerializer implements JsonSerializer<ZolaHeader> {
-
-        @Override
-        public JsonElement serialize(ZolaHeader src, Type typeOfSrc, JsonSerializationContext context) {
-            /*String queueName = gson.toJson(src.getQueueName().getValue());
-            String timestamp = gson.toJson(src.getTimestamp());
-            String mediaType = gson.toJson(src.getMediaType());*/
-
-            String queueName = Serializer.serialize(src.getQueueName().getValue());
-            String timestamp = Serializer.serialize(src.getTimestamp());
-            //String mediaType = Serializer.serialize(src.getMediaType());
-
-            JsonObject json = new JsonObject();
-            json.addProperty("queueName", queueName);
-            json.addProperty("timestamp", timestamp);
-            json.addProperty("mediaType", src.getMediaType().toString());
-            return json;
-        }
-    }
-    private static class ZolaHeaderDeserializer implements JsonDeserializer<ZolaHeader> {
-        @Override
-        public ZolaHeader deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            JsonObject jsonObject = json.getAsJsonObject();
-            JsonElement queueNameElement = jsonObject.get("queueName");
-            LocalDateTime timestamp = gson.fromJson(jsonObject.get("timestamp"), LocalDateTime.class);
-            JsonElement mediaTypeElement = jsonObject.get("mediaType");
-            return ZolaHeader.of(QueueName.of(queueNameElement.getAsString()), timestamp, MediaTypes.valueOf(mediaTypeElement.getAsString()));
-        }
-    }
-
-    private static class ZolaPayloadSerializer implements JsonSerializer<ZolaPayload> {
-        @Override
-        public JsonElement serialize(ZolaPayload src, Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject jsonObject = new JsonObject();
-            String payloadValue = gson.toJson(src.getValue());
-
-            jsonObject.addProperty("payload", payloadValue);
-            return jsonObject;
-        }
-    }
-
-    private static class ZolaMessageDeserializer implements JsonDeserializer<ZolaMessage> {
-
-        @Override
-        public ZolaMessage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-                throws JsonParseException {
-            JsonObject jsonObject = json.getAsJsonObject();
-            ZolaHeader header = gson.fromJson(jsonObject.get("header"), ZolaHeader.class);
-            ZolaPayload payload = gson.fromJson(jsonObject.get("payload"), ZolaPayload.class);
-            return ZolaMessage.of(header, payload);
-        }
-    }
-
-    private static class ZolaMessageSerializer implements JsonSerializer<ZolaMessage> {
-
-        @Override
-        public JsonElement serialize(ZolaMessage src, Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject jsonObject = new JsonObject();
-            ZolaHeader zolaHeader = src.getHeader();
-            ZolaPayload zolaPayload = src.getPayload();
-
-            String header = gson.toJson(zolaHeader);
-            String payload = gson.toJson(zolaPayload);
-            jsonObject.addProperty("header", header);
-            jsonObject.addProperty("payload", payload);
-            return jsonObject;
-        }
-    }
-
-    private static class ZolaPayloadDeserializer implements JsonDeserializer<ZolaPayload> {
-
-        @Override
-        public ZolaPayload deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-                throws JsonParseException {
-            return ZolaPayload.of(json.getAsString());
-        }
-    }
 
     private static class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
         @Override

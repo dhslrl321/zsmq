@@ -26,7 +26,7 @@ public class ListeningTask implements Runnable {
                 // TODO do nothing
                 return;
             }
-            listener.listen(Serializer.serialize(message));
+            listener.listen(message.getPayload().getValue());
             // strategy.ack(queueName);
     }
 }

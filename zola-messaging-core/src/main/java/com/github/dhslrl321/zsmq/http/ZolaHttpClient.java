@@ -23,7 +23,7 @@ public class ZolaHttpClient {
     public boolean requestPush(String baseUrl, ZolaMessage message) {
         Request request = new Builder()
                 .url(baseUrl + "/api/messages")
-                .post(RequestBody.create(Serializer2.serialize(message), JSON))
+                .post(RequestBody.create(Serializer.serialize(message), JSON))
                 .build();
         Call call = http.newCall(request);
         try {

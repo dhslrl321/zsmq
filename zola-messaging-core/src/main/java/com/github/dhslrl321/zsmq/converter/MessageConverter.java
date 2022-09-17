@@ -7,7 +7,4 @@ public interface MessageConverter extends Supportable {
     ZolaMessage toMessage(String queueName, Object payload);
 
     String fromMessage(ZolaMessage message);
-    default <T> T fromMessage(ZolaMessage message, T type) {
-        return null;
-    }
 }

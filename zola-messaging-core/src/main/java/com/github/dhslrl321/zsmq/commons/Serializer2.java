@@ -19,14 +19,21 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Deprecated
 public class Serializer2 {
     // TODO need memory optimization
     private static final Gson gson;
 
     static {
         gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer())
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
+                .registerTypeAdapter(LocalDateTime.class, new Serializer2.LocalDateTimeSerializer())
+                .registerTypeAdapter(LocalDateTime.class, new Serializer2.LocalDateTimeDeserializer())
+                .registerTypeAdapter(ZolaHeader.class, new Serializer2.ZolaHeaderSerializer())
+                .registerTypeAdapter(ZolaHeader.class, new Serializer2.ZolaHeaderDeserializer())
+                .registerTypeAdapter(ZolaPayload.class, new Serializer2.ZolaPayloadSerializer())
+                .registerTypeAdapter(ZolaPayload.class, new Serializer2.ZolaPayloadDeserializer())
+                .registerTypeAdapter(ZolaMessage.class, new Serializer2.ZolaMessageSerializer())
+                .registerTypeAdapter(ZolaMessage.class, new Serializer2.ZolaMessageDeserializer())
                 .serializeNulls()
                 .create();
     }
@@ -43,13 +50,8 @@ public class Serializer2 {
 
         @Override
         public JsonElement serialize(ZolaHeader src, Type typeOfSrc, JsonSerializationContext context) {
-            /*String queueName = gson.toJson(src.getQueueName().getValue());
+            String queueName = gson.toJson(src.getQueueName().getValue());
             String timestamp = gson.toJson(src.getTimestamp());
-            String mediaType = gson.toJson(src.getMediaType());*/
-
-            String queueName = Serializer2.serialize(src.getQueueName().getValue());
-            String timestamp = Serializer2.serialize(src.getTimestamp());
-            //String mediaType = Serializer.serialize(src.getMediaType());
 
             JsonObject json = new JsonObject();
             json.addProperty("queueName", queueName);
@@ -58,14 +60,17 @@ public class Serializer2 {
             return json;
         }
     }
+
     private static class ZolaHeaderDeserializer implements JsonDeserializer<ZolaHeader> {
         @Override
-        public ZolaHeader deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public ZolaHeader deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             JsonElement queueNameElement = jsonObject.get("queueName");
             LocalDateTime timestamp = gson.fromJson(jsonObject.get("timestamp"), LocalDateTime.class);
             JsonElement mediaTypeElement = jsonObject.get("mediaType");
-            return ZolaHeader.of(QueueName.of(queueNameElement.getAsString()), timestamp, MediaTypes.valueOf(mediaTypeElement.getAsString()));
+            return ZolaHeader.of(QueueName.of(queueNameElement.getAsString()), timestamp,
+                    MediaTypes.valueOf(mediaTypeElement.getAsString()));
         }
     }
 
@@ -126,7 +131,8 @@ public class Serializer2 {
 
     private static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
         @Override
-        public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
             return LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeFormatter.ISO_DATE_TIME);
         }
     }
