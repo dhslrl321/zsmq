@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AppConfig {
+public class ZsmqConfig {
     @Bean
     public ZolaQueueMessageTemplate zolaQueueMessageTemplate() {
         ZolaHttpClient client = new ZolaHttpClient();
@@ -27,5 +27,4 @@ public class AppConfig {
         ThreadPoolListeningExecutor executor = new ThreadPoolListeningExecutor();
         return new ZolaListenerContainer(detector, executor);
     }
-
 }

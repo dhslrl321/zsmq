@@ -4,5 +4,6 @@ import lombok.Value;
 
 @Value(staticConstructor = "of")
 public class ListeningInformation {
+
     String queueName;
 }

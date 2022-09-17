@@ -3,7 +3,9 @@ package com.github.dhslrl321.zsmq.listener.strategy;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class HttpPollListeningStrategy implements ListeningStrategy {
 
     private final ZolaHttpClient httpClient = new ZolaHttpClient();

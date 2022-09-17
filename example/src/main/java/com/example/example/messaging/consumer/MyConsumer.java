@@ -1,4 +1,4 @@
-package com.example.example;
+package com.example.example.messaging.consumer;
 
 import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;

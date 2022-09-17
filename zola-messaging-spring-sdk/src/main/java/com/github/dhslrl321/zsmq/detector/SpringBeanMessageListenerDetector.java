@@ -1,6 +1,7 @@
 package com.github.dhslrl321.zsmq.detector;
 
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
+import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
@@ -15,11 +16,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
-// @Component
 @RequiredArgsConstructor
 public class SpringBeanMessageListenerDetector implements MessageListenerDetector {
 
     private final ListenerBeanFinder finder;
+    private final ZolaClientConfig config;
 
     @SneakyThrows
     @Override
@@ -44,7 +45,7 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
                     }
 
                     pairs.add(Pair.of(SpringBeanMessageListener.of(o, method),
-                            ListeningInformation.of(annotation.queueName())));
+                            ListeningInformation.of(config.getServerBaseUrl(), annotation.queueName())));
                 }
             }
         }
