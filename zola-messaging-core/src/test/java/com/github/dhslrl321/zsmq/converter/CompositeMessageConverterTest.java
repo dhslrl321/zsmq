@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.dhslrl321.zsmq.SharedFixture;
+import com.github.dhslrl321.zsmq.commons.Serializer;
 import com.github.dhslrl321.zsmq.core.message.MediaTypes;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import lombok.AllArgsConstructor;
@@ -53,5 +54,13 @@ class CompositeMessageConverterTest {
         String actual = sut.fromMessage(SharedFixture.ANY_STRING_MESSAGE);
 
         assertThat(actual).isEqualTo("hello");
+    }
+
+    @Test
+    void serializer_test() {
+        String serialized = Serializer.serialize(SharedFixture.ANY_JSON_MESSAGE);
+
+        System.out.println("serialized = " + serialized);
+        ZolaMessage deserialize = Serializer.deserialize(serialized, ZolaMessage.class);
     }
 }
