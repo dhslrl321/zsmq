@@ -1,4 +1,4 @@
-package com.wonit.orderservice;
+package com.wonit.deliveryservice;
 
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.client.ZolaQueueMessageTemplate;
@@ -7,6 +7,7 @@ import com.github.dhslrl321.zsmq.detector.SpringBeanMessageListenerDetector;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.listener.ZolaListenerContainer;
 import com.github.dhslrl321.zsmq.listener.task.ThreadPoolListeningExecutor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,22 @@ public class ZsmqConfig {
                 new ListenerBeanFinder(applicationContext), zolaClientConfig);
         ThreadPoolListeningExecutor executor = new ThreadPoolListeningExecutor();
 
-        return new ZolaListenerContainer(detector, executor);
+        ZolaListenerContainer container = new ZolaListenerContainer(detector, executor);
+
+        ListenerThread thread = new ListenerThread(container);
+        thread.start();
+
+        return container;
+    }
+}
+
+@RequiredArgsConstructor
+class ListenerThread extends Thread {
+
+    private final ZolaListenerContainer container;
+
+    @Override
+    public void run() {
+        container.listenAll();
     }
 }
