@@ -1,19 +1,17 @@
 package com.github.dhslrl321.zsmq.http;
 
 import com.github.dhslrl321.zsmq.commons.Serializer;
-import com.github.dhslrl321.zsmq.commons.Serializer2;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import okhttp3.Call;
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
-import okhttp3.Response;
-import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ZolaHttpClient {
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -38,7 +36,8 @@ public class ZolaHttpClient {
             return false;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
+            throw new IllegalStateException(
+                    "unexpected exception occurred while communicate with zola messaging server");
         }
     }
 
@@ -52,18 +51,22 @@ public class ZolaHttpClient {
             Response response = call.execute();
             int code = response.code();
             if (200 == code) {
-                ZolaMessage message = Serializer.deserialize(Objects.requireNonNull(response.body()).string(), ZolaMessage.class);
+                ZolaMessage message = Serializer.deserialize(Objects.requireNonNull(response.body()).string(),
+                        ZolaMessage.class);
                 return Optional.of(message);
             } else if (204 == code) {
                 return Optional.empty();
             }
-            throw new ZolaServerConnectionFailedException(String.format("zola messaging server message push failed! queueName => [%s], server's code => [%s]", queueName, code));
+            throw new ZolaServerConnectionFailedException(
+                    String.format("zola messaging server message push failed! queueName => [%s], server's code => [%s]",
+                            queueName, code));
         } catch (IOException e) {
             e.printStackTrace();
             throw new ZolaServerConnectionFailedException("");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
+            throw new IllegalStateException(
+                    "unexpected exception occurred while communicate with zola messaging server");
         }
     }
 

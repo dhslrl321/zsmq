@@ -1,7 +1,7 @@
 package com.github.dhslrl321.zsmq.core.queue;
 
-import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
+import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;

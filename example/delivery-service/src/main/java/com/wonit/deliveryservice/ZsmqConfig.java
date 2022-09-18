@@ -1,10 +1,8 @@
 package com.wonit.deliveryservice;
 
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
-import com.github.dhslrl321.zsmq.client.ZolaQueueMessageTemplate;
 import com.github.dhslrl321.zsmq.detector.ListenerBeanFinder;
 import com.github.dhslrl321.zsmq.detector.SpringBeanMessageListenerDetector;
-import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.listener.ZolaListenerContainer;
 import com.github.dhslrl321.zsmq.listener.task.ThreadPoolListeningExecutor;
 import lombok.RequiredArgsConstructor;

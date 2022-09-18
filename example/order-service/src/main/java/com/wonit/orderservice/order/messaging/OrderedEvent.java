@@ -1,8 +1,6 @@
 package com.wonit.orderservice.order.messaging;
 
 import java.time.ZonedDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Value;
 
 @Value(staticConstructor = "of")

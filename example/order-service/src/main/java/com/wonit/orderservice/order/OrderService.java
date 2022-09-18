@@ -1,6 +1,5 @@
 package com.wonit.orderservice.order;
 
-import com.github.dhslrl321.zsmq.client.ZolaQueueMessageTemplate;
 import com.wonit.orderservice.order.command.CreateOrderCommand;
 import com.wonit.orderservice.order.messaging.CanceledEvent;
 import com.wonit.orderservice.order.messaging.OrderedEvent;

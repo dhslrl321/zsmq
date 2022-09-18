@@ -2,19 +2,17 @@ package com.github.dhslrl321.zsmq.detector;
 
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
-import com.github.dhslrl321.zsmq.commons.Pair;
+import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 public class SpringBeanMessageListenerDetector implements MessageListenerDetector {

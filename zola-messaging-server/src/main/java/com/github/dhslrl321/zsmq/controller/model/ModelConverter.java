@@ -10,7 +10,8 @@ public class ModelConverter {
     public static ZolaMessage convert(MessageModel model) {
         // TODO Singleton
         HeaderModel headerModel = model.getHeader();
-        ZolaHeader zolaHeader = ZolaHeader.of(QueueName.of(headerModel.getQueueName().getValue()), headerModel.getTimestamp(),
+        ZolaHeader zolaHeader = ZolaHeader.of(QueueName.of(headerModel.getQueueName().getValue()),
+                headerModel.getTimestamp(),
                 MediaTypes.valueOf(headerModel.getMediaType()));
         ZolaPayload zolaPayload = ZolaPayload.of(model.getPayload().getValue());
         return ZolaMessage.of(zolaHeader, zolaPayload);

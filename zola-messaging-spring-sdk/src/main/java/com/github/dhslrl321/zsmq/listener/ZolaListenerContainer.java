@@ -1,16 +1,13 @@
 package com.github.dhslrl321.zsmq.listener;
 
-import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import com.github.dhslrl321.zsmq.detector.MessageListenerDetector;
-import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.listener.strategy.HttpPollListeningStrategy;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTask;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskExecutor;
-import com.github.dhslrl321.zsmq.commons.Pair;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 public class ZolaListenerContainer {
@@ -30,7 +27,7 @@ public class ZolaListenerContainer {
     }
 
     private void listenAll(List<ListeningTask> tasks) {
-        while(true) {
+        while (true) {
             taskExecutor.executeAll(tasks);
             try {
                 // 얘도 전략이 되어야 할것 같다

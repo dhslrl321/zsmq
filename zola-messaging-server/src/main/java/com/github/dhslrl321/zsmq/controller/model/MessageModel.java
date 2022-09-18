@@ -1,6 +1,5 @@
 package com.github.dhslrl321.zsmq.controller.model;
 
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

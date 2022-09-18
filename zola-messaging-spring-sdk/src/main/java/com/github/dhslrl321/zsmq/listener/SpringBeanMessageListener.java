@@ -1,10 +1,8 @@
 package com.github.dhslrl321.zsmq.listener;
 
-import lombok.Value;
-import org.springframework.stereotype.Component;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import lombok.Value;
 
 @Value(staticConstructor = "of")
 public class SpringBeanMessageListener implements MessageListener {
