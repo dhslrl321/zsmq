@@ -22,14 +22,4 @@ public class ZsmqConfig {
     public ZolaQueueMessageTemplate zolaQueueMessageTemplate(ZolaClientConfig zolaClientConfig) {
         return new ZolaQueueMessageTemplate(zolaClientConfig, new ZolaHttpClient());
     }
-
-    @Bean
-    public ZolaListenerContainer zolaListenerContainer(ApplicationContext applicationContext,
-                                                       ZolaClientConfig zolaClientConfig) {
-        SpringBeanMessageListenerDetector detector = new SpringBeanMessageListenerDetector(
-                new ListenerBeanFinder(applicationContext), zolaClientConfig);
-        ThreadPoolListeningExecutor executor = new ThreadPoolListeningExecutor();
-
-        return new ZolaListenerContainer(detector, executor);
-    }
 }
