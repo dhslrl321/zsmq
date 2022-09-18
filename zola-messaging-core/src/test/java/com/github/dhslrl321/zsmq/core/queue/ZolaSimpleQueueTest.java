@@ -2,6 +2,7 @@ package com.github.dhslrl321.zsmq.core.queue;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
 import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
@@ -50,8 +51,9 @@ class ZolaSimpleQueueTest {
     }
 
     @Test
-    void if_empty_peek_throw_exception() {
-        assertThatThrownBy(() -> sut.peek()).isInstanceOf(EmptyQueueException.class);
+    void if_empty_peek_return_null() {
+        ZolaMessage actual = sut.peek();
+        assertThat(actual).isNull();
     }
 
     @Test

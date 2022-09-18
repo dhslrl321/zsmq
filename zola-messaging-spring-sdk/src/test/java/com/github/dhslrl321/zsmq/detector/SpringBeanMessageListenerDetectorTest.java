@@ -8,23 +8,22 @@ import static org.mockito.Mockito.mock;
 import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
+import com.github.dhslrl321.zsmq.commons.Pair;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
-import com.github.dhslrl321.zsmq.commons.Pair;
+import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-
-import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import lombok.EqualsAndHashCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class SpringBeanMessageListenerDetectorTest {
-
     public static final String ANY_SERVER = "any_server";
     public static final String ANY_QUEUE_NAME = "ANY_QUEUE_NAME";
+
     SpringBeanMessageListenerDetector sut;
 
     ListenerBeanFinder finder = mock(ListenerBeanFinder.class);
@@ -47,10 +46,10 @@ class SpringBeanMessageListenerDetectorTest {
     void happy_case() throws Exception {
         Foo fooClass = new Foo();
         Method barMethod = fooClass.getClass().getMethod("fooMethod", String.class);
-        ;
         Pair<MessageListener, ListeningInformation> pair = Pair.of(SpringBeanMessageListener.of(fooClass, barMethod),
                 ListeningInformation.of(ANY_SERVER, ANY_QUEUE_NAME));
 
+        given(config.getServerBaseUrl()).willReturn(ANY_SERVER);
         given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Foo()));
 
         List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
@@ -117,4 +116,5 @@ class SpringBeanMessageListenerDetectorTest {
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
+
 }

@@ -32,13 +32,13 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
                 if (method.isAnnotationPresent(ZolaMessageListener.class)) {
                     ZolaMessageListener annotation = method.getAnnotation(ZolaMessageListener.class);
                     if (annotation.queueName().isBlank() || method.getParameters().length == 0) {
-                        throw new InvalidUseOfZolaMessageListenerException("");
+                        throw new InvalidUseOfZolaMessageListenerException("queueName should be not blank");
                     }
 
                     Class<?>[] parameterTypes = method.getParameterTypes();
                     for (Class<?> parameterType : parameterTypes) {
                         if (!parameterType.equals(String.class)) {
-                            throw new InvalidUseOfZolaMessageListenerException("");
+                            throw new InvalidUseOfZolaMessageListenerException("listener method's parameter have to be String!");
                         }
                     }
 

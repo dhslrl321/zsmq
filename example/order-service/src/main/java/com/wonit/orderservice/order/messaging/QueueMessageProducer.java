@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class QueueMessageProducer {
     public static final String ORDER_CANCELED_QUEUE = "ORDER-CANCELED-QUEUE";
-    public static final String PRE_ORDERED_QUEUE = "PRE-ORDERED-QUEUE";
+    public static final String PRE_ORDERED_QUEUE = "ORDERED-QUEUE";
 
     private final ZolaQueueMessageTemplate template;
 

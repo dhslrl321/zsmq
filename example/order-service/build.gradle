@@ -19,8 +19,8 @@ repositories {
 }
 
 dependencies {
-    implementation project(':zola-messaging-core')
-    implementation project(':zola-messaging-spring-sdk')
+
+    implementation project(':zola-messaging-spring-boot-starter')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'

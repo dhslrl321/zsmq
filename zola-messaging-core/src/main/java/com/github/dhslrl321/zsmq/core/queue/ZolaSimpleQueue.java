@@ -20,7 +20,6 @@ public class ZolaSimpleQueue extends AbstractZolaQueue {
 
     @Override
     public ZolaMessage peek() {
-        // throwWhenEmpty();
         return queue.peek();
     }
 

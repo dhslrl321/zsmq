@@ -1,4 +1,4 @@
-package com.github.dhslrl321.zsmq.detector;
+package com.github.dhslrl321.zsmq;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -16,7 +16,7 @@ And it's not suitable for production at all.
 You can easily run Zola (ZSMQ) server using docker
 
 ```shell
-docker run -d -p [port]:8080 dhslrl321/zsmq
+docker run -d -p [port]:8291 dhslrl321/zsmq
 ```
 
 ## publish message

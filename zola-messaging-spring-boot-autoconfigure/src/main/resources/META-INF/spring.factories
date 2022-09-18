@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.wonit.GreeterAutoConfiguration
+  com.github.dhslrl321.zsmq.ZsmqAutoconfiguration

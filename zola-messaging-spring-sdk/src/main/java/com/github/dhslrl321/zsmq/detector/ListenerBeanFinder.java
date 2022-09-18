@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 
 @RequiredArgsConstructor
 public class ListenerBeanFinder {
-
     private final ApplicationContext context;
 
     public Map<String, Object> findZolaBeans() {

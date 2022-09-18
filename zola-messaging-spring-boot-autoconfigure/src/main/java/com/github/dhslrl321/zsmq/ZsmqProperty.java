@@ -6,13 +6,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "zsmq")
 public class ZsmqProperty {
-    private String server;
+    private String url;
 
-    public String getServer() {
-        return server;
+    public String getUrl() {
+        return url;
     }
 
-    public void setServer(String server) {
-        this.server = server;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
