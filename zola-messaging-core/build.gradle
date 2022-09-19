@@ -3,9 +3,6 @@ plugins {
     id "io.freefair.lombok" version "6.5.1"
 }
 
-group 'com.github.dhslrl321.zsmq'
-version '0.1.0'
-
 repositories {
     mavenCentral()
 }

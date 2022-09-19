@@ -21,7 +21,7 @@ class CompositeMessageConverterTest {
     @BeforeEach
     void setUp() {
         sut.register(new StringMessageConverter());
-        // sut.register(new JsonMessageConverter());
+        sut.register(new JsonMessageConverter());
     }
 
     @Test

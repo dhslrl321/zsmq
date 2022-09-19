@@ -4,6 +4,13 @@ plugins {
 }
 
 allprojects {
+
+    group 'com.github.dhslrl321.zsmq'
+    version = '0.1.4'
+
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+
     repositories {
         maven { url 'https://jitpack.io' }
     }
