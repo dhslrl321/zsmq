@@ -1,30 +1,28 @@
-plugins {
-    id 'java'
-    id 'maven-publish'
-}
-
 allprojects {
-
-    group 'com.github.dhslrl321.zsmq'
-    version = '0.1.7'
-
-    sourceCompatibility = '11'
-    targetCompatibility = '11'
-
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
+    version = "0.1.0"
+    group = 'com.github.dhslrl321'
 }
 
-/*
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId = 'com.github.dhslrl321'
-            artifactId = 'zsmq'
-            version = '0.1.2'
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
 
-            from components.java
+    sourceCompatibility = 11
+    targetCompatibility = 11
+
+    java {
+        withSourcesJar()
+        withJavadocJar()
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId project.group
+                artifactId project.name
+                version project.version
+                from components.java
+            }
         }
     }
-}*/
+}
