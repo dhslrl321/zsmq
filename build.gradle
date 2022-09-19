@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.github.dhslrl321'
+            artifactId = 'zsmq'
+            version = '0.1.2'
+
+            from components.java
+        }
+    }
+}
