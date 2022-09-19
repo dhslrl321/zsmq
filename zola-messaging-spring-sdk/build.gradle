@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
 
-    api project(':zola-messaging-core')
+    implementation project(path: ':zola-messaging-core')
 
     implementation 'org.springframework:spring-context:5.3.22'
 
