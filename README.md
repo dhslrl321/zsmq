@@ -19,6 +19,16 @@ You can easily run Zola (ZSMQ) server using docker
 docker run -d -p [port]:8291 dhslrl321/zsmq
 ```
 
+## gradle dependency
+
+We provide a spring boot starter so that you can skip the complicated process and set it up easily.
+
+```groovy
+dependencies {
+    implementation 'com.github.dhslrl321.zsmq:zola-messaging-sprint-boot-starter:${version}'
+}
+```
+
 ## publish message
 
 ```java
