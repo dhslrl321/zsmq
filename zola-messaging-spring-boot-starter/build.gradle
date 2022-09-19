@@ -7,10 +7,9 @@ repositories {
 }
 
 dependencies {
-    implementation project(':zola-messaging-core')
-    implementation project(':zola-messaging-spring-sdk')
-
-    implementation project(':zola-messaging-spring-boot-autoconfigure')
+    api project(':zola-messaging-core')
+    api project(':zola-messaging-spring-sdk')
+    api project(':zola-messaging-spring-boot-autoconfigure')
 }
 
 test {
