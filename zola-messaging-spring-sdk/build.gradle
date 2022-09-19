@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id "io.freefair.lombok" version "6.5.1"
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
 }
 
@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
 
-    implementation project(':zola-messaging-core')
+    api project(':zola-messaging-core')
 
     implementation 'org.springframework:spring-context:5.3.22'
 
