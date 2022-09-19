@@ -6,9 +6,6 @@ plugins {
     id 'maven-publish'
 }
 
-group 'com.github.dhslrl321.zsmq'
-version = '0.1.4'
-
 repositories {
     mavenCentral()
 }
