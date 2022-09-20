@@ -23,7 +23,18 @@ docker run -d -p [port]:8291 dhslrl321/zsmq
 
 We provide a spring boot starter so that you can skip the complicated process and set it up easily.
 
+It can be downloaded from the [jitpack](https://jitpack.io/#dhslrl321/zsmq) repository.
+
+You can manually set bin without using the spring boot starter.
+
+Check the [reference guide](https://github.com/dhslrl321/zsmq/wiki/Reference-Guide) for more information
+
 ```groovy
+repositories {
+    // ... other maven repository 
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     implementation 'com.github.dhslrl321.zsmq:zola-messaging-sprint-boot-starter:${version}'
 }
