@@ -1,5 +1,6 @@
 package com.github.dhslrl321.zsmq;
 
+import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.client.ZolaQueueMessageTemplate;
 import com.github.dhslrl321.zsmq.detector.ListenerBeanFinder;
@@ -39,7 +40,7 @@ public class ZsmqAutoconfiguration {
     public ZolaListenerContainer container(ApplicationContext applicationContext,
                                            ZolaClientConfig zolaClientConfig) {
         MessageListenerDetector detector = new SpringBeanMessageListenerDetector(
-                new ListenerBeanFinder(applicationContext), zolaClientConfig);
+                applicationContext.getBeansWithAnnotation(ZolaConsumer.class), zolaClientConfig);
         ListeningTaskExecutor taskExecutor = new ThreadPoolListeningExecutor();
         return new ZolaListenerContainer(detector, taskExecutor);
     }

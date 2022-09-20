@@ -1,6 +1,4 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.3'
-    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id "io.freefair.lombok" version "6.5.1"
     id 'java-library'
     id 'maven-publish'
@@ -12,10 +10,7 @@ repositories {
 
 dependencies {
 
-    implementation project(path: ':zola-messaging-core')
-
-    implementation 'org.springframework:spring-context:5.3.22'
-
+    implementation project(':zola-messaging-core')
 
     testImplementation 'org.assertj:assertj-core:3.23.1'
     testImplementation 'org.mockito:mockito-core:4.7.0'
@@ -25,8 +20,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-jar {
-    enabled = false
 }

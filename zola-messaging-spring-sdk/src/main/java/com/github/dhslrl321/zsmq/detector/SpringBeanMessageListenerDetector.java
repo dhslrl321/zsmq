@@ -17,13 +17,13 @@ import lombok.SneakyThrows;
 @RequiredArgsConstructor
 public class SpringBeanMessageListenerDetector implements MessageListenerDetector {
 
-    private final ListenerBeanFinder finder;
+    private final Map<String, Object> beans;
     private final ZolaClientConfig config;
 
     @SneakyThrows
     @Override
+    @Deprecated
     public List<Pair<MessageListener, ListeningInformation>> detect() {
-        final Map<String, Object> beans = finder.findZolaBeans();
         final List<Pair<MessageListener, ListeningInformation>> pairs = new ArrayList<>();
         for (Object o : beans.values()) {
             Class<?> aClass = o.getClass();
@@ -38,7 +38,8 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
                     Class<?>[] parameterTypes = method.getParameterTypes();
                     for (Class<?> parameterType : parameterTypes) {
                         if (!parameterType.equals(String.class)) {
-                            throw new InvalidUseOfZolaMessageListenerException("listener method's parameter have to be String!");
+                            throw new InvalidUseOfZolaMessageListenerException(
+                                    "listener method's parameter have to be String!");
                         }
                     }
 

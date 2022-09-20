@@ -29,10 +29,10 @@ class SpringBeanMessageListenerDetectorTest {
     ListenerBeanFinder finder = mock(ListenerBeanFinder.class);
     ZolaClientConfig config = mock(ZolaClientConfig.class);
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         sut = new SpringBeanMessageListenerDetector(finder, config);
-    }
+    }*/
 
     @EqualsAndHashCode
     @ZolaConsumer
@@ -49,8 +49,8 @@ class SpringBeanMessageListenerDetectorTest {
         Pair<MessageListener, ListeningInformation> pair = Pair.of(SpringBeanMessageListener.of(fooClass, barMethod),
                 ListeningInformation.of(ANY_SERVER, ANY_QUEUE_NAME));
 
+        sut = new SpringBeanMessageListenerDetector(Map.of("someClass", new Foo()), config);
         given(config.getServerBaseUrl()).willReturn(ANY_SERVER);
-        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Foo()));
 
         List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
 
@@ -66,7 +66,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void not_return_pair_when_no_zolaMessageListener_annotation() {
-        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Bar()));
+        sut = new SpringBeanMessageListenerDetector(Map.of("someClass", new Bar()), config);
         List<Pair<MessageListener, ListeningInformation>> actual = sut.detect();
 
         assertThat(actual.size()).isZero();
@@ -82,7 +82,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_empty_queueName() {
-        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Baz()));
+        sut = new SpringBeanMessageListenerDetector(Map.of("someClass", new Baz()), config);
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
@@ -97,7 +97,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_missing_parameter() {
-        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Qux()));
+        sut = new SpringBeanMessageListenerDetector(Map.of("someClass", new Qux()), config);
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
@@ -112,7 +112,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @Test
     void throw_when_not_string_parameter() {
-        given(finder.findZolaBeans()).willReturn(Map.of("someClass", new Qux2()));
+        sut = new SpringBeanMessageListenerDetector(Map.of("someClass", new Qux2()), config);
         assertThatThrownBy(() -> sut.detect())
                 .isInstanceOf(InvalidUseOfZolaMessageListenerException.class);
     }
