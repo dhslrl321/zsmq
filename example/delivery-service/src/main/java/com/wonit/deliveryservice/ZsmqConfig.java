@@ -4,6 +4,7 @@ import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.detector.SpringBeanMessageListenerDetector;
 import com.github.dhslrl321.zsmq.listener.ZolaMessageListeningProcessor;
+import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
 import com.github.dhslrl321.zsmq.listener.task.ThreadPoolListeningExecutor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
@@ -23,11 +24,11 @@ public class ZsmqConfig {
         SpringBeanMessageListenerDetector detector = new SpringBeanMessageListenerDetector(
                 applicationContext.getBeansWithAnnotation(ZolaConsumer.class), zolaClientConfig);
         ThreadPoolListeningExecutor executor = new ThreadPoolListeningExecutor();
+        ListeningTaskFactory taskFactory = new ListeningTaskFactory();
 
-        ZolaMessageListeningProcessor container = new ZolaMessageListeningProcessor(detector, executor);
+        ZolaMessageListeningProcessor container = new ZolaMessageListeningProcessor(detector, taskFactory, executor);
         ListenerThread thread = new ListenerThread(container);
         thread.start();
-        // TODO nio 관련 키워드 알아보기 netty
         return container;
     }
 }

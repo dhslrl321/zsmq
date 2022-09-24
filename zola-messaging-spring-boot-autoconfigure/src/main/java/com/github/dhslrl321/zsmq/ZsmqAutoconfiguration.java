@@ -8,6 +8,7 @@ import com.github.dhslrl321.zsmq.detector.SpringBeanMessageListenerDetector;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.listener.ZolaMessageListeningProcessor;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskExecutor;
+import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
 import com.github.dhslrl321.zsmq.listener.task.ThreadPoolListeningExecutor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -41,7 +42,8 @@ public class ZsmqAutoconfiguration {
         MessageListenerDetector detector = new SpringBeanMessageListenerDetector(
                 applicationContext.getBeansWithAnnotation(ZolaConsumer.class), zolaClientConfig);
         ListeningTaskExecutor taskExecutor = new ThreadPoolListeningExecutor();
-        return new ZolaMessageListeningProcessor(detector, taskExecutor);
+        ListeningTaskFactory taskFactory = new ListeningTaskFactory();
+        return new ZolaMessageListeningProcessor(detector, taskFactory, taskExecutor);
     }
 }
 

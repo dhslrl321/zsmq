@@ -11,8 +11,6 @@ public class SpringBeanMessageListener implements MessageListener {
 
     @Override
     public void listen(String serialized) {
-        // listener.getMethod().invoke(invokeTarget, serialize);
-
         try {
             method.invoke(object, serialized);
         } catch (IllegalAccessException | InvocationTargetException e) {
