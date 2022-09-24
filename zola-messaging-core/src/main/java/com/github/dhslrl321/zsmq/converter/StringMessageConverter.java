@@ -27,6 +27,6 @@ class StringMessageConverter implements MessageConverter {
 
     @Override
     public boolean isSupport(ZolaMessage message) {
-        return TEXT.equals(message.getMediaType());
+        return message.isSameTypeBy(TEXT);
     }
 }

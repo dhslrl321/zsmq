@@ -34,7 +34,7 @@ class CompositeMessageConverterTest {
     void work_jsonConverter() {
         ZolaMessage actual = sut.toMessage("ANY_QUEUE", new SharedFixture.Foo("hello"));
 
-        assertThat(actual.getMediaType()).isEqualTo(MediaTypes.JSON);
+        assertThat(actual.isSameTypeBy(MediaTypes.JSON)).isTrue();
     }
 
     @Test
@@ -49,7 +49,7 @@ class CompositeMessageConverterTest {
     void work_StringConverter() {
         ZolaMessage actual = sut.toMessage("ANY_QUEUE", "hello");
 
-        assertThat(actual.getMediaType()).isEqualTo(MediaTypes.TEXT);
+        assertThat(actual.isSameTypeBy(MediaTypes.TEXT)).isTrue();
     }
 
     @Test

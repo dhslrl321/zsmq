@@ -36,6 +36,6 @@ class JsonMessageConverter implements MessageConverter {
 
     @Override
     public boolean isSupport(ZolaMessage message) {
-        return JSON.equals(message.getMediaType());
+        return message.isSameTypeBy(JSON);
     }
 }

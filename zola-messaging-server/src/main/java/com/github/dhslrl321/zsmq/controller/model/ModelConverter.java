@@ -8,7 +8,6 @@ import com.github.dhslrl321.zsmq.core.queue.QueueName;
 
 public class ModelConverter {
     public static ZolaMessage convert(MessageModel model) {
-        // TODO Singleton
         HeaderModel headerModel = model.getHeader();
         ZolaHeader zolaHeader = ZolaHeader.of(QueueName.of(headerModel.getQueueName().getValue()),
                 headerModel.getTimestamp(),
@@ -18,8 +17,8 @@ public class ModelConverter {
     }
 
     public static MessageModel convert(ZolaMessage zolaMessage) {
-        HeaderModel headerModel = new HeaderModel(new QueueNameModel(zolaMessage.getHeader().getQueueName().getValue()),
-                zolaMessage.getHeader().getTimestamp(), zolaMessage.getMediaType().name());
+        HeaderModel headerModel = new HeaderModel(new QueueNameModel(zolaMessage.getQueueNameValue()),
+                zolaMessage.getTimestamp(), zolaMessage.getMediaType().name());
         return new MessageModel(headerModel, new PayloadModel(zolaMessage.getPayload().getValue()));
     }
 }
