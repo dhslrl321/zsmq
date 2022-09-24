@@ -1,7 +1,6 @@
 package com.github.dhslrl321.zsmq.listener.task;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.dhslrl321.zsmq.commons.Pair;
 import com.github.dhslrl321.zsmq.listener.DeletionPolicy;
@@ -9,7 +8,6 @@ import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +33,7 @@ class ListeningTaskFactoryTest {
 
         ListeningTask actual = sut.createBy(pair);
 
-        assertThat(actual.getListeningInformation()).isEqualTo(LISTENING_INFORMATION);
+        assertThat(actual.getListeningInfo()).isEqualTo(LISTENING_INFORMATION);
     }
 
     @Test

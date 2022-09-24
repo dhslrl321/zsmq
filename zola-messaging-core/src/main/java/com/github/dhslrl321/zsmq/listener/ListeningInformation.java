@@ -7,4 +7,8 @@ public class ListeningInformation {
     String server;
     String queueName;
     DeletionPolicy deletionPolicy;
+
+    public boolean isSameDeletionPolicy(DeletionPolicy policy) {
+        return deletionPolicy.equals(policy);
+    }
 }

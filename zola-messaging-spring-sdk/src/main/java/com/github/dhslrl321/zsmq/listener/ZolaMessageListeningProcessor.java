@@ -18,17 +18,6 @@ public class ZolaMessageListeningProcessor {
     public void doProcess() {
         List<Pair<MessageListener, ListeningInformation>> listeners = detector.detect();
         List<ListeningTask> tasks = taskFactory.createBy(listeners);
-        listenAll(tasks);
-    }
-
-    private void listenAll(List<ListeningTask> tasks) {
-        while (true) {
-            taskExecutor.executeAll(tasks);
-            try {
-                Thread.sleep(500);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        taskExecutor.executeAll(tasks);
     }
 }

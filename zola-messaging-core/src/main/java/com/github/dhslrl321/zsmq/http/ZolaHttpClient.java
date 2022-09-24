@@ -15,8 +15,9 @@ import okhttp3.Response;
 
 public class ZolaHttpClient {
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    public static final int CREATED = 201;
-    public static final int NO_CONTENT = 204;
+    private static final int CREATED = 201;
+    private static final int NO_CONTENT = 204;
+
     private final OkHttpClient http = new OkHttpClient();
 
     public boolean requestPush(String baseUrl, ZolaMessage message) {
@@ -34,7 +35,7 @@ public class ZolaHttpClient {
             throw new ZolaServerConnectionFailedException("zola messaging server push failed!");
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            throw new ZolaServerConnectionFailedException("exception occurred while sending message");
         } catch (Exception e) {
             e.printStackTrace();
             throw new IllegalStateException(
@@ -66,8 +67,7 @@ public class ZolaHttpClient {
             throw new ZolaServerConnectionFailedException("exception occurred while sending message");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException(
-                    "unexpected exception occurred while communicate with zola messaging server");
+            throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
         }
     }
 
@@ -89,8 +89,7 @@ public class ZolaHttpClient {
             throw new ZolaServerConnectionFailedException("exception occurred while sending message");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException(
-                    "unexpected exception occurred while communicate with zola messaging server");
+            throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
         }
     }
 }

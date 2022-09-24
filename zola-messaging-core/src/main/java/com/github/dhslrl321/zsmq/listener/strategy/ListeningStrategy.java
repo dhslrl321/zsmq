@@ -1,9 +1,10 @@
 package com.github.dhslrl321.zsmq.listener.strategy;
 
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
+import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 
 public interface ListeningStrategy {
-    ZolaMessage peek(String server, String queueName);
+    ZolaMessage peek(ListeningInformation information);
 
-    boolean ack(String server, String queueName);
+    boolean acknowledgement(ListeningInformation information);
 }
