@@ -6,8 +6,8 @@ import com.github.dhslrl321.zsmq.listener.DeletionPolicy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Component
 @Slf4j
+@Component
 @ZolaConsumer
 public class PreOrderedConfirmProcessor {
     @ZolaMessageListener(queueName = "ORDERED-QUEUE", deletionPolicy = DeletionPolicy.ALWAYS)

@@ -1,3 +1,3 @@
-# Dashboard
+# zola-messaging-dashboard
 
-this is zola simple message queue's web dashboard
+this is messaging dashboard
