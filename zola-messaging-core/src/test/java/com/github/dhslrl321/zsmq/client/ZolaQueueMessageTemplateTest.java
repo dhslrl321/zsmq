@@ -1,10 +1,14 @@
 package com.github.dhslrl321.zsmq.client;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.client.ZolaQueueMessageTemplate;
+import com.github.dhslrl321.zsmq.client.spy.SpyZolaHttpClient;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.core.message.MediaTypes;
 import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
@@ -18,24 +22,42 @@ import org.junit.jupiter.api.Test;
 
 class ZolaQueueMessageTemplateTest {
 
+    public static final String ANY_STRING = "ANY_STRING";
+
     ZolaQueueMessageTemplate sut;
 
-    ZolaHttpClient httpClient = mock(ZolaHttpClient.class);
+    SpyZolaHttpClient spyHttpClient = new SpyZolaHttpClient();
 
     @BeforeEach
     void setUp() {
-        sut = new ZolaQueueMessageTemplate(new ZolaClientConfig("some"), httpClient);
+        sut = new ZolaQueueMessageTemplate(new ZolaClientConfig(ANY_STRING), spyHttpClient);
     }
 
     @Test
-    @Disabled("Tests always fail due to problems with LocalDateTime.now()")
-    void name() {
-        ZolaMessage message = ZolaMessage.of(ZolaHeader.of(QueueName.of("some"), LocalDateTime.now(), MediaTypes.TEXT),
-                ZolaPayload.of("hello"));
+    void happy_case() {
+        ZolaMessage message = ZolaMessage.of(ZolaHeader.of(QueueName.of(ANY_STRING), LocalDateTime.now(), MediaTypes.JSON),
+                ZolaPayload.of(ANY_STRING));
 
-        sut.convertAndSend("some", "hello");
+        sut.convertAndSend(ANY_STRING, message);
 
-        verify(httpClient).requestPush("some", message);
+        assertThat(spyHttpClient.pushCalled).isTrue();
     }
 
+    @Test
+    void queueName_must_be_notEmpty() {
+        assertThatThrownBy(() -> sut.convertAndSend("", ANY_STRING))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void queueName_must_be_notNull() {
+        assertThatThrownBy(() -> sut.convertAndSend(null, ANY_STRING))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void payload_must_be_notNull() {
+        assertThatThrownBy(() -> sut.convertAndSend(ANY_STRING, null))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }

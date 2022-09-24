@@ -26,10 +26,9 @@ public class ZsmqConfig {
         ThreadPoolListeningExecutor executor = new ThreadPoolListeningExecutor();
 
         ZolaListenerContainer container = new ZolaListenerContainer(detector, executor);
-
         ListenerThread thread = new ListenerThread(container);
         thread.start();
-
+        // TODO nio 관련 키워드 알아보기 netty
         return container;
     }
 }

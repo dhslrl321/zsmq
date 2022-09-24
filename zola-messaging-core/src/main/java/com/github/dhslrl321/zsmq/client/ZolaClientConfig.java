@@ -13,6 +13,6 @@ public class ZolaClientConfig {
 
     public ZolaClientConfig(String serverBaseUrl) {
         this.serverBaseUrl = serverBaseUrl;
-        converter = MessageConverters.initMessageConverter();
+        converter = MessageConverters.initConverters();
     }
 }

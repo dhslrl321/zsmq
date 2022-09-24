@@ -27,6 +27,11 @@ public class ZolaListenerContainer {
     }
 
     private void listenAll(List<ListeningTask> tasks) {
+        // 좀비 스레드가 될 가느성 농후
+        /**
+
+         isRunning
+         */
         while (true) {
             taskExecutor.executeAll(tasks);
             try {
