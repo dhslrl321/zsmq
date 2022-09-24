@@ -6,7 +6,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class HttpPollListeningStrategy implements ListeningStrategy {
+public class HttpPollingListeningStrategy implements ListeningStrategy {
 
     private final ZolaHttpClient httpClient = new ZolaHttpClient();
 

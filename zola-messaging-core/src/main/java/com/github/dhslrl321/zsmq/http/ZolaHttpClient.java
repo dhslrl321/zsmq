@@ -16,6 +16,7 @@ import okhttp3.Response;
 public class ZolaHttpClient {
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     public static final int CREATED = 201;
+    public static final int NO_CONTENT = 204;
     private final OkHttpClient http = new OkHttpClient();
 
     public boolean requestPush(String baseUrl, ZolaMessage message) {
@@ -54,7 +55,7 @@ public class ZolaHttpClient {
                 ZolaMessage message = Serializer.deserialize(Objects.requireNonNull(response.body()).string(),
                         ZolaMessage.class);
                 return Optional.of(message);
-            } else if (204 == code) {
+            } else if (NO_CONTENT == code) {
                 return Optional.empty();
             }
             throw new ZolaServerConnectionFailedException(
@@ -62,7 +63,7 @@ public class ZolaHttpClient {
                             queueName, code));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new ZolaServerConnectionFailedException("");
+            throw new ZolaServerConnectionFailedException("exception occurred while sending message");
         } catch (Exception e) {
             e.printStackTrace();
             throw new IllegalStateException(

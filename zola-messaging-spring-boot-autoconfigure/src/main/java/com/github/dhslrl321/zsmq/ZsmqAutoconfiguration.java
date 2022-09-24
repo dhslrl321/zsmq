@@ -3,11 +3,10 @@ package com.github.dhslrl321.zsmq;
 import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.client.ZolaQueueMessageTemplate;
-import com.github.dhslrl321.zsmq.detector.ListenerBeanFinder;
 import com.github.dhslrl321.zsmq.detector.MessageListenerDetector;
 import com.github.dhslrl321.zsmq.detector.SpringBeanMessageListenerDetector;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
-import com.github.dhslrl321.zsmq.listener.ZolaListenerContainer;
+import com.github.dhslrl321.zsmq.listener.ZolaMessageListeningProcessor;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskExecutor;
 import com.github.dhslrl321.zsmq.listener.task.ThreadPoolListeningExecutor;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +36,12 @@ public class ZsmqAutoconfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ZolaListenerContainer container(ApplicationContext applicationContext,
-                                           ZolaClientConfig zolaClientConfig) {
+    public ZolaMessageListeningProcessor container(ApplicationContext applicationContext,
+                                                   ZolaClientConfig zolaClientConfig) {
         MessageListenerDetector detector = new SpringBeanMessageListenerDetector(
                 applicationContext.getBeansWithAnnotation(ZolaConsumer.class), zolaClientConfig);
         ListeningTaskExecutor taskExecutor = new ThreadPoolListeningExecutor();
-        return new ZolaListenerContainer(detector, taskExecutor);
+        return new ZolaMessageListeningProcessor(detector, taskExecutor);
     }
 }
 
