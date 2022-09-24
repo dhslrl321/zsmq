@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.dhslrl321.zsmq.commons.Pair;
+import com.github.dhslrl321.zsmq.listener.DeletionPolicy;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.listener.SpringBeanMessageListener;
@@ -19,7 +20,7 @@ class ListeningTaskFactoryTest {
     public static final Method ANY_METHOD = null;
     public static final SpringBeanMessageListener LISTENER = SpringBeanMessageListener.of(ANY, ANY_METHOD);
     public static final String ANY_STRING = "";
-    public static final ListeningInformation LISTENING_INFORMATION = ListeningInformation.of(ANY_STRING, ANY_STRING);
+    public static final ListeningInformation LISTENING_INFORMATION = ListeningInformation.of(ANY_STRING, ANY_STRING, DeletionPolicy.ALWAYS);
 
     ListeningTaskFactory sut;
 

@@ -1,5 +1,12 @@
 package com.github.dhslrl321.zsmq;
 
+import com.github.dhslrl321.zsmq.commons.Serializer;
+import com.github.dhslrl321.zsmq.core.message.MediaTypes;
+import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
+import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
+import com.github.dhslrl321.zsmq.core.message.ZolaPayload;
+import com.github.dhslrl321.zsmq.core.queue.QueueName;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,6 +23,12 @@ public class SharedFixture {
     public static final FooBean ANY_FOO_BEAN = new FooBean("jang", 26);
     public static final BarBean ANY_BAR_BEAN = new BarBean("seoul", 123);
     public static final Map<String, Object> ANY_BEANS = initBeans();
+    public static final QueueName ANY_QUEUE_NAME = QueueName.of("ANY_QUEUE_NAME");
+    public static final ZolaMessage ANY_STRING_MESSAGE = ZolaMessage.of(ZolaHeader.of(ANY_QUEUE_NAME, LocalDateTime.now(),
+            MediaTypes.TEXT), ZolaPayload.of("hello"));
+
+    public static final ZolaMessage ANY_JSON_MESSAGE = ZolaMessage.of(ZolaHeader.of(ANY_QUEUE_NAME, LocalDateTime.now(),
+            MediaTypes.JSON), ZolaPayload.of(Serializer.serialize(ANY_FOO_BEAN)));
 
     private static HashMap<String, Object> initBeans() {
         HashMap<String, Object> map = new HashMap<>();

@@ -9,6 +9,7 @@ import com.github.dhslrl321.zsmq.annotation.ZolaConsumer;
 import com.github.dhslrl321.zsmq.annotation.ZolaMessageListener;
 import com.github.dhslrl321.zsmq.client.ZolaClientConfig;
 import com.github.dhslrl321.zsmq.commons.Pair;
+import com.github.dhslrl321.zsmq.listener.DeletionPolicy;
 import com.github.dhslrl321.zsmq.listener.InvalidUseOfZolaMessageListenerException;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
@@ -37,7 +38,7 @@ class SpringBeanMessageListenerDetectorTest {
     @EqualsAndHashCode
     @ZolaConsumer
     static class Foo {
-        @ZolaMessageListener(queueName = "ANY_QUEUE_NAME")
+        @ZolaMessageListener(queueName = "ANY_QUEUE_NAME", deletionPolicy = DeletionPolicy.ALWAYS)
         public void fooMethod(String message) {
         }
     }
@@ -47,7 +48,7 @@ class SpringBeanMessageListenerDetectorTest {
         Foo fooClass = new Foo();
         Method barMethod = fooClass.getClass().getMethod("fooMethod", String.class);
         Pair<MessageListener, ListeningInformation> pair = Pair.of(SpringBeanMessageListener.of(fooClass, barMethod),
-                ListeningInformation.of(ANY_SERVER, ANY_QUEUE_NAME));
+                ListeningInformation.of(ANY_SERVER, ANY_QUEUE_NAME, DeletionPolicy.ALWAYS));
 
         sut = new SpringBeanMessageListenerDetector(Map.of("someClass", new Foo()), config);
         given(config.getServerBaseUrl()).willReturn(ANY_SERVER);
@@ -75,7 +76,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @ZolaConsumer
     static class Baz {
-        @ZolaMessageListener(queueName = "")
+        @ZolaMessageListener(queueName = "", deletionPolicy = DeletionPolicy.ALWAYS)
         public void bazMethod(String message) {
         }
     }
@@ -90,7 +91,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @ZolaConsumer
     static class Qux {
-        @ZolaMessageListener(queueName = "ANY_QUEUE_NAME")
+        @ZolaMessageListener(queueName = "ANY_QUEUE_NAME", deletionPolicy = DeletionPolicy.ALWAYS)
         public void quxMethod() {
         }
     }
@@ -105,7 +106,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     @ZolaConsumer
     static class Qux2 {
-        @ZolaMessageListener(queueName = "ANY_QUEUE_NAME")
+        @ZolaMessageListener(queueName = "ANY_QUEUE_NAME", deletionPolicy = DeletionPolicy.ALWAYS)
         public void qux2Method(int message) {
         }
     }

@@ -25,7 +25,7 @@ public class ZolaMessageListeningProcessor {
         while (true) {
             taskExecutor.executeAll(tasks);
             try {
-                Thread.sleep(5000);
+                Thread.sleep(500);
             } catch (Exception e) {
                 e.printStackTrace();
             }

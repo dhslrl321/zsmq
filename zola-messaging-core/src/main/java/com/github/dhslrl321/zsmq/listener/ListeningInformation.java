@@ -6,4 +6,5 @@ import lombok.Value;
 public class ListeningInformation {
     String server;
     String queueName;
+    DeletionPolicy deletionPolicy;
 }

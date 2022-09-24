@@ -44,7 +44,7 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
                     }
 
                     pairs.add(Pair.of(SpringBeanMessageListener.of(o, method),
-                            ListeningInformation.of(config.getServerBaseUrl(), annotation.queueName())));
+                            ListeningInformation.of(config.getServerBaseUrl(), annotation.queueName(), annotation.deletionPolicy())));
                 }
             }
         }

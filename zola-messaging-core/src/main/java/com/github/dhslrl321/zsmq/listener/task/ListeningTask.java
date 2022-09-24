@@ -1,6 +1,7 @@
 package com.github.dhslrl321.zsmq.listener.task;
 
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
+import com.github.dhslrl321.zsmq.listener.DeletionPolicy;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
 import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.listener.strategy.ListeningStrategy;
@@ -19,12 +20,15 @@ public class ListeningTask implements Runnable {
     @Override
     public void run() {
         String queueName = listeningInformation.getQueueName();
-        ZolaMessage message = strategy.peek(listeningInformation.getServer(), queueName);
+        String server = listeningInformation.getServer();
+
+        ZolaMessage message = strategy.peek(server, queueName);
         if (message == null) {
-            // TODO do nothing
             return;
         }
         listener.listen(message.getPayload().getValue());
-        // strategy.ack(queueName);
+        if (listeningInformation.getDeletionPolicy().equals(DeletionPolicy.ALWAYS)) {
+            strategy.ack(listeningInformation.getServer(), queueName);
+        }
     }
 }

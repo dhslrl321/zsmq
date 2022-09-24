@@ -9,6 +9,7 @@ import com.github.dhslrl321.zsmq.core.queue.ZolaQueueContainer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,9 +31,9 @@ public class CommandQueueController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse("message add success"));
     }
 
-    @PatchMapping("/queues/{name}/acknowledge")
+    @DeleteMapping("/queues/{name}/acknowledge")
     public ResponseEntity<SimpleResponse> ack(@PathVariable String name) {
         container.popBy(QueueName.of(name));
-        return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse("ack success"));
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new SimpleResponse("ack success"));
     }
 }

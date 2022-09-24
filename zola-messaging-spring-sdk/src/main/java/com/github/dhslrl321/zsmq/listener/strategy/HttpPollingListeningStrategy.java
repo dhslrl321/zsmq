@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HttpPollingListeningStrategy implements ListeningStrategy {
 
-    private final ZolaHttpClient httpClient = new ZolaHttpClient();
+    private ZolaHttpClient httpClient = new ZolaHttpClient();
 
     @Override
     public ZolaMessage peek(String server, String queueName) {
@@ -23,6 +23,10 @@ public class HttpPollingListeningStrategy implements ListeningStrategy {
 
     @Override
     public boolean ack(String server, String queueName) {
-        return false;
+        return httpClient.acknowledgement(server, queueName);
+    }
+
+    protected void setHttpClient(ZolaHttpClient fakeHttpClient) {
+        httpClient = fakeHttpClient;
     }
 }

@@ -71,7 +71,26 @@ public class ZolaHttpClient {
         }
     }
 
-    public boolean acknowledgement() {
-        return false;
+    public boolean acknowledgement(String baseUrl, String queueName) {
+        Request request = new Builder()
+                .url(baseUrl + "/api/queues/" + queueName + "/acknowledge")
+                .delete()
+                .build();
+        Call call = http.newCall(request);
+        try {
+            Response response = call.execute();
+            int code = response.code();
+            if (NO_CONTENT != code) {
+                throw new ZolaServerConnectionFailedException("exception occurred while ack request");
+            }
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ZolaServerConnectionFailedException("exception occurred while sending message");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IllegalStateException(
+                    "unexpected exception occurred while communicate with zola messaging server");
+        }
     }
 }
