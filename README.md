@@ -8,8 +8,8 @@ And it's not suitable for production at all.
 
 - **Low performance!!**
 - High Productivity
-- Easy to learn
-- Ready-to-use
+- Easy-to-use
+- Easy-to-learn
 
 # Quick Start
 
