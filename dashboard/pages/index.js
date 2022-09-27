@@ -1,4 +1,4 @@
-import TableContainer from "../components/table/container";
+import TableContainer from "../components/queue-table/container";
 
 const Home = () => {
   return (

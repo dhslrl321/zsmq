@@ -18,7 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Typography from '@mui/material/Typography';
 
-import DeleteQueueModal from "../../dialog";
+import DeleteQueueModal from "../../dialog/presenter";
 
 const drawerWidth = 240;
 
@@ -50,7 +50,7 @@ function ResponsiveDrawer({window, children}) {
   const drawer = (
     <div>
       <DeleteQueueModal
-        open={deleteQueueModalOpen}
+        open={createQueueModalOpen}
         handleClickOpen={handleCreateQueueModalOpen}
         handleClose={handleCreateQueueModalClose}
         title="Create Queue"

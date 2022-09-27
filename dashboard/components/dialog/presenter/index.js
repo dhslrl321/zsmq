@@ -25,7 +25,7 @@ export default function Modal({open, handleClickOpen, handleClose, title, conten
             margin="dense"
             id="name"
             label="QUEUE-NAME"
-            type="email"
+            type="text"
             fullWidth
             variant="standard"
           />
