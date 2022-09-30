@@ -20,7 +20,9 @@ import Typography from '@mui/material/Typography';
 
 import CommandQueueModal from "../../command-dialog/presenter";
 import {useState} from "react";
-import {createQueueAPI} from "../../../api-service/command-queue-service";
+import {createQueueAPI, deleteQueueAPI} from "../../../api-service/command-queue-service";
+import {ERROR_BAD_REQUEST, ERROR_NOT_FOUND} from "../../../commons/constants";
+import {regexNumberAndEnglishAndHyphen} from "../../../commons/validator";
 
 const drawerWidth = 240;
 
@@ -34,6 +36,7 @@ function ResponsiveDrawer({window, children}) {
     setCreateQModalOpen(true);
   };
   const handleCreateQModalClose = () => {
+    setCreateQModalInput('');
     setCreateQModalOpen(false);
   };
   const handleChangeCreateQModalInput = (e) => {
@@ -41,7 +44,12 @@ function ResponsiveDrawer({window, children}) {
     setCreateQModalInput(value);
   }
   const handleOnClickCreate = async () => {
-    await createQueueAPI(createQModalInput);
+    if (!regexNumberAndEnglishAndHyphen(createQModalInput)) {
+      alert('❌ Error! \nQueue Name must be present and under 40 length, \nTry Again!!');
+      return;
+    }
+    const res = await createQueueAPI(createQModalInput);
+    setCreateQModalInput('');
     handleCreateQModalClose();
   }
 
@@ -52,11 +60,24 @@ function ResponsiveDrawer({window, children}) {
     setDeleteQueueModalOpen(true);
   };
   const handleDeleteQModalClose = () => {
+    setDeleteQModalInput('');
     setDeleteQueueModalOpen(false);
   };
   const handleChangeDeleteQModalInput = (e) => {
     const {value} = e.target;
     setDeleteQModalInput(value);
+  }
+  const handleOnClickDelete = async () => {
+    if (!regexNumberAndEnglishAndHyphen(deleteQModalInput)) {
+      alert('❌ Error! \nQueue Name must be present and under 40 length, \nTry Again!!');
+      return;
+    }
+    const res = await deleteQueueAPI(deleteQModalInput);
+    if (res === ERROR_NOT_FOUND) {
+      alert(`❌ Error! \n[${deleteQModalInput}] Queue Not Found \nTry Again!!`);
+    }
+    setDeleteQModalInput('');
+    handleDeleteQModalClose();
   }
 
   const handleDrawerToggle = () => {
@@ -73,7 +94,7 @@ function ResponsiveDrawer({window, children}) {
         content="생성할 큐의 이름을 입력하세요. 알파벳, 한글, -, 숫자만 가능합니다"
         text={createQModalInput}
         onChangeInput={handleChangeCreateQModalInput}
-        onClickCreate={handleOnClickCreate}
+        onClickSubmit={handleOnClickCreate}
       />
 
       <CommandQueueModal
@@ -83,7 +104,8 @@ function ResponsiveDrawer({window, children}) {
         title="Delete Queue"
         content="삭제할 큐의 이름을 입력하세요. 알파벳, 한글, -, 숫자만 가능합니다"
         text={deleteQModalInput}
-        onChange={handleChangeDeleteQModalInput}
+        onChangeInput={handleChangeDeleteQModalInput}
+        onClickSubmit={handleOnClickDelete}
       />
       <Divider/>
       <List>

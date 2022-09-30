@@ -8,6 +8,7 @@ import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.core.message.ZolaPayload;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ZolaQueueContainerTest {
@@ -15,7 +16,12 @@ class ZolaQueueContainerTest {
     public static final QueueName FOO_QUEUE_NAME = QueueName.of("foo");
     public static final ZolaSimpleQueue FOO_ZOLA_QUEUE = ZolaSimpleQueue.newInstance(FOO_QUEUE_NAME);
 
-    ZolaQueueContainer sut = new ZolaQueueContainer();
+    ZolaQueueContainer sut;
+
+    @BeforeEach
+    void setUp() {
+        sut = new ZolaQueueContainer();
+    }
 
     @Test
     void name() {
@@ -57,5 +63,36 @@ class ZolaQueueContainerTest {
     void throw_when_not_exist() {
         assertThatThrownBy(() -> sut.peekBy(FOO_QUEUE_NAME))
                 .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    void isContain_by_name() {
+        sut.register(ZolaSimpleQueue.newInstance(QueueName.of("Q_NAME")));
+
+        boolean actual = sut.contains("Q_NAME");
+
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void isContain_by_name_not_exist() {
+        boolean actual = sut.contains("Q_NAME");
+
+        assertThat(actual).isFalse();
+    }
+
+    @Test
+    void remove() {
+        sut.register(ZolaSimpleQueue.newInstance(QueueName.of("Q-NAME")));
+        assertThat(sut.size()).isEqualTo(1);
+
+        sut.removeBy("Q-NAME");
+        assertThat(sut.size()).isEqualTo(0);
+    }
+
+    @Test
+    void remove_fail() {
+        assertThatThrownBy(() -> sut.removeBy("Q-NAME"))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

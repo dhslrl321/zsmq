@@ -42,6 +42,10 @@ public class ZolaQueueContainer {
         get(queueName).pop();
     }
 
+    public boolean contains(String queueName) {
+        return registered.containsKey(QueueName.of(queueName));
+    }
+
     protected ZolaQueue get(QueueName queueName) {
         throwWhenNotExist(queueName);
         return registered.get(queueName);
@@ -63,5 +67,12 @@ public class ZolaQueueContainer {
 
     private QueueInfo getInfoBy(ZolaQueue zolaQueue) {
         return QueueInfo.of(zolaQueue.getName().getValue(), zolaQueue.size(), zolaQueue.getCreatedAt());
+    }
+
+    public void removeBy(String queueName) {
+        if (!contains(queueName)) {
+            throw new IllegalArgumentException("queue not found");
+        }
+        registered.remove(QueueName.of(queueName));
     }
 }
