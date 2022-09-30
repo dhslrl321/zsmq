@@ -7,8 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function Modal({open, handleClickOpen, handleClose, title, content}) {
-
+export default function Modal({open, handleClickOpen, handleClose, title, content, text, onChangeInput, onClickCreate}) {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -28,11 +27,13 @@ export default function Modal({open, handleClickOpen, handleClose, title, conten
             type="text"
             fullWidth
             variant="standard"
+            value={text}
+            onChange={onChangeInput}
           />
         </DialogContent>
         <DialogActions>
           <Button style={{color: 'gray'}} onClick={handleClose}>Cancel</Button>
-          <Button style={{color: 'green'}} onClick={handleClose}>Create</Button>
+          <Button style={{color: 'green'}} onClick={onClickCreate}>{title}</Button>
         </DialogActions>
       </Dialog>
     </div>

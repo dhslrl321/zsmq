@@ -18,30 +18,46 @@ import Toolbar from '@mui/material/Toolbar';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Typography from '@mui/material/Typography';
 
-import DeleteQueueModal from "../../dialog/presenter";
+import CommandQueueModal from "../../command-dialog/presenter";
+import {useState} from "react";
+import {createQueueAPI} from "../../../api-service/command-queue-service";
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer({window, children}) {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [deleteQueueModalOpen, setDeleteQueueModalOpen] = React.useState(false);
-  const [createQueueModalOpen, setCreateQueueModalOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const handleCreateQueueModalOpen = () => {
-    setCreateQueueModalOpen(true);
+  // create queue modal
+  const [createQModalOpen, setCreateQModalOpen] = useState(false);
+  const [createQModalInput, setCreateQModalInput] = useState('');
+  const handleCreateQModalOpen = () => {
+    setCreateQModalOpen(true);
   };
-
-  const handleCreateQueueModalClose = () => {
-    setCreateQueueModalOpen(false);
+  const handleCreateQModalClose = () => {
+    setCreateQModalOpen(false);
   };
+  const handleChangeCreateQModalInput = (e) => {
+    const {value} = e.target;
+    setCreateQModalInput(value);
+  }
+  const handleOnClickCreate = async () => {
+    await createQueueAPI(createQModalInput);
+    handleCreateQModalClose();
+  }
 
-  const handleDeleteQueueModalOpen = () => {
+  // delete queue modal
+  const [deleteQueueModalOpen, setDeleteQueueModalOpen] = useState(false);
+  const [deleteQModalInput, setDeleteQModalInput] = useState('');
+  const handleDeleteQModalOpen = () => {
     setDeleteQueueModalOpen(true);
   };
-
-  const handleDeleteQueueModalClose = () => {
+  const handleDeleteQModalClose = () => {
     setDeleteQueueModalOpen(false);
   };
+  const handleChangeDeleteQModalInput = (e) => {
+    const {value} = e.target;
+    setDeleteQModalInput(value);
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -49,20 +65,25 @@ function ResponsiveDrawer({window, children}) {
 
   const drawer = (
     <div>
-      <DeleteQueueModal
-        open={createQueueModalOpen}
-        handleClickOpen={handleCreateQueueModalOpen}
-        handleClose={handleCreateQueueModalClose}
+      <CommandQueueModal
+        open={createQModalOpen}
+        handleClickOpen={handleCreateQModalOpen}
+        handleClose={handleCreateQModalClose}
         title="Create Queue"
         content="생성할 큐의 이름을 입력하세요. 알파벳, 한글, -, 숫자만 가능합니다"
+        text={createQModalInput}
+        onChangeInput={handleChangeCreateQModalInput}
+        onClickCreate={handleOnClickCreate}
       />
 
-      <DeleteQueueModal
+      <CommandQueueModal
         open={deleteQueueModalOpen}
-        handleClickOpen={handleDeleteQueueModalOpen}
-        handleClose={handleDeleteQueueModalClose}
+        handleClickOpen={handleDeleteQModalOpen}
+        handleClose={handleDeleteQModalClose}
         title="Delete Queue"
         content="삭제할 큐의 이름을 입력하세요. 알파벳, 한글, -, 숫자만 가능합니다"
+        text={deleteQModalInput}
+        onChange={handleChangeDeleteQModalInput}
       />
       <Divider/>
       <List>
@@ -77,7 +98,7 @@ function ResponsiveDrawer({window, children}) {
       </List>
       <Divider/>
       <List>
-        <ListItem key={'Create Queue'} disablePadding onClick={handleCreateQueueModalOpen}>
+        <ListItem key={'Create Queue'} disablePadding onClick={handleCreateQModalOpen}>
           <ListItemButton>
             <ListItemIcon>
               <AddCircleOutlineIcon/>
@@ -85,7 +106,7 @@ function ResponsiveDrawer({window, children}) {
             <ListItemText primary={'Create Queue'}/>
           </ListItemButton>
         </ListItem>
-        <ListItem key={'Delete Queue'} disablePadding onClick={handleDeleteQueueModalOpen}>
+        <ListItem key={'Delete Queue'} disablePadding onClick={handleDeleteQModalOpen}>
           <ListItemButton>
             <ListItemIcon>
               <DeleteForeverIcon/>

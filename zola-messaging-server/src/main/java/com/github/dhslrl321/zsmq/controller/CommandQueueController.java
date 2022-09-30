@@ -9,6 +9,7 @@ import com.github.dhslrl321.zsmq.core.queue.ZolaQueueContainer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class CommandQueueController {
 
     private final ZolaQueueContainer container;

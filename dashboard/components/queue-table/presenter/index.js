@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 
 import * as S from "./styles";
 
-export default function BasicTable({rows}) {
+export default function BasicTable({queues}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 650}} aria-label="simple table">
@@ -22,19 +22,20 @@ export default function BasicTable({rows}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {queues.map((queue) => (
             <TableRow
-              key={row.name}
+              key={queue.name}
               sx={{'&:last-child td, &:last-child th': {border: 0}}}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {queue.name}
               </TableCell>
-              <TableCell align="right">{row.messagesAvailable}</TableCell>
-              <TableCell align="right">{row.createdAt}</TableCell>
+              <TableCell align="right">{queue.messagesAvailable}</TableCell>
+              <TableCell align="right">{queue.created}</TableCell>
               <TableCell align="right">
                 <S.DotContainer>
-                  {row.health ? <S.GreenDot /> : <S.RedDot />}
+                  {/*{queue.health ? <S.GreenDot /> : <S.RedDot />}*/}
+                  <S.GreenDot/>
                 </S.DotContainer>
               </TableCell>
             </TableRow>
