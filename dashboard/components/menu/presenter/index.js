@@ -91,7 +91,7 @@ function ResponsiveDrawer({window, children}) {
         handleClickOpen={handleCreateQModalOpen}
         handleClose={handleCreateQModalClose}
         title="Create Queue"
-        content="생성할 큐의 이름을 입력하세요. 알파벳, 한글, -, 숫자만 가능합니다"
+        content="Enter the queue name to create. Only A-Z,a-z, -, number"
         text={createQModalInput}
         onChangeInput={handleChangeCreateQModalInput}
         onClickSubmit={handleOnClickCreate}
@@ -102,7 +102,7 @@ function ResponsiveDrawer({window, children}) {
         handleClickOpen={handleDeleteQModalOpen}
         handleClose={handleDeleteQModalClose}
         title="Delete Queue"
-        content="삭제할 큐의 이름을 입력하세요. 알파벳, 한글, -, 숫자만 가능합니다"
+        content="Enter the queue name to delete. Only A-Z,a-z, -, number"
         text={deleteQModalInput}
         onChangeInput={handleChangeDeleteQModalInput}
         onClickSubmit={handleOnClickDelete}

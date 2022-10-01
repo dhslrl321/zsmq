@@ -8,11 +8,15 @@
 
 # ZSMQ
 
-This is an **Zola Simple Message queue (ZSMQ)** based on a Java that can be used in various places.
+ZSMQ (Zola Simple Message Queue) is a very simple message queue created in java.
 
-And it's not suitable for production at all.
+> 'zola' is a korean slang. It means 'utterly', 'extremely', 'super', 'very'
 
-#### ZSMQs main goals are
+ZSMQ can be used in a variety of situations, except in the operating environment.
+
+ZSMQ is the best choice if you don't consider performance.
+
+### ZSMQs main goals are
 
 - **Low performance!!**
 - High Productivity
@@ -21,35 +25,53 @@ And it's not suitable for production at all.
 
 # Quick Start
 
-Since zsmq is a fast and easy-to-use system, we aim for minimal configuration.
+ZSMQ is **fast** and **easy to use**, so we aim to **minimize** the configuration.
+
+> Check [example](https://github.com/dhslrl321/zsmq-example) to see the detailed configuration; there is a simple example using zsmq.
 
 You can quickly create a great message queue by following these steps!
 
-1. run messaging server
+1. messaging server 와 dashboard 실행
 2. gradle dependency
 3. configure property
 4. Just U.S.E it!!
 
-## 1. run messaging server
+## 1. messaging server 와 dashboard 실행
 
-You can easily run Zola (ZSMQ) server using docker
+ZSMQ provides two components:
+
+Both of the following components must be run
+
+1. Messaging Server
+2. Message Server Dashboard
+
+The **Messaging Server** manages the MQ. The destination to publish and subscribe to a message is **Messaging Server**.
+
+The **dashboard** provides a view of the server. Describe the message queue and crreate/delete the MQ.
+
+#### You can easily run Zola (ZSMQ) server using docker
 
 ```shell
 docker run --rm -d -p 8290:3000 dhslrl321/zsmq:dashboard.0.1.0
 docker run --rm -d -p 8291:8291 dhslrl321/zsmq:server.0.1.0
 ```
 
-You can use custom port, but **8291** is recommended because there may be a port conflict.
+> messaging server and dashboard's port must be 8290, 8291 ! If you need to change the port, please raise it to issue.
 
 ## 2. gradle dependency
 
-We provide a spring boot starter so that you can skip the complicated process and set it up easily.
+Two dependencies are required to use zsmq.
+
+1. zola-messaging-core
+2. zola-messaging-spring-sdk
+
+When used with spring framework, You can manually add dependencies one by one.
+
+#### However, We provide a `spring-boot-starter` so that you can skip the complicated process and set it up easily.
 
 It can be downloaded from the [jitpack](https://jitpack.io/#dhslrl321/zsmq) repository.
 
-You can manually set bin without using the spring boot starter.
-
-Check the [reference guide](https://github.com/dhslrl321/zsmq/wiki/Reference-Guide) for more information
+Add the following blocks to `build.gradle`
 
 ```groovy
 repositories {
@@ -62,21 +84,40 @@ dependencies {
 }
 ```
 
+You can manually set bin without using the spring boot starter.
+
+Check the [reference guide](https://github.com/dhslrl321/zsmq/wiki/Reference-Guide) for more information
+
 ## 3. configure property
 
-The url of the Zola Messaging Server must be specified in application.yml.
+Finally, The url of the Zola Messaging Server must be specified in `application.yml`
 
 ```yaml
 zsmq:
   url: http://localhost:8291
+  listening: false
 ```
+
+- `zsmq.url` : The **Messaging Server** url that manages the MQ.
+- `zsmq.listening` : Decide whether to register the listening thread automatically or not.
+  - The listener thread is used when consuming.
 
 ## 4. Just U.S.E it !
 
+Now you are done with all settings
+
 You have to use it as it is.
 
-- If you want to publish a message, please use `ZolaQueueMessagingTemplate`.
-- If you want to consume a message, please use '@ZolaConsumer' and `@ZolaMessageListener`
+#### 1. Open the dashboard, Create a queue. If you are setting properly just go into `localhost:8290`
+
+<img width="1432" alt="image" src="https://user-images.githubusercontent.com/48385288/193419660-c2eff6c0-470a-4602-8b26-18bfda08b18c.png">
+
+<img width="1432" alt="image" src="https://user-images.githubusercontent.com/48385288/193419674-e033cb1a-8594-46ca-a020-7a11ce534c1c.png">
+
+#### 2. write the code in your application
+
+- If you want to **publish a message**, please use `ZolaQueueMessagingTemplate`.
+- If you want to **consume a message**, please use '@ZolaConsumer' and `@ZolaMessageListener`
 
 ### publish message
 
@@ -94,6 +135,8 @@ public class MessageProducer {
 
 ### consume message
 
+The 'zsmq.listening' attribute must be true when consuming a message.
+
 ```java
 @Component
 @ZolaConsumer
@@ -105,6 +148,8 @@ public class MyConsumer {
     }
 }
 ```
+
+> Check [example](https://github.com/dhslrl321/zsmq-example) to see the detailed configuration; there is a simple example using zsmq.
 
 # Motivation
 
@@ -119,5 +164,3 @@ It was a very tough time just to perform convertAndSend.
 So I decided to **create a server** that has **low performance** but **highly productive** message queue.
 
 This is the beginning of zsmq.
-
-> 'zola' is a korean slang. It means 'utterly', 'extremely', 'super', 'very'

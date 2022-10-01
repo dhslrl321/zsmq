@@ -10,6 +10,8 @@
 
 ZSMQ 는 java 로 개발된 **졸라 간단한 메시지 큐, Zola Simple Message Queue** 입니다.
 
+> 'zola' is a korean slang. It means 'utterly', 'extremely', 'super', 'very'
+
 ZSMQ 는 운영 환경이 아닌 다양한 곳에서 사용될 수 있습니다.
 
 성능은 중요하지 않지만 아주 간단한 메시지 큐가 필요할 때 zsmq 는 최고의 선택입니다.
@@ -24,6 +26,8 @@ ZSMQ 는 운영 환경이 아닌 다양한 곳에서 사용될 수 있습니다.
 # Quick Start
 
 ZSMQ 는 빠르고 쉽게 사용할 수 있는 시스템이기 때문에 최소한의 설정을 목표로 합니다.
+
+> 자세한 설정들을 확인하시려면 [example](https://github.com/dhslrl321/zsmq-example) 을 확인하세요. zsmq 를 이용한 간단한 예제가 존재합니다.
 
 아래의 4가지 단계만 거치면 쉽게 메시지 큐 서버 하나를 사용할 수 있습니다.
 
@@ -48,9 +52,11 @@ zsmq 는 두가지 컴포넌트를 제공합니다.
 dashboard 는 messaging server 에 대한 view 를 제공합니다. 메시지 큐를 확인하고 메시지 큐를 생성/삭제합니다.
 
 ```shell
-docker run --rm -d -p 8290:3000 dhslrl321/zsmq:dashboard.0.1.0
-docker run --rm -d -p 8291:8291 dhslrl321/zsmq:server.0.1.0
+docker run --rm -d -p 8290:3000 dhslrl321/zsmq:dashboard.1.0.0
+docker run --rm -d -p 8291:8291 dhslrl321/zsmq:server.1.0.0
 ```
+
+> 만약 포트를 변경해야 하는 일이 생긴다면 issue 에 추가해주세요
 
 ## 2. gradle 의존성 추가
 
@@ -74,7 +80,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.dhslrl321.zsmq:zola-messaging-sprint-boot-starter:${version}'
+    implementation 'com.github.dhslrl321.zsmq:zola-messaging-sprint-boot-starter:1.0.0'
 }
 ```
 
@@ -91,13 +97,22 @@ zsmq:
 ```
 
 - `zsmq.url` : 메시지 큐를 관리하는 메시징 서버 주소입니다.
-- `zsmq.listening-auto-configure` : 리스닝 스레드를 자동으로 등록할지 말지 결정합니다
+- `zsmq.listening` : 리스닝 스레드를 자동으로 등록할지 말지 결정합니다
+  - 리스너 스레드는 consuming 할 때 사용됩니다.
 
 ## 4. 걍 쓰세요!
 
 이제 모든 설정은 끝났습니다.
 
 그냥 사용하세요!
+
+#### 1. dashboard 에 들어가서 큐를 하나 생성하세요. 설정을 제대로 마쳤다면 `localhost:8290` 로 들어가면 됩니다.
+
+<img width="1432" alt="image" src="https://user-images.githubusercontent.com/48385288/193419660-c2eff6c0-470a-4602-8b26-18bfda08b18c.png">
+
+<img width="1432" alt="image" src="https://user-images.githubusercontent.com/48385288/193419674-e033cb1a-8594-46ca-a020-7a11ce534c1c.png">
+
+#### 2. 애플리케이션을 개발하세요
 
 - 만약 **메시지를 publish** 하고싶다면 `ZolaQueueMessagingTemplate` 를 사용하면 됩니다.
 - 만약 **메시지를 consume** 하고싶다면 `@ZolaConsumer` 와 `@ZolaMessageListener` 어노테이션을 사용하면 됩니다.
@@ -116,6 +131,8 @@ public class MessageProducer {
 
 ### consume message
 
+message 를 consume 할 때는 `zsmq.listening` 속성이 true 여야 합니다.
+
 ```java
 @Component
 @ZolaConsumer
@@ -127,6 +144,8 @@ public class MyConsumer {
     }
 }
 ```
+
+> 자세한 설정들을 확인하시려면 [example](https://github.com/dhslrl321/zsmq-example) 을 확인하세요. zsmq 를 이용한 간단한 예제가 존재합니다.
 
 # Motivation
 
