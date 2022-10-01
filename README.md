@@ -2,7 +2,7 @@
 
 #### [home (engish version)](https://github.com/dhslrl321/zsmq)
 
-#### [korean version docs](https://github.com/dhslrl321/cqrs-journey-korean-ver/blob/master/Table%20of%20Contents.mdwn)
+#### [korean version docs](https://github.com/dhslrl321/zsmq/blob/main/README-kor.md)
 
 </div>
 
