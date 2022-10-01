@@ -1,6 +1,14 @@
+<div align="center">
+
+#### [home (engish version)](https://github.com/dhslrl321/zsmq)
+
+#### [korean version docs](https://github.com/dhslrl321/cqrs-journey-korean-ver/blob/master/Table%20of%20Contents.mdwn)
+
+</div>
+
 # ZSMQ
 
-This is an **Zola Simple Message queue (ZSMQ)** based on a SpringBoot that can be used in various places.
+This is an **Zola Simple Message queue (ZSMQ)** based on a Java that can be used in various places.
 
 And it's not suitable for production at all.
 
@@ -27,7 +35,8 @@ You can quickly create a great message queue by following these steps!
 You can easily run Zola (ZSMQ) server using docker
 
 ```shell
-docker run -d -p [port]:8291 dhslrl321/zsmq
+docker run --rm -d -p 8290:3000 dhslrl321/zsmq:dashboard.0.1.0
+docker run --rm -d -p 8291:8291 dhslrl321/zsmq:server.0.1.0
 ```
 
 You can use custom port, but **8291** is recommended because there may be a port conflict.
@@ -44,7 +53,7 @@ Check the [reference guide](https://github.com/dhslrl321/zsmq/wiki/Reference-Gui
 
 ```groovy
 repositories {
-    // ... other maven repository 
+    // ... other maven repository
     maven { url 'https://jitpack.io' }
 }
 
@@ -52,8 +61,6 @@ dependencies {
     implementation 'com.github.dhslrl321.zsmq:zola-messaging-sprint-boot-starter:${version}'
 }
 ```
-
-
 
 ## 3. configure property
 
@@ -113,4 +120,4 @@ So I decided to **create a server** that has **low performance** but **highly pr
 
 This is the beginning of zsmq.
 
-> 'zola' is a korean slang. It means 'utterly', 'extremely', 'super', 'very' 
+> 'zola' is a korean slang. It means 'utterly', 'extremely', 'super', 'very'
