@@ -4,4 +4,6 @@ WORKDIR /server
 
 COPY ../zola-messaging-server/build/libs/zola-messaging-server-0.1.0.jar server.jar
 
+EXPOSE 8291
+
 ENTRYPOINT ["java", "-jar", "server.jar"]
