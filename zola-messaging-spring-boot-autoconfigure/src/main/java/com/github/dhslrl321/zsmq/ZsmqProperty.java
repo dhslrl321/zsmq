@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "zsmq")
 public class ZsmqProperty {
     private String url;
-    private boolean listening = false;
+    private boolean listening;
 
     public boolean isListening() {
         return listening;

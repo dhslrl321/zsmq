@@ -31,12 +31,12 @@ ZSMQ is **fast** and **easy to use**, so we aim to **minimize** the configuratio
 
 You can quickly create a great message queue by following these steps!
 
-1. messaging server 와 dashboard 실행
+1. run messaging server and dashboard
 2. gradle dependency
 3. configure property
 4. Just U.S.E it!!
 
-## 1. messaging server 와 dashboard 실행
+## 1. run messaging server and dashboard
 
 ZSMQ provides two components:
 
