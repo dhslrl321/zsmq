@@ -19,7 +19,6 @@ public class OrderController {
     @PostMapping("/orders")
     public ResponseEntity<Result> order(@RequestBody CreateOrderCommand command) {
         try {
-
             service.order(command);
             return ResponseEntity.ok().body(Result.of(1, "order success"));
         } catch (Exception e) {

@@ -11,6 +11,7 @@ import com.github.dhslrl321.zsmq.listener.task.ListeningTaskExecutor;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
 import com.github.dhslrl321.zsmq.listener.task.ThreadPoolListeningExecutor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -39,11 +40,40 @@ public class ZsmqAutoconfiguration {
     @ConditionalOnMissingBean
     public ZolaMessageListeningProcessor container(ApplicationContext applicationContext,
                                                    ZolaClientConfig zolaClientConfig) {
-        MessageListenerDetector detector = new SpringBeanMessageListenerDetector(
+        ZolaMessageListeningProcessor zolaMessageListeningProcessor = newProcessor(
+                newDetector(applicationContext, zolaClientConfig),
+                newExecutor(),
+                newTaskFactory()
+        );
+        doProcessIfListening(zolaMessageListeningProcessor);
+        return zolaMessageListeningProcessor;
+    }
+
+    private void doProcessIfListening(ZolaMessageListeningProcessor zolaMessageListeningProcessor) {
+        if (property.isListening()) {
+            zolaMessageListeningProcessor.doProcess();
+        }
+    }
+
+    private ZolaMessageListeningProcessor newProcessor(MessageListenerDetector detector,
+                                                                           ListeningTaskExecutor taskExecutor,
+                                                                           ListeningTaskFactory taskFactory) {
+        return new ZolaMessageListeningProcessor(detector,
+                taskFactory, taskExecutor);
+    }
+
+    private ListeningTaskFactory newTaskFactory() {
+        return new ListeningTaskFactory();
+    }
+
+    private ThreadPoolListeningExecutor newExecutor() {
+        return new ThreadPoolListeningExecutor();
+    }
+
+    private SpringBeanMessageListenerDetector newDetector(ApplicationContext applicationContext,
+                                                          ZolaClientConfig zolaClientConfig) {
+        return new SpringBeanMessageListenerDetector(
                 applicationContext.getBeansWithAnnotation(ZolaConsumer.class), zolaClientConfig);
-        ListeningTaskExecutor taskExecutor = new ThreadPoolListeningExecutor();
-        ListeningTaskFactory taskFactory = new ListeningTaskFactory();
-        return new ZolaMessageListeningProcessor(detector, taskFactory, taskExecutor);
     }
 }
 

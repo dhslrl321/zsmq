@@ -3,3 +3,4 @@ server:
 
 zsmq:
   url: http://localhost:8291
+  listening: true

@@ -58,7 +58,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.dhslrl321.zsmq:zola-messaging-sprint-boot-starter:${version}'
+    implementation 'com.github.dhslrl321.zsmq:zola-messaging-spring-boot-starter:${version}'
 }
 ```
 
