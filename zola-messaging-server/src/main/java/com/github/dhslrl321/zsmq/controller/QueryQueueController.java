@@ -27,7 +27,7 @@ public class QueryQueueController {
     public ResponseEntity<MessageModel> peekHead(@PathVariable String name) {
         ZolaMessage zolaMessage = container.peekBy(QueueName.of(name));
         if (Objects.isNull(zolaMessage)) {
-            return ResponseEntity.noContent().build();
+            return noContent();
         }
         return ResponseEntity.ok(ModelConverter.convert(zolaMessage));
     }
@@ -35,5 +35,9 @@ public class QueryQueueController {
     @GetMapping("/queues")
     public ResponseEntity<QueueDescribe> getQueues() {
         return ResponseEntity.ok(container.describe());
+    }
+
+    private ResponseEntity<MessageModel> noContent() {
+        return ResponseEntity.noContent().build();
     }
 }
