@@ -22,9 +22,6 @@ public class ListeningTask implements Runnable {
     public void run() {
         while(true) {
             ZolaMessage message = strategy.peek(listeningInfo);
-            if (Objects.isNull(message)) {
-                return;
-            }
             listener.listen(message.getPayload().getValue());
             handleAcknowledgement();
         }
