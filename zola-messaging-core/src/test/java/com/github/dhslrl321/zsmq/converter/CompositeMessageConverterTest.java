@@ -2,14 +2,10 @@ package com.github.dhslrl321.zsmq.converter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.dhslrl321.zsmq.SharedFixture;
-import com.github.dhslrl321.zsmq.commons.Serializer;
 import com.github.dhslrl321.zsmq.core.message.MediaTypes;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

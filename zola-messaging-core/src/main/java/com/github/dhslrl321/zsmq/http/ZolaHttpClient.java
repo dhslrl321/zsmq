@@ -1,8 +1,7 @@
 package com.github.dhslrl321.zsmq.http;
 
-import com.github.dhslrl321.zsmq.commons.Serializer;
+import com.github.dhslrl321.zsmq.commons.ZolaJsonSerializer;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import okhttp3.Call;
@@ -24,7 +23,7 @@ public class ZolaHttpClient {
     public boolean requestPush(String baseUrl, ZolaMessage message) {
         Request request = new Builder()
                 .url(baseUrl + "/api/messages")
-                .post(RequestBody.create(Serializer.serialize(message), JSON))
+                .post(RequestBody.create(ZolaJsonSerializer.serialize(message), JSON))
                 .build();
         Call call = http.newCall(request);
         try {
@@ -50,7 +49,8 @@ public class ZolaHttpClient {
             if (NO_CONTENT == response.code()) {
                 return Optional.empty();
             }
-            return Optional.of(Serializer.deserialize(Objects.requireNonNull(response.body()).string(), ZolaMessage.class));
+            return Optional.of(
+                    ZolaJsonSerializer.deserialize(Objects.requireNonNull(response.body()).string(), ZolaMessage.class));
         } catch (Exception e) {
             e.printStackTrace();
             throw new ZolaServerConnectionFailedException(

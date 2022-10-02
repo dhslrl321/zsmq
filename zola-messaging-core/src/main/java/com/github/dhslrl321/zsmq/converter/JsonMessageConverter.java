@@ -2,7 +2,7 @@ package com.github.dhslrl321.zsmq.converter;
 
 import static com.github.dhslrl321.zsmq.core.message.MediaTypes.JSON;
 
-import com.github.dhslrl321.zsmq.commons.Serializer;
+import com.github.dhslrl321.zsmq.commons.ZolaJsonSerializer;
 import com.github.dhslrl321.zsmq.core.message.MediaTypes;
 import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
@@ -15,7 +15,7 @@ class JsonMessageConverter implements MessageConverter {
     @Override
     public ZolaMessage toMessage(String queueName, Object payload) {
         ZolaHeader header = ZolaHeader.of(QueueName.of(queueName), LocalDateTime.now(), MediaTypes.JSON);
-        String serialized = Serializer.serialize(payload);
+        String serialized = ZolaJsonSerializer.serialize(payload);
         ZolaPayload zolaPayload = ZolaPayload.of(serialized);
         return ZolaMessage.of(header, zolaPayload);
     }

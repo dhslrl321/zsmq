@@ -1,5 +1,6 @@
 package com.github.dhslrl321.zsmq.commons;
 
+import com.github.dhslrl321.zsmq.exception.ZolaSerializeException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -13,7 +14,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Serializer {
+public class ZolaJsonSerializer {
     // TODO need memory optimization
     private static final Gson gson;
 
@@ -26,13 +27,20 @@ public class Serializer {
     }
 
     public static String serialize(Object object) {
-        return gson.toJson(object);
+        try {
+            return gson.toJson(object);
+        } catch (Exception e) {
+            throw new ZolaSerializeException(e.getMessage());
+        }
     }
 
     public static <T> T deserialize(String json, Class<T> clazz) {
-        return gson.fromJson(json, clazz);
+        try {
+            return gson.fromJson(json, clazz);
+        } catch (Exception e) {
+            throw new ZolaSerializeException(e.getMessage());
+        }
     }
-
 
     private static class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
         @Override

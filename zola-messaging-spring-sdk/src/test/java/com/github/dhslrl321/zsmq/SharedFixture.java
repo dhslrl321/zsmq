@@ -1,6 +1,6 @@
 package com.github.dhslrl321.zsmq;
 
-import com.github.dhslrl321.zsmq.commons.Serializer;
+import com.github.dhslrl321.zsmq.commons.ZolaJsonSerializer;
 import com.github.dhslrl321.zsmq.core.message.MediaTypes;
 import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
@@ -28,7 +28,7 @@ public class SharedFixture {
             MediaTypes.TEXT), ZolaPayload.of("hello"));
 
     public static final ZolaMessage ANY_JSON_MESSAGE = ZolaMessage.of(ZolaHeader.of(ANY_QUEUE_NAME, LocalDateTime.now(),
-            MediaTypes.JSON), ZolaPayload.of(Serializer.serialize(ANY_FOO_BEAN)));
+            MediaTypes.JSON), ZolaPayload.of(ZolaJsonSerializer.serialize(ANY_FOO_BEAN)));
 
     private static HashMap<String, Object> initBeans() {
         HashMap<String, Object> map = new HashMap<>();

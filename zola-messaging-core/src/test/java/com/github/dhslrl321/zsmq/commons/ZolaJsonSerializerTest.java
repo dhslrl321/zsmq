@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
-class SerializerTest {
+class ZolaJsonSerializerTest {
 
     @Data
     @AllArgsConstructor
