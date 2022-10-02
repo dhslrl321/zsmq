@@ -15,8 +15,9 @@ import okhttp3.Response;
 
 public class ZolaHttpClient {
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    private static final int CREATED = 201;
     private static final int NO_CONTENT = 204;
+    private static final int NOT_FOUND = 404;
+    private static final int BAD_REQUEST = 400;
 
     private final OkHttpClient http = new OkHttpClient();
 
@@ -28,17 +29,11 @@ public class ZolaHttpClient {
         Call call = http.newCall(request);
         try {
             Response execute = call.execute();
-            int code = execute.code();
-            if (CREATED == code) {
-                return true;
-            }
-            throw new ZolaServerConnectionFailedException("zola messaging server push failed!");
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ZolaServerConnectionFailedException("exception occurred while sending message");
+            validateResponse(execute.code(), message.getQueueNameValue());
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException(
+            throw new ZolaServerConnectionFailedException(
                     "unexpected exception occurred while communicate with zola messaging server");
         }
     }
@@ -51,23 +46,15 @@ public class ZolaHttpClient {
         Call call = http.newCall(request);
         try {
             Response response = call.execute();
-            int code = response.code();
-            if (200 == code) {
-                ZolaMessage message = Serializer.deserialize(Objects.requireNonNull(response.body()).string(),
-                        ZolaMessage.class);
-                return Optional.of(message);
-            } else if (NO_CONTENT == code) {
+            validateResponse(response.code(), queueName);
+            if (NO_CONTENT == response.code()) {
                 return Optional.empty();
             }
-            throw new ZolaServerConnectionFailedException(
-                    String.format("zola messaging server message push failed! queueName => [%s], server's code => [%s]",
-                            queueName, code));
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ZolaServerConnectionFailedException("exception occurred while sending message");
+            return Optional.of(Serializer.deserialize(Objects.requireNonNull(response.body()).string(), ZolaMessage.class));
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
+            throw new ZolaServerConnectionFailedException(
+                    "unexpected exception occurred while communicate with zola messaging server");
         }
     }
 
@@ -79,17 +66,30 @@ public class ZolaHttpClient {
         Call call = http.newCall(request);
         try {
             Response response = call.execute();
-            int code = response.code();
-            if (NO_CONTENT != code) {
-                throw new ZolaServerConnectionFailedException("exception occurred while ack request");
-            }
+            validateResponse(response.code(), queueName);
             return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ZolaServerConnectionFailedException("exception occurred while sending message");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException("unexpected exception occurred while communicate with zola messaging server");
+            throw new ZolaServerConnectionFailedException(
+                    "unexpected exception occurred while communicate with zola messaging server");
+        }
+    }
+
+    private void validateResponse(int code, String message) {
+        badRequest(code);
+        notFound(code, message);
+    }
+
+    private void notFound(int code, String queueName) {
+        if (NOT_FOUND == code) {
+            throw new ZolaServerCommunicationException(
+                    String.format("zola messaging server push failed! Queue Name [%s] was not found!", queueName));
+        }
+    }
+
+    private void badRequest(int code) {
+        if (BAD_REQUEST == code) {
+            throw new ZolaServerCommunicationException("zola messaging server push failed! with invalid request body data");
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.github.dhslrl321.zsmq.core.queue;
 
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
+import com.github.dhslrl321.zsmq.exception.QueueNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +13,7 @@ public class ZolaQueueContainer {
     private final Map<QueueName, ZolaQueue> registered = new HashMap<>();
 
     public void register(ZolaQueue queue) {
-        throwWhenNotExist(queue);
-
+        throwWhenDuplicated(queue);
         registered.put(queue.getName(), queue);
     }
 
@@ -27,19 +27,24 @@ public class ZolaQueueContainer {
     }
 
     public ZolaMessage peekBy(QueueName queueName) {
-        throwWhenNotExist(queueName);
+        throwWhenNotFound(queueName);
         return get(queueName).peek();
     }
 
     public void pushBy(ZolaMessage zolaMessage) {
         QueueName queueName = zolaMessage.getHeader().getQueueName();
-        throwWhenNotExist(queueName);
+        throwWhenNotFound(queueName);
         get(queueName).push(zolaMessage);
     }
 
     public void popBy(QueueName queueName) {
-        throwWhenNotExist(queueName);
+        throwWhenNotFound(queueName);
         get(queueName).pop();
+    }
+
+    public void removeBy(String queueName) {
+        throwWhenNotFound(QueueName.of(queueName));
+        registered.remove(QueueName.of(queueName));
     }
 
     public boolean contains(String queueName) {
@@ -47,18 +52,17 @@ public class ZolaQueueContainer {
     }
 
     protected ZolaQueue get(QueueName queueName) {
-        throwWhenNotExist(queueName);
+        throwWhenNotFound(queueName);
         return registered.get(queueName);
     }
 
-    private void throwWhenNotExist(QueueName queueName) {
+    private void throwWhenNotFound(QueueName queueName) {
         if (!registered.containsKey(queueName)) {
-            String msg = String.format("A queue [%s] is not registered.", queueName.getValue());
-            throw new NoSuchElementException(msg);
+            throw new QueueNotFoundException();
         }
     }
 
-    private void throwWhenNotExist(ZolaQueue queue) {
+    private void throwWhenDuplicated(ZolaQueue queue) {
         if (registered.containsKey(queue.getName())) {
             String message = String.format("A queue named [%s] already exists. ", queue.getName().getValue());
             throw new IllegalArgumentException(message);
@@ -67,12 +71,5 @@ public class ZolaQueueContainer {
 
     private QueueInfo getInfoBy(ZolaQueue zolaQueue) {
         return QueueInfo.of(zolaQueue.getName().getValue(), zolaQueue.size(), zolaQueue.getCreatedAt());
-    }
-
-    public void removeBy(String queueName) {
-        if (!contains(queueName)) {
-            throw new IllegalArgumentException("queue not found");
-        }
-        registered.remove(QueueName.of(queueName));
     }
 }

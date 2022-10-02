@@ -2,6 +2,7 @@ package com.github.dhslrl321.zsmq.controller.handler;
 
 import com.github.dhslrl321.zsmq.controller.model.SimpleResponse;
 import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
+import com.github.dhslrl321.zsmq.exception.QueueNotFoundException;
 import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,6 +21,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public SimpleResponse handle(NoSuchElementException e) {
+        return new SimpleResponse(e.getMessage());
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public SimpleResponse handle(QueueNotFoundException e) {
         return new SimpleResponse(e.getMessage());
     }
 
