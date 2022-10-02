@@ -27,13 +27,7 @@ class SpringBeanMessageListenerDetectorTest {
 
     SpringBeanMessageListenerDetector sut;
 
-    ListenerBeanFinder finder = mock(ListenerBeanFinder.class);
     ZolaClientConfig config = mock(ZolaClientConfig.class);
-
-    /*@BeforeEach
-    void setUp() {
-        sut = new SpringBeanMessageListenerDetector(finder, config);
-    }*/
 
     @EqualsAndHashCode
     @ZolaConsumer
