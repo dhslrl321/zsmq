@@ -1,0 +1,1 @@
+# Serializer 에 Singleton Idiom 적용하기

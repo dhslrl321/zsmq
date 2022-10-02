@@ -22,7 +22,6 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
 
     @SneakyThrows
     @Override
-    @Deprecated
     public List<Pair<MessageListener, ListeningInformation>> detect() {
         final List<Pair<MessageListener, ListeningInformation>> pairs = new ArrayList<>();
         for (Object o : beans.values()) {
@@ -31,17 +30,10 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
             for (Method method : methods) {
                 if (method.isAnnotationPresent(ZolaMessageListener.class)) {
                     ZolaMessageListener annotation = method.getAnnotation(ZolaMessageListener.class);
-                    if (annotation.queueName().isBlank() || method.getParameters().length == 0) {
-                        throw new InvalidUseOfZolaMessageListenerException("queueName should be not blank");
-                    }
+                    validateListenerAnnotation(method, annotation);
 
                     Class<?>[] parameterTypes = method.getParameterTypes();
-                    for (Class<?> parameterType : parameterTypes) {
-                        if (!parameterType.equals(String.class)) {
-                            throw new InvalidUseOfZolaMessageListenerException(
-                                    "listener method's parameter have to be String!");
-                        }
-                    }
+                    throwIfNotSupportParamType(parameterTypes);
 
                     pairs.add(Pair.of(SpringBeanMessageListener.of(o, method),
                             ListeningInformation.of(config.getServerBaseUrl(), annotation.queueName(), annotation.deletionPolicy())));
@@ -49,5 +41,20 @@ public class SpringBeanMessageListenerDetector implements MessageListenerDetecto
             }
         }
         return pairs;
+    }
+
+    private void throwIfNotSupportParamType(Class<?>[] parameterTypes) {
+        for (Class<?> parameterType : parameterTypes) {
+            if (!parameterType.equals(String.class)) {
+                throw new InvalidUseOfZolaMessageListenerException(
+                        "listener method's parameter have to be String!");
+            }
+        }
+    }
+
+    private void validateListenerAnnotation(Method method, ZolaMessageListener annotation) {
+        if (annotation.queueName().isBlank() || method.getParameters().length == 0) {
+            throw new InvalidUseOfZolaMessageListenerException("queueName should be not blank");
+        }
     }
 }

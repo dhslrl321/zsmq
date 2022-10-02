@@ -4,6 +4,8 @@
 
 #### [korean version docs](https://github.com/dhslrl321/zsmq/blob/main/README-kor.md)
 
+<a href="https://github.com/dhslrl321/zsmq/wiki/Getting-Started-(5min)---korean-ver">📗Getting Started</a> || <a href="https://github.com/dhslrl321/zsmq/wiki/ZSMQ's-Architecture">Overview</a> || <a href="https://github.com/dhslrl321/zsmq/wiki/Docs-(kor-ver)">Docs</a>
+
 </div>
 
 # ZSMQ
