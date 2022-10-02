@@ -1,0 +1,10 @@
+#!/bin/sh
+## TODO delete push 에 대해서는 skip
+## TODO 선택적 skip 기능
+
+if ! make test 2>&1 ; then
+    echo "Error while testing the code"
+    exit 1
+fi
+
+exit 0
