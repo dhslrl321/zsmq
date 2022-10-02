@@ -28,7 +28,7 @@ public class SharedFixture {
             MediaTypes.TEXT), ZolaPayload.of("hello"));
 
     public static final ZolaMessage ANY_JSON_MESSAGE = ZolaMessage.of(ZolaHeader.of(ANY_QUEUE_NAME, LocalDateTime.now(),
-            MediaTypes.JSON), ZolaPayload.of(ZolaJsonSerializer.serialize(ANY_FOO_BEAN)));
+            MediaTypes.JSON), ZolaPayload.of(ZolaJsonSerializer.getInstance().serialize(ANY_FOO_BEAN)));
 
     private static HashMap<String, Object> initBeans() {
         HashMap<String, Object> map = new HashMap<>();

@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
         return new SimpleResponse(e.getMessage());
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
+    @ExceptionHandler(QueueNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public SimpleResponse handle(QueueNotFoundException e) {
         return new SimpleResponse(e.getMessage());

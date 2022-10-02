@@ -15,7 +15,7 @@ class JsonMessageConverter implements MessageConverter {
     @Override
     public ZolaMessage toMessage(String queueName, Object payload) {
         ZolaHeader header = ZolaHeader.of(QueueName.of(queueName), LocalDateTime.now(), MediaTypes.JSON);
-        String serialized = ZolaJsonSerializer.serialize(payload);
+        String serialized = ZolaJsonSerializer.getInstance().serialize(payload);
         ZolaPayload zolaPayload = ZolaPayload.of(serialized);
         return ZolaMessage.of(header, zolaPayload);
     }

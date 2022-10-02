@@ -16,7 +16,7 @@ class BeanRegisterTest {
 
     @Test
     void name() {
-        ZolaQueueContainer actual = context.getBean("zolaQueueDispatcher", ZolaQueueContainer.class);
+        ZolaQueueContainer actual = context.getBean("zolaQueueContainer", ZolaQueueContainer.class);
 
         assertThat(actual).isNotNull();
     }

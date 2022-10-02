@@ -23,7 +23,7 @@ public class ZolaHttpClient {
     public boolean requestPush(String baseUrl, ZolaMessage message) {
         Request request = new Builder()
                 .url(baseUrl + "/api/messages")
-                .post(RequestBody.create(ZolaJsonSerializer.serialize(message), JSON))
+                .post(RequestBody.create(ZolaJsonSerializer.getInstance().serialize(message), JSON))
                 .build();
         Call call = http.newCall(request);
         try {
@@ -50,7 +50,7 @@ public class ZolaHttpClient {
                 return Optional.empty();
             }
             return Optional.of(
-                    ZolaJsonSerializer.deserialize(Objects.requireNonNull(response.body()).string(), ZolaMessage.class));
+                    ZolaJsonSerializer.getInstance().deserialize(Objects.requireNonNull(response.body()).string(), ZolaMessage.class));
         } catch (Exception e) {
             e.printStackTrace();
             throw new ZolaServerConnectionFailedException(

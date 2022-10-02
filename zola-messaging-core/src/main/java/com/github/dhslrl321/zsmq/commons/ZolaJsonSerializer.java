@@ -16,9 +16,9 @@ import java.time.format.DateTimeFormatter;
 
 public class ZolaJsonSerializer {
     // TODO need memory optimization
-    private static final Gson gson;
+    private final Gson gson;
 
-    static {
+    private ZolaJsonSerializer() {
         gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
@@ -26,7 +26,15 @@ public class ZolaJsonSerializer {
                 .create();
     }
 
-    public static String serialize(Object object) {
+    private static class SingletonHolder {
+        private static final ZolaJsonSerializer instance = new ZolaJsonSerializer();
+    }
+
+    public static ZolaJsonSerializer getInstance() {
+        return SingletonHolder.instance;
+    }
+
+    public String serialize(Object object) {
         try {
             return gson.toJson(object);
         } catch (Exception e) {
@@ -34,7 +42,7 @@ public class ZolaJsonSerializer {
         }
     }
 
-    public static <T> T deserialize(String json, Class<T> clazz) {
+    public <T> T deserialize(String json, Class<T> clazz) {
         try {
             return gson.fromJson(json, clazz);
         } catch (Exception e) {

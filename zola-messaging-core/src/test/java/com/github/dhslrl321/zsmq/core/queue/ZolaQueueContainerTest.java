@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.github.dhslrl321.zsmq.core.message.ZolaHeader;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.core.message.ZolaPayload;
+import com.github.dhslrl321.zsmq.exception.QueueNotFoundException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,7 +63,7 @@ class ZolaQueueContainerTest {
     @Test
     void throw_when_not_exist() {
         assertThatThrownBy(() -> sut.peekBy(FOO_QUEUE_NAME))
-                .isInstanceOf(NoSuchElementException.class);
+                .isInstanceOf(QueueNotFoundException.class);
     }
 
     @Test
@@ -93,6 +94,6 @@ class ZolaQueueContainerTest {
     @Test
     void remove_fail() {
         assertThatThrownBy(() -> sut.removeBy("Q-NAME"))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(QueueNotFoundException.class);
     }
 }

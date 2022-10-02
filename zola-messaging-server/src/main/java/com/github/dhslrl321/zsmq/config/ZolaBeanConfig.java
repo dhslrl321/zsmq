@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ZolaBeanConfig {
     @Bean
-    public ZolaQueueContainer zolaQueueDispatcher() {
+    public ZolaQueueContainer zolaQueueContainer() {
         return new ZolaQueueContainer();
     }
 }
