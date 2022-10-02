@@ -7,6 +7,7 @@ import com.github.dhslrl321.zsmq.listener.MessageListener;
 import com.github.dhslrl321.zsmq.listener.strategy.ListeningStrategy;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ThreadUtils;
@@ -26,6 +27,9 @@ public class ListeningTask implements Runnable {
         while(loop) {
             try {
                 ZolaMessage message = strategy.peek(listeningInfo);
+                if (Objects.isNull(message)) {
+                    continue;
+                }
                 listener.listen(message.getPayload().getValue());
                 handleAcknowledgement();
                 sleep();
