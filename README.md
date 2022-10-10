@@ -56,7 +56,7 @@ The **dashboard** provides a view of the server. Describe the message queue and 
 #### You can easily run Zola (ZSMQ) server using docker
 
 ```shell
-docker run --rm -d -p 8290:3000 dhslrl321/zsmq:dashboard.1.0.0
+docker run --rm -d -p 8290:3000 dhslrl321/zsmq:dashboard.1.0.1
 docker run --rm -d -p 8291:8291 dhslrl321/zsmq:server.1.0.0
 ```
 
