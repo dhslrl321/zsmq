@@ -42,11 +42,12 @@ public class RpcCallEnqueueTest {
         System.out.println(TOOK_MS_MESSAGE + diff + " (ms)");
     }
 
+
     @Test
     @DisplayName("rpc call 1,000,000 messages")
     void name() {
         IntStream.range(0, SIZE)
-                .forEach((i) -> sut.convertAndSend("TESTING-QUEUE-", "dummy message, " + i));
+                .forEach((i) -> sut.convertAndSend("TESTING-QUEUE", "dummy message, " + i));
     }
 
     @Test
