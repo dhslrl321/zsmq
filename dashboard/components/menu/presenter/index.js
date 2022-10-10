@@ -18,15 +18,15 @@ import Toolbar from '@mui/material/Toolbar';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Typography from '@mui/material/Typography';
 
-import CommandQueueModal from "../../command-dialog/presenter";
-import {useState} from "react";
-import {createQueueAPI, deleteQueueAPI} from "../../../api-service/command-queue-service";
-import {ERROR_BAD_REQUEST, ERROR_NOT_FOUND} from "../../../commons/constants";
-import {regexNumberAndEnglishAndHyphen} from "../../../commons/validator";
+import CommandQueueModal from '../../command-dialog/presenter';
+import { useState } from 'react';
+import { createQueueAPI, deleteQueueAPI } from '../../../api-service/command-queue-service';
+import { ERROR_BAD_REQUEST, ERROR_NOT_FOUND } from '../../../commons/constants';
+import { regexNumberAndEnglishAndHyphen } from '../../../commons/validator';
 
 const drawerWidth = 240;
 
-function ResponsiveDrawer({window, children}) {
+function ResponsiveDrawer({ window, children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // create queue modal
@@ -40,9 +40,9 @@ function ResponsiveDrawer({window, children}) {
     setCreateQModalOpen(false);
   };
   const handleChangeCreateQModalInput = (e) => {
-    const {value} = e.target;
+    const { value } = e.target;
     setCreateQModalInput(value);
-  }
+  };
   const handleOnClickCreate = async () => {
     if (!regexNumberAndEnglishAndHyphen(createQModalInput)) {
       alert('❌ Error! \nQueue Name must be present and under 40 length, \nTry Again!!');
@@ -51,7 +51,7 @@ function ResponsiveDrawer({window, children}) {
     const res = await createQueueAPI(createQModalInput);
     setCreateQModalInput('');
     handleCreateQModalClose();
-  }
+  };
 
   // delete queue modal
   const [deleteQueueModalOpen, setDeleteQueueModalOpen] = useState(false);
@@ -64,9 +64,9 @@ function ResponsiveDrawer({window, children}) {
     setDeleteQueueModalOpen(false);
   };
   const handleChangeDeleteQModalInput = (e) => {
-    const {value} = e.target;
+    const { value } = e.target;
     setDeleteQModalInput(value);
-  }
+  };
   const handleOnClickDelete = async () => {
     if (!regexNumberAndEnglishAndHyphen(deleteQModalInput)) {
       alert('❌ Error! \nQueue Name must be present and under 40 length, \nTry Again!!');
@@ -78,7 +78,7 @@ function ResponsiveDrawer({window, children}) {
     }
     setDeleteQModalInput('');
     handleDeleteQModalClose();
-  }
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -107,33 +107,33 @@ function ResponsiveDrawer({window, children}) {
         onChangeInput={handleChangeDeleteQModalInput}
         onClickSubmit={handleOnClickDelete}
       />
-      <Divider/>
+      <Divider />
       <List>
-        <ListItem key='Home' disablePadding>
+        <ListItem key="Home" disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <HomeIcon/>
+              <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary='Home'/>
+            <ListItemText primary="Home" />
           </ListItemButton>
         </ListItem>
       </List>
-      <Divider/>
+      <Divider />
       <List>
         <ListItem key={'Create Queue'} disablePadding onClick={handleCreateQModalOpen}>
           <ListItemButton>
             <ListItemIcon>
-              <AddCircleOutlineIcon/>
+              <AddCircleOutlineIcon />
             </ListItemIcon>
-            <ListItemText primary={'Create Queue'}/>
+            <ListItemText primary={'Create Queue'} />
           </ListItemButton>
         </ListItem>
         <ListItem key={'Delete Queue'} disablePadding onClick={handleDeleteQModalOpen}>
           <ListItemButton>
             <ListItemIcon>
-              <DeleteForeverIcon/>
+              <DeleteForeverIcon />
             </ListItemIcon>
-            <ListItemText primary={'Delete Queue'}/>
+            <ListItemText primary={'Delete Queue'} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -143,13 +143,13 @@ function ResponsiveDrawer({window, children}) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{display: 'flex'}}>
-      <CssBaseline/>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
-          width: {sm: `calc(100% - ${drawerWidth}px)`},
-          ml: {sm: `${drawerWidth}px`},
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
         }}
       >
         <Toolbar>
@@ -158,9 +158,9 @@ function ResponsiveDrawer({window, children}) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{mr: 2, display: {sm: 'none'}}}
+            sx={{ mr: 2, display: { sm: 'none' } }}
           >
-            <MenuIcon/>
+            <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Zola Simple Message Queue
@@ -169,7 +169,7 @@ function ResponsiveDrawer({window, children}) {
       </AppBar>
       <Box
         component="nav"
-        sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -182,8 +182,8 @@ function ResponsiveDrawer({window, children}) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: {xs: 'block', sm: 'none'},
-            '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
           {drawer}
@@ -191,8 +191,8 @@ function ResponsiveDrawer({window, children}) {
         <Drawer
           variant="permanent"
           sx={{
-            display: {xs: 'none', sm: 'block'},
-            '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
           open
         >
@@ -201,9 +201,9 @@ function ResponsiveDrawer({window, children}) {
       </Box>
       <Box
         component="main"
-        sx={{flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`}}}
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <Toolbar/>
+        <Toolbar />
         {children}
       </Box>
     </Box>
