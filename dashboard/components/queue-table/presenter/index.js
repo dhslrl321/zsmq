@@ -7,12 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import * as S from "./styles";
+import * as S from './styles';
 
-export default function BasicTable({queues}) {
+export default function BasicTable({ queues }) {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{minWidth: 650}} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Queue Name</TableCell>
@@ -23,10 +23,7 @@ export default function BasicTable({queues}) {
         </TableHead>
         <TableBody>
           {queues.map((queue) => (
-            <TableRow
-              key={queue.name}
-              sx={{'&:last-child td, &:last-child th': {border: 0}}}
-            >
+            <TableRow key={queue.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">
                 {queue.name}
               </TableCell>
@@ -35,7 +32,7 @@ export default function BasicTable({queues}) {
               <TableCell align="right">
                 <S.DotContainer>
                   {/*{queue.health ? <S.GreenDot /> : <S.RedDot />}*/}
-                  <S.GreenDot/>
+                  <S.GreenDot />
                 </S.DotContainer>
               </TableCell>
             </TableRow>

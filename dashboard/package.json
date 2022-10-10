@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "test": "mocha test/**/**.spec.js",
     "build": "next build",
     "start": "next start"
   },
@@ -17,5 +18,10 @@
     "react-dom": "17.0.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "prettier": "2.7.1"
   }
 }

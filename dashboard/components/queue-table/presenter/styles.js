@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const GreenDot = styled.div`
   width: 15px;
@@ -18,8 +18,7 @@ export const DotContainer = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
-  
+
   width: 100%;
   padding-right: 15px;
 `;
-
