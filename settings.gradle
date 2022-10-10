@@ -6,8 +6,4 @@ include 'zola-messaging-spring-sdk'
 include 'zola-messaging-spring-boot-starter'
 include 'zola-messaging-spring-boot-autoconfigure'
 
-include 'example'
-include 'example:order-service'
-include 'example:delivery-service'
-
 include 'integration-tests'
