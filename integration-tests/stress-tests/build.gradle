@@ -19,5 +19,6 @@ dependencies {
 }
 
 test {
+    exclude 'com/github/dhslrl321/zsmq/**'
     useJUnitPlatform()
 }

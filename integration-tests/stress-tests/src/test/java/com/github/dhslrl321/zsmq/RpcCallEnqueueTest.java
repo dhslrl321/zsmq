@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 public class RpcCallEnqueueTest {
@@ -43,14 +44,14 @@ public class RpcCallEnqueueTest {
 
     @Test
     @DisplayName("rpc call 1,000,000 messages")
-    @Disabled
     void name() {
         IntStream.range(0, SIZE)
                 .forEach((i) -> sut.convertAndSend("TESTING-QUEUE-", "dummy message, " + i));
     }
 
     @Test
-    void name2() {
+    @Order(0)
+    void cannot_be_triggered_by_automatic_build() {
         fail("not support");
     }
 }
