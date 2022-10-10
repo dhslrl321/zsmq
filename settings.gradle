@@ -10,3 +10,4 @@ include 'example'
 include 'example:order-service'
 include 'example:delivery-service'
 
+include 'integration-tests'
