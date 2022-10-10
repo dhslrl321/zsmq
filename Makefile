@@ -23,3 +23,5 @@ clean: ## gradle clean
 test: clean ## gradle test
 
 build: clean ## gradle build
+
+run-server: java -jar zola-messaging-server/build/libs/zola-messaging-server-1.0.0.jar

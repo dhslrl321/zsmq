@@ -26,9 +26,8 @@ public class ZolaHttpClient {
                 .post(RequestBody.create(ZolaJsonSerializer.getInstance().serialize(message), JSON))
                 .build();
         Call call = http.newCall(request);
-        try {
-            Response execute = call.execute();
-            validateResponse(execute.code(), message.getQueueNameValue());
+        try (Response response = call.execute()){
+            validateResponse(response.code(), message.getQueueNameValue());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,8 +42,7 @@ public class ZolaHttpClient {
                 .get()
                 .build();
         Call call = http.newCall(request);
-        try {
-            Response response = call.execute();
+        try (Response response = call.execute()){
             validateResponse(response.code(), queueName);
             if (NO_CONTENT == response.code()) {
                 return Optional.empty();
@@ -64,8 +62,7 @@ public class ZolaHttpClient {
                 .delete()
                 .build();
         Call call = http.newCall(request);
-        try {
-            Response response = call.execute();
+        try (Response response = call.execute()){
             validateResponse(response.code(), queueName);
             return true;
         } catch (Exception e) {
