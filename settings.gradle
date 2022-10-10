@@ -7,3 +7,4 @@ include 'zola-messaging-spring-boot-starter'
 include 'zola-messaging-spring-boot-autoconfigure'
 
 include 'integration-tests'
+include 'integration-tests:stress-tests'
