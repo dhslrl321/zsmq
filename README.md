@@ -16,16 +16,16 @@ ZSMQ (Zola Simple Message Queue) is a very simple message queue created in java.
 
 > 'zola' is a korean slang. It means 'utterly', 'extremely', 'super', 'very'
 
-ZSMQ can be used in a variety of situations, except in the operating environment.
+ZSMQ can be used in a variety of situations (ex, Poc or study), except in the operating environment.
 
 ZSMQ is the best choice if you don't consider performance.
 
-### ZSMQs main goals are
+### ZSMQ aims to have
 
-- **Low performance!!**
-- High Productivity
-- Easy-to-use
-- Easy-to-learn
+- **Simplest**
+- **Easiest**
+- **intuitive configuration**
+- **you focus on other than message queue**
 
 # Quick Start
 

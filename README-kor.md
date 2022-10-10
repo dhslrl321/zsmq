@@ -1,3 +1,5 @@
+### 당신이 경험한 Message Queue 중에 가장 단순한 Message Queue
+
 <div align="center">
 
 #### [home (engish version)](https://github.com/dhslrl321/zsmq)
@@ -14,16 +16,16 @@ ZSMQ 는 java 로 개발된 **졸라 간단한 메시지 큐, Zola Simple Messag
 
 > 'zola' is a korean slang. It means 'utterly', 'extremely', 'super', 'very'
 
-ZSMQ 는 운영 환경이 아닌 다양한 곳에서 사용될 수 있습니다.
+ZSMQ 는 운영 환경이 아닌 다양한 곳 (PoC 혹은 특정 분야의 학습) 에서 사용될 수 있습니다.
 
 성능은 중요하지 않지만 아주 간단한 메시지 큐가 필요할 때 zsmq 는 최고의 선택입니다.
 
 ### ZSMQ 의 목표는 다음과 같습니다.
 
-- **낮은 성능**
-- 높은 생산성
-- 바로 사용 가능한
-- 쉽게 사용 가능한
+- **단순함**
+- **쉬움**
+- **직관적인 설정 및 사용**
+- **당신이 message queue 이외에 것들에 집중하는 것을** 
 
 # Quick Start
 
