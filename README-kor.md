@@ -56,7 +56,7 @@ zsmq 는 두가지 컴포넌트를 제공합니다.
 dashboard 는 messaging server 에 대한 view 를 제공합니다. 메시지 큐를 확인하고 메시지 큐를 생성/삭제합니다.
 
 ```shell
-docker run --rm -d -p 8290:3000 dhslrl321/zsmq:dashboard.1.0.0
+docker run --rm -d -p 8290:3000 dhslrl321/zsmq:dashboard.1.0.1
 docker run --rm -d -p 8291:8291 dhslrl321/zsmq:server.1.0.0
 ```
 
