@@ -25,7 +25,7 @@ ZSMQ is the best choice if you don't consider performance.
 - **Simplest**
 - **Easiest**
 - **intuitive configuration**
-- **you focus on other than message queue**
+- **you to focus on other than message queue**
 
 # Quick Start
 
