@@ -2,7 +2,6 @@ package com.github.dhslrl321.zsmq.listener;
 
 import com.github.dhslrl321.zsmq.commons.Pair;
 import com.github.dhslrl321.zsmq.detector.MessageListenerDetector;
-import com.github.dhslrl321.zsmq.listener.strategy.HttpPollingListeningStrategy;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTask;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskExecutor;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;

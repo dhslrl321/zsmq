@@ -6,6 +6,7 @@ import lombok.Value;
 
 @Value(staticConstructor = "of")
 public class SpringBeanMessageListener implements MessageListener {
+
     Object object;
     Method method;
 
