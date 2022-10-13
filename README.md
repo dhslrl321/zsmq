@@ -6,7 +6,7 @@
 
 #### [korean version docs](https://github.com/dhslrl321/zsmq/blob/main/README-kor.md)
 
-<a href="https://github.com/dhslrl321/zsmq/wiki/Getting-Started-(5min)-eng-ver">📗Getting Started</a> || <a href="https://github.com/dhslrl321/zsmq/wiki/ZSMQ's-Architecture">Overview</a> || <a href="https://github.com/dhslrl321/zsmq/wiki/Docs-(eng-ver)">Docs</a>
+<a href="https://github.com/dhslrl321/zsmq/wiki/Getting-Started-(5min)-eng-ver">📗Getting Started</a> || <a href="https://github.com/dhslrl321/zsmq/wiki/ZSMQ's-Architecture">Overview</a> || <a href="https://github.com/dhslrl321/zsmq/wiki/Docs-(eng-ver)">Docs</a> || <a href="https://github.com/dhslrl321/zsmq/wiki/Change-Log">Change Log</a>
 
 </div>
 
