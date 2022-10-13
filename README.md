@@ -1,4 +1,4 @@
-### It is the simplest Message Queue you've ever experienced.
+### This is the simplest Message Queue you've ever experienced.
 
 <div align="center">
 
