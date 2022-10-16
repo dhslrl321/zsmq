@@ -1,27 +1,15 @@
 package com.github.dhslrl321.zsmq;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "zsmq")
+@Setter
+@Getter
 public class ZsmqProperty {
     private String url;
     private boolean listening;
-
-    public boolean isListening() {
-        return listening;
-    }
-
-    public void setListening(boolean listening) {
-        this.listening = listening;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

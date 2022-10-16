@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(ZsmqProperty.class)
 @RequiredArgsConstructor
+@EnableConfigurationProperties
 public class ZsmqAutoconfiguration {
     private final ZsmqProperty property;
 
