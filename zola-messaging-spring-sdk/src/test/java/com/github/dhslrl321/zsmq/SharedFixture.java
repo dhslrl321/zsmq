@@ -22,7 +22,10 @@ public class SharedFixture {
 
     public static final FooBean ANY_FOO_BEAN = new FooBean("jang", 26);
     public static final BarBean ANY_BAR_BEAN = new BarBean("seoul", 123);
+    public static final Map<String, Object> ANY_BEANS = initBeans();
     public static final QueueName ANY_QUEUE_NAME = QueueName.of("ANY_QUEUE_NAME");
+    public static final ZolaMessage ANY_STRING_MESSAGE = ZolaMessage.of(ZolaHeader.of(ANY_QUEUE_NAME, LocalDateTime.now(),
+            MediaTypes.TEXT), ZolaPayload.of("hello"));
 
     public static final ZolaMessage ANY_JSON_MESSAGE = ZolaMessage.of(ZolaHeader.of(ANY_QUEUE_NAME, LocalDateTime.now(),
             MediaTypes.JSON), ZolaPayload.of(ZolaJsonSerializer.getInstance().serialize(ANY_FOO_BEAN)));

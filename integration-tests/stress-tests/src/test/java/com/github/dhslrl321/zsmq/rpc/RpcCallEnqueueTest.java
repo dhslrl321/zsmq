@@ -8,7 +8,6 @@ import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import org.junit.jupiter.api.Test;
 public class RpcCallEnqueueTest {
 
     private static final int SIZE = 1_000_000;
+
 
     ZolaQueueMessageTemplate sut;
 
@@ -38,7 +38,6 @@ public class RpcCallEnqueueTest {
 
     @Test
     @DisplayName("rpc call 1,000,000 messages")
-    @Disabled
     void TEST() {
         IntStream.range(0, SIZE)
                 .forEach((i) -> sut.convertAndSend("TESTING-QUEUE", "dummy message, " + i));
@@ -46,7 +45,6 @@ public class RpcCallEnqueueTest {
 
     @Test
     @Order(0)
-    @Disabled
     void cannot_be_triggered_by_automatic_build() {
         fail("not support");
     }

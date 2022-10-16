@@ -1,6 +1,5 @@
 package com.github.dhslrl321.zsmq.listener.task;
 
-import com.github.dhslrl321.zsmq.commons.Pair;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.listener.DeletionPolicy;
 import com.github.dhslrl321.zsmq.listener.ListeningInformation;
@@ -18,19 +17,20 @@ public class ListeningTask implements Runnable {
 
     @Getter
     private final ListeningStrategy strategy;
+    private final MessageListener listener;
     @Getter
-    private final Pair<MessageListener, ListeningInformation> listeningPair;
+    private final ListeningInformation listeningInfo;
 
     @Override
     public void run() {
         boolean loop = true;
         while(loop) {
             try {
-                ZolaMessage message = strategy.peek(listeningPair.getRight());
+                ZolaMessage message = strategy.peek(listeningInfo);
                 if (Objects.isNull(message)) {
                     continue;
                 }
-                listen(message);
+                listener.listen(message.getPayload().getValue());
                 handleAcknowledgement();
                 sleep();
             } catch (Exception e) {
@@ -39,17 +39,13 @@ public class ListeningTask implements Runnable {
         }
     }
 
-    private void listen(ZolaMessage message) {
-        listeningPair.getLeft().listen(message.getPayload().getValue());
-    }
-
     private void sleep() throws InterruptedException {
         ThreadUtils.sleep(Duration.of(1, ChronoUnit.SECONDS));
     }
 
     private void handleAcknowledgement() {
-        if (listeningPair.getRight().isSameDeletionPolicy(DeletionPolicy.ALWAYS)) {
-            strategy.acknowledgement(listeningPair.getRight());
+        if (listeningInfo.isSameDeletionPolicy(DeletionPolicy.ALWAYS)) {
+            strategy.acknowledgement(listeningInfo);
         }
     }
 }
