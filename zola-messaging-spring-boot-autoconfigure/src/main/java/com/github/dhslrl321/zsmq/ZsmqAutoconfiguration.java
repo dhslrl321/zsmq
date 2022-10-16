@@ -8,9 +8,10 @@ import com.github.dhslrl321.zsmq.detector.SpringBeanMessageListenerDetector;
 import com.github.dhslrl321.zsmq.http.ZolaHttpClient;
 import com.github.dhslrl321.zsmq.listener.ZolaMessageListeningProcessor;
 import com.github.dhslrl321.zsmq.listener.task.ListeningTaskExecutor;
-import com.github.dhslrl321.zsmq.listener.task.PollingQueueListeningTaskFactory;
+import com.github.dhslrl321.zsmq.listener.task.ListeningTaskFactory;
 import com.github.dhslrl321.zsmq.listener.task.ThreadPoolListeningExecutor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -18,8 +19,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@EnableConfigurationProperties(ZsmqProperty.class)
 @RequiredArgsConstructor
-@EnableConfigurationProperties
 public class ZsmqAutoconfiguration {
     private final ZsmqProperty property;
 
@@ -55,14 +56,14 @@ public class ZsmqAutoconfiguration {
     }
 
     private ZolaMessageListeningProcessor newProcessor(MessageListenerDetector detector,
-                                                       ListeningTaskExecutor taskExecutor,
-                                                       PollingQueueListeningTaskFactory taskFactory) {
+                                                                           ListeningTaskExecutor taskExecutor,
+                                                                           ListeningTaskFactory taskFactory) {
         return new ZolaMessageListeningProcessor(detector,
                 taskFactory, taskExecutor);
     }
 
-    private PollingQueueListeningTaskFactory newTaskFactory() {
-        return new PollingQueueListeningTaskFactory();
+    private ListeningTaskFactory newTaskFactory() {
+        return new ListeningTaskFactory();
     }
 
     private ThreadPoolListeningExecutor newExecutor() {

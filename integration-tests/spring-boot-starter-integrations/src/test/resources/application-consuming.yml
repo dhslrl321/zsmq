@@ -1,3 +1,0 @@
-zsmq:
-  url: http://localhost:1234
-  listening: false
