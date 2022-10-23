@@ -30,7 +30,7 @@ public class ListeningTask implements Runnable {
                 if (Objects.isNull(message)) {
                     continue;
                 }
-                listen(message);
+                invokeListen(message);
                 handleAcknowledgement();
                 sleep();
             } catch (Exception e) {
@@ -39,7 +39,7 @@ public class ListeningTask implements Runnable {
         }
     }
 
-    private void listen(ZolaMessage message) {
+    private void invokeListen(ZolaMessage message) {
         listeningPair.getLeft().listen(message.getPayload().getValue());
     }
 
