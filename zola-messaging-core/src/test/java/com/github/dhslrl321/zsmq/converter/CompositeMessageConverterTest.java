@@ -26,16 +26,14 @@ class CompositeMessageConverterTest {
     }
 
     @Test
-    @Disabled("not support now")
-    void work_jsonConverter() {
+    void working_jsonConverter() {
         ZolaMessage actual = sut.toMessage("ANY_QUEUE", new SharedFixture.Foo("hello"));
 
         assertThat(actual.isSameTypeBy(MediaTypes.JSON)).isTrue();
     }
 
     @Test
-    @Disabled("not support now")
-    void work_jsonConverter2() {
+    void working_jsonConverter2() {
         String actual = sut.fromMessage(SharedFixture.ANY_JSON_MESSAGE);
 
         assertThat(actual).isEqualTo("{\"bar\":\"hello\"}");
