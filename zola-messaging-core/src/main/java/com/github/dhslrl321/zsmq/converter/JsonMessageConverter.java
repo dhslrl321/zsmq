@@ -27,7 +27,6 @@ class JsonMessageConverter implements MessageConverter {
 
     @Override
     public boolean isSupport(Object payload) {
-        // Always true if not string. Because we only support json or simple string
         if (payload instanceof String) {
             return false;
         }
