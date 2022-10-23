@@ -1,5 +1,6 @@
 package com.github.dhslrl321.zsmq.converter;
 
+import com.github.dhslrl321.zsmq.commons.Registrable;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import java.util.ArrayList;
 import java.util.List;

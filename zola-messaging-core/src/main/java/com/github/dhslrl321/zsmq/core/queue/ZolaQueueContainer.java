@@ -1,5 +1,6 @@
 package com.github.dhslrl321.zsmq.core.queue;
 
+import com.github.dhslrl321.zsmq.commons.Registrable;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.exception.QueueNotFoundException;
 import java.util.HashMap;
@@ -8,10 +9,11 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-public class ZolaQueueContainer {
+public class ZolaQueueContainer implements Registrable<ZolaQueue> {
 
     private final Map<QueueName, ZolaQueue> registered = new HashMap<>();
 
+    @Override
     public void register(ZolaQueue queue) {
         throwWhenDuplicated(queue);
         registered.put(queue.getName(), queue);
