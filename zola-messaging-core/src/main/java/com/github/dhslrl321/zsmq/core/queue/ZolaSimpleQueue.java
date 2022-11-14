@@ -3,8 +3,8 @@ package com.github.dhslrl321.zsmq.core.queue;
 import com.github.dhslrl321.zsmq.core.message.ZolaMessage;
 import com.github.dhslrl321.zsmq.exception.EmptyQueueException;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ZolaSimpleQueue extends AbstractZolaQueue {
 
@@ -12,7 +12,7 @@ public class ZolaSimpleQueue extends AbstractZolaQueue {
         return new ZolaSimpleQueue(queueName);
     }
 
-    private final Queue<ZolaMessage> queue = new LinkedList<>();
+    private final Queue<ZolaMessage> queue = new ConcurrentLinkedQueue<>();
 
     private ZolaSimpleQueue(QueueName name) {
         super(name, LocalDateTime.now());
